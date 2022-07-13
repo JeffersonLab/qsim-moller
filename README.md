@@ -1,19 +1,18 @@
 # Quartz simulation (Qsim) of Shower-max for MOLLER Experiment at Jefferson Lab
 
 This version of qsim is dedicated to showermax detector. It has the latest geometries, materials, and optical properties.
---------------------------------------------------
+
 Original developer:
 Seamus Riordan
 sriordan@physics.umass.edu
 September 26, 2013(Updated June 26, 2015)
---------------------------------------------------
+
 GDML version developer:
 Carlos Bula Villareal
----------------------------------------------------
+
 Sudip Bhattarai
 sudipbhattarai@isu.edu
 July 12, 2022
----------------------------------------------------
 
 ## qsim installation and running instructions
 Tested and ran on Ubuntu 22 inside UTM in macOS 12
@@ -64,7 +63,9 @@ To see the particle visualization:
 ```
 Make sure the number of beam (/run/beamOn) in the runexample.mac file is not large (just 1 is good for showermax)
 
-==== CLI User Commands ===========
+The output root file will have several variables that is described in [readme file](README.variables.md).
+
+CLI User Commands
 
 Using the Geant4 CLI it is possible to pass commands to modify behavior
 and utilize the vis.mac macro from the command line.
@@ -93,7 +94,7 @@ Generates perfectly straight, monoenergetic beam.
 Current implementation generates particles at pinpoint, but beam spot size can be changed in qsimPrimaryGeneratorAction.cc 
 Energy of beam can be changed in qsimPrimaryGeneratorAction.cc
 
-2 = remoll
+2 = remoll (not implemented yet)
 Generates 2-8 GeV particles following position, angular, energy and momentum distribution obtained from remoll simulation. In remoll simulation, three sensitive detectors are placed right infront of the open(beam right), closed(beam left) and transition(beam up) SM modules and the output rootfiles is skimmed to make Event distribution root file.
 The z position of primary vertex can be changed in qsimPrimaryGeneratorAction.cc, to effectively move detector closer/farther from VDC.
 The distributions are stored in file RemollPrimaryDistribution.root (copied to build directory when qsim is made), which has <not yet decided> events.
@@ -114,7 +115,7 @@ Scintillator size/separation and lead size can be adjusted in qsimDetectorConstr
 showermaxQsim.gdml contains the geometry description with their material and optical surface properties. This GDML is created using the python wrapper:
 https://github.com/sudipbhattarai/remoll-showermax-generator (qsimSM branch). In the GDML,only the tungsten-quartz stack, light guides, filter, window and PMT cathode are included.
 
-## A NOTE ON OPTICAL PROPERTIES
+## OPTICAL PROPERTIES
 
 Index of refraction (quartz): 
 Specification sheet for Heraeus Spectrosil 2000 provides >25 data points for n(E).

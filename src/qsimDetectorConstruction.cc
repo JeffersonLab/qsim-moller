@@ -29,7 +29,7 @@
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void qsimDetectorConstruction::DetModeSet(G4int detMode = 1) {
+void qsimDetectorConstruction::DetModeSet(G4int detMode = 3) {
   
   fDetMode = detMode;
   // 0 is PREX-I design
@@ -40,7 +40,7 @@ void qsimDetectorConstruction::DetModeSet(G4int detMode = 1) {
   
 }
 
-void qsimDetectorConstruction::QModeSet(G4int qMode = 0) {
+void qsimDetectorConstruction::QModeSet(G4int qMode = 2) {
   
   fQMode = qMode;
   // 0 is PREX-I design

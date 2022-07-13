@@ -16,8 +16,8 @@
 /qsim/filename qsim_out.root
 /qsim/seed 50 
 
-/qsim/emin   1.063 GeV
-/qsim/emax   1.063 GeV
+/qsim/emin   5.0 GeV
+/qsim/emax   5.0 GeV
 
 /gun/particle e- 
 

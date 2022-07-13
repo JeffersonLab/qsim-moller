@@ -1,63 +1,68 @@
-This version of qsim has the laterst geometries, materials, 
-and optical properties to simulated the PREX-II/CREX and SAM detectors. 
---------------------------------------------------
-qsim installation and running instructions
+# Quartz simulation (Qsim) of Shower-max for MOLLER Experiment at Jefferson Lab
 
+This version of qsim is dedicated to showermax detector. It has the latest geometries, materials, and optical properties.
+--------------------------------------------------
+Original developer:
 Seamus Riordan
 sriordan@physics.umass.edu
-September 26, 2013
-
-Updated June 26, 2015
-
+September 26, 2013(Updated June 26, 2015)
+--------------------------------------------------
+GDML version developer:
+Carlos Bula Villareal
 ---------------------------------------------------
-Packages to build this:
-
->=Geant4.10
-cmake > 2.6
-root
-
+Sudip Bhattarai
+sudipbhattarai@isu.edu
+July 12, 2022
 ---------------------------------------------------
 
-Instructions:
+## qsim installation and running instructions
+Tested and ran on Ubuntu 22 inside UTM in macOS 12
 
-To build, create the directory you would like to
-build in, say build
+Requirements
+* Geant4 >= 4.10
+* cmake > 2.6
+* root
 
+### Download the qsim-showermax
+To download the code, use git clone:
+```
+git clone https://github.com/sudipbhattarai/qsim-showermax
+```
+### Compilation
+
+To build, create the directory you would like to build in, say `build`:
+```
 mkdir build
 cd build
 cmake <path to qsim>
 make
+```
 
-
-It just needs to be downloaded and for the example, present in the directory
-you are running in.  Otherwise, specify it in the macro as in the
-exmaple provided in macros/  An example macro will be found in
-
-macros/runexmaple.mac
+### Running simulation
+There are sets of command inside the file macros/runexample.mac which is useful to run in batch or visual mode.
 
 To run in batch mode, execute with a macro such as:
-
+```
 ./qsim gdml_file.gdml runexample.mac
-
+```
 Ensure that all macros include a /run/initialization command or else they will
 not work. 
 
-==== Visualization ===============
+Visualization:
 
 Visualization macros are found in vis/
 
 To run, execute
-
+```
 ./qsim gdml_file.gdml
+```
+which should bring up a graphical command interface and it should load the gdml file.
 
-which should bring up a graphical command interface
-
-To see the geometry:
-
-/control/execute macros/vis.mac
-
-
----------------------------------------------------
+To see the particle visualization:
+```
+/control/execute macros/runexample.mac
+```
+Make sure the number of beam (/run/beamOn) in the runexample.mac file is not large (just 1 is good for showermax)
 
 ==== CLI User Commands ===========
 
@@ -65,10 +70,7 @@ Using the Geant4 CLI it is possible to pass commands to modify behavior
 and utilize the vis.mac macro from the command line.
 These are all visible from the menu on the left.
 
-
----------------------------------------------------
-
-==== Operational Mode Switches ===
+## Operational Mode Switches
 
 There are CLI User Commands that allow the user to change the stand design and
 incident particle characteristics to test different configurations and 
@@ -77,9 +79,7 @@ macro is used or the initialization command have been passed.
 
 With the implemetation of gdml files the only switches avalilable are the source switches.
 
-*******************
-*** Source mode *** 
-*******************
+## Source mode
 
 Set by: /qsim/fSourceMode <0, 1, 2>
 
@@ -93,14 +93,12 @@ Generates perfectly straight, monoenergetic beam.
 Current implementation generates particles at pinpoint, but beam spot size can be changed in qsimPrimaryGeneratorAction.cc 
 Energy of beam can be changed in qsimPrimaryGeneratorAction.cc
 
-2 = PREX
-Generates 1.063 GeV particles following position and angular distribution observed at VDCs during PREX-I.
+2 = remoll
+Generates 2-8 GeV particles following position, angular, energy and momentum distribution obtained from remoll simulation. In remoll simulation, three sensitive detectors are placed right infront of the open(beam right), closed(beam left) and transition(beam up) SM modules and the output rootfiles is skimmed to make Event distribution root file.
 The z position of primary vertex can be changed in qsimPrimaryGeneratorAction.cc, to effectively move detector closer/farther from VDC.
-The distributions are stored in file primaryDistribution.root (copied to build directory when qsim is made), which has 2e6 events.
+The distributions are stored in file RemollPrimaryDistribution.root (copied to build directory when qsim is made), which has <not yet decided> events.
  
-******************
-*** Stand mode *** 
-******************
+## Stand mode
 
 Set by: /qsim/fStandMode <0, 1>
 
@@ -112,14 +110,11 @@ Detector, top/bottom scintillators, and lead.
 Scintillator size/separation and lead size can be adjusted in qsimDetectorConstruction.cc
 
 
-*********************************
-*** GDML GEOMETRY DESCRIPTION *** 
-*********************************
-PREX_SINGLE.gdml contains the geometry description with their material and optical surface properties. PREX_SINGLE.gdml describes a simgle quartz detector with a photocathode. Optical properties should be modified directly inside the gdml file.
-To create your our gdml files, you should use an application like InStep (https://www.solveering.com/InStep/instep.aspx) to convert .std files to .gdml. Once you have a gdml file contaning the desired geometry, you may need to add optical porperties directly modifiying the content of the gdml file. PREX_SINGLE.gdml is intended as an example. 
+## GDML GEOMETRY DESCRIPTION 
+showermaxQsim.gdml contains the geometry description with their material and optical surface properties. This GDML is created using the python wrapper:
+https://github.com/sudipbhattarai/remoll-showermax-generator (qsimSM branch). In the GDML,only the tungsten-quartz stack, light guides, filter, window and PMT cathode are included.
 
-
-*** A NOTE ON OPTICAL PROPERTIES ***
+## A NOTE ON OPTICAL PROPERTIES
 
 Index of refraction (quartz): 
 Specification sheet for Heraeus Spectrosil 2000 provides >25 data points for n(E).
@@ -129,8 +124,18 @@ Absorption length (quartz):
 Specification sheet for Heraeus Spectrosil 2000 provides only 2 data points for L(E).
 Current functional form of L(E) in qsim is of unknown origin and is inconsistent with Heraeus data points.
 
-Reflectivity (mirror):
+Transmission coefficient (quartz):
+
+Reflectivity (loghtguide mirror):
 Currently defined as a function of photon energy only (and possibly incorrect).
 Needs to be defined as a function of photon energy AND photon angle (supposedly possible in Geant 4.10 but not yet implemented in qsim).
+
+Reflectivity (Photo cathode):
+
+Quantum Efficiency (Photo Cathode):
+
+Surface roughness (Quartz): Glisur model
+
+
 
 

@@ -40,7 +40,7 @@ void qsimEventAction::EndOfEventAction(const G4Event* evt ) {
   G4VHitsCollection *thiscol;
 
   // Traverse all hit collections, sort by output type
-  for( int hcidx = 0; hcidx < HCE->GetCapacity(); hcidx++ ){
+  for( long unsigned int hcidx = 0; hcidx < HCE->GetCapacity(); hcidx++ ){
       thiscol = HCE->GetHC(hcidx);
       if(thiscol){ // This is NULL if nothing is stored
 	  // Dyanmic cast to test types, process however see fit and feed to IO

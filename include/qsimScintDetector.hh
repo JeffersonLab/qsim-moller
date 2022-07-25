@@ -19,23 +19,23 @@ class G4TouchableHistory;
 
 class qsimScintDetector : public G4VSensitiveDetector {
     public:
-	qsimScintDetector( G4String name, G4int detnum );
-	virtual ~qsimScintDetector();
+		qsimScintDetector( G4String name, G4int detnum );
+		virtual ~qsimScintDetector();
 
-	virtual void Initialize(G4HCofThisEvent*);
-	virtual G4bool ProcessHits(G4Step*,G4TouchableHistory*);
-	virtual void EndOfEvent(G4HCofThisEvent*);
+		virtual void Initialize(G4HCofThisEvent*);
+		virtual G4bool ProcessHits(G4Step*,G4TouchableHistory*);
+		virtual void EndOfEvent(G4HCofThisEvent*);
 
     private:
-	qsimScintDetectorHitsCollection *fHitColl;
-	G4int fHCID;
+		qsimScintDetectorHitsCollection *fHitColl;
+		G4int fHCID;
 
-	G4bool fTrackSecondaries;
-	G4int fDetNo;
+		G4bool fTrackSecondaries;
+		G4int fDetNo;
 
-	std::map<int, qsimScintDetectorHit *> fSumMap;
+		std::map<int, qsimScintDetectorHit *> fSumMap;
 
-	G4double fDontRecordThresh;
+		G4double fDontRecordThresh;
 };
 
 #endif//__QSIMSCINTDETECTOR_HH

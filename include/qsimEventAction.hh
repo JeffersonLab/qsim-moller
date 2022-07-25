@@ -17,11 +17,9 @@ class qsimEventAction : public G4UserEventAction
   public:
     virtual void BeginOfEventAction(const G4Event*);
     virtual void EndOfEventAction(const G4Event*);
-
     void SetIO( qsimIO *io ){ fIO = io; }
 
   private:
-
     qsimIO *fIO;
 
   public:

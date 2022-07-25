@@ -16,27 +16,21 @@
 #include "qsimSteppingAction.hh"
 #include "qsimSteppingVerbose.hh"
 #include "qsimOpticalPhysics.hh"
-
 #include "qsimDetectorConstruction.hh"
-
 #include "qsimIO.hh"
 #include "qsimMessenger.hh"
 
 //  Standard physics list
 #include "G4PhysListFactory.hh"
 #include "G4RunManager.hh"
-
 #include "G4UnitsTable.hh"
-
 #include "G4RunManagerKernel.hh"
-
 #include "G4StepLimiterPhysics.hh"
 
 //to make gui.mac work
 #include <G4UImanager.hh>
 #include <G4UIExecutive.hh>
 #include "G4GDMLParser.hh"
-
 #include <G4UIterminal.hh>
 
 //#ifdef G4UI_USE_QT
@@ -144,26 +138,12 @@ int main(int argc, char** argv){
   // Visualization:
   //----------------
   
-  if (argc==1)   // Define UI session for interactive mode.
-    {
-      
-      // G4UIterminal is a (dumb) terminal.
-      
-//#if defined(G4UI_USE_QT)
-      session = new G4UIQt(argc,argv);
-//#elif defined(G4UI_USE_WIN32)
-//      session = new G4UIWin32();
-//#elif defined(G4UI_USE_XM)
-//      session = new G4UIXm(argc,argv);
-//#elif defined(G4UI_USE_TCSH)
-//      session = new G4UIterminal(new G4UItcsh);
-//#else
-      session = new G4UIterminal();
-//#endif
-      
-    }
+  if (argc==1){   // Define UI session for interactive mode.
+    session = new G4UIQt(argc,argv);
+    session = new G4UIterminal();
+  }
   
-//#ifdef G4VIS_USE
+  //#ifdef G4VIS_USE
   // Visualization, if you choose to have it!
   //
   // Simple graded message scheme - give first letter or a digit:
@@ -179,60 +159,30 @@ int main(int argc, char** argv){
   G4VisManager* visManager = new G4VisExecutive;
   //visManager -> SetVerboseLevel (1);
   visManager ->Initialize();
-//#endif
+  //#endif
   
   //get the pointer to the User Interface manager
   G4UImanager * UI = G4UImanager::GetUIpointer();
   
-  if (session)   // Define UI session for interactive mode.
-    {
-      // G4UIterminal is a (dumb) terminal.
-      //UI->ApplyCommand("/control/execute myVis.mac");
+  if (session){   // Define UI session for interactive mode.
+    session->SessionStart();
+    delete session;
+  } else {          // Batch mode - not using the GUI
+    visManager->SetVerboseLevel("quiet");
+    // Get the pointer to the User Interface manager
+    G4UImanager* UImanager = G4UImanager::GetUIpointer();
       
-//#if defined(G4UI_USE_XM) || defined(G4UI_USE_WIN32) || defined(G4UI_USE_QT)
-      // Customize the G4UIXm,Win32 menubar with a macro file :
-//      UI->ApplyCommand("/control/execute macros/gui.mac");
-//#endif
-      
-      session->SessionStart();
-      delete session;
-    }
-  else           // Batch mode - not using the GUI
-    {
-//#ifdef G4VIS_USE
-      visManager->SetVerboseLevel("quiet");
-//#endif
-      //these line will execute a macro without the GUI
-      //in GEANT4 a macro is executed when it is passed to the command, /control/execute
-
-      // Get the pointer to the User Interface manager
-      G4UImanager* UImanager = G4UImanager::GetUIpointer();
-      
-      // Process macro or start UI session
-      if ( ! ui )   // batch mode  
-	{
-	  G4String command = "/control/execute ";
-	  G4String fileName = argv[2];
+    // Process macro or start UI session
+    if ( ! ui ){   // batch mode  
+      G4String command = "/control/execute ";
+      G4String fileName = argv[2];
 	  
-	  /* Copy contents of macro into buffer to be written out
-	   * into ROOT file
-	   * */
-	  
-	  UI->ApplyCommand(command+fileName);
-	}
-      else           // interactive mode
-	{
-	  UImanager->ApplyCommand("/control/execute vis/vis.mac");     
-	  ui->SessionStart();
-	  delete ui;
-	}
+      UI->ApplyCommand(command+fileName);
+    } else{           // interactive mode
+      UImanager->ApplyCommand("/control/execute vis/vis.mac");     
+      ui->SessionStart();
+      delete ui;
     }
-      
-  //if one used the GUI then delete it
-//#ifdef G4VIS_USE
+  }
   delete visManager;
-//#endif
-  
-  
-//  return 0;
 }

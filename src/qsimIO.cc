@@ -1,16 +1,14 @@
 #include "qsimIO.hh"
+#include "qsimDetectorHit.hh"
+#include "qsimScintDetectorHit.hh"
+#include "qsimEvent.hh"
 
 #include "G4SystemOfUnits.hh"
+#include "G4ParticleDefinition.hh"
 
 #include <TFile.h>
 #include <TTree.h>
 #include <TClonesArray.h>
-
-#include "G4ParticleDefinition.hh"
-
-#include "qsimDetectorHit.hh"
-#include "qsimScintDetectorHit.hh"
-#include "qsimEvent.hh"
 
 #include <sys/types.h>
 #include <sys/stat.h>

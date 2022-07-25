@@ -17,7 +17,7 @@ class qsimDetectorConstruction : public G4VUserDetectorConstruction
 		void DetModeSet(G4int );
 		void QModeSet(G4int );
 		void StandModeSet(G4int );
-   public:
+  public:
     G4VPhysicalVolume* Construct();
 
   private:
@@ -29,13 +29,10 @@ class qsimDetectorConstruction : public G4VUserDetectorConstruction
     G4double quartz_z;
     G4double quartz2_z;
     G4double Wthickness;
-	//G4int fStandMode;
-        G4int fDetMode;
-	G4int fQMode;
-	G4int fStandMode;
-
-	G4double quartz_zPos;
-
+    G4int fDetMode;
+    G4int fQMode;
+    G4int fStandMode;
+    G4double quartz_zPos;
     G4double cone_rmin1;
     G4double cone_rmax1;
     G4double cone_rmin2;
@@ -43,17 +40,13 @@ class qsimDetectorConstruction : public G4VUserDetectorConstruction
     G4double cone_z;
     G4double cone_sphi;
     G4double cone_fphi;
-	
-	G4double rin;
-	G4double rout;
-	G4double lngth;
+    G4double rin;
+    G4double rout;
+    G4double lngth;
 
   public:
-	G4double fDetAngle, fQuartzPolish;
-	// POSSCAN
-	G4double fDetPosX, fDetPosY;
-
-
+    G4double fDetAngle, fQuartzPolish;
+    G4double fDetPosX, fDetPosY;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

@@ -11,7 +11,7 @@ qsimScintDetector::qsimScintDetector( G4String name, G4int detnum ) : G4VSensiti
 
     fHCID = -1;
 
-//    fTrackSecondaries = false;
+    //fTrackSecondaries = false;
     fTrackSecondaries = true;
 
     sprintf(colname, "scihit_%s_%d", name.data(), detnum);

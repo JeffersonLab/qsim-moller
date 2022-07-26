@@ -94,7 +94,7 @@ Generates perfectly straight, monoenergetic beam.
 Current implementation generates particles at pinpoint, but beam spot size can be changed in qsimPrimaryGeneratorAction.cc 
 Energy of beam can be changed in qsimPrimaryGeneratorAction.cc
 
-2 = remoll (not implemented yet)
+2 = remoll
 Generates 2-8 GeV particles following position, angular, energy and momentum distribution obtained from remoll simulation. In remoll simulation, three sensitive detectors are placed right infront of the open(beam right), closed(beam left) and transition(beam up) SM modules and the output rootfiles is skimmed to make Event distribution root file.
 The z position of primary vertex can be changed in qsimPrimaryGeneratorAction.cc, to effectively move detector closer/farther from VDC.
 The distributions are stored in file RemollPrimaryDistribution.root (copied to build directory when qsim is made), which has <not yet decided> events.

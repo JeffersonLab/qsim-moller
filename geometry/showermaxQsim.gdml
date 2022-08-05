@@ -112,6 +112,8 @@
 	<box name="solid_singledet" lunit="mm" x="800" y="300" z="200"/>
 	<box name="solid_showerMaxMother" lunit="mm" x="900" y="350" z="250"/>
 
+	<opticalsurface name="quartz_surface" model="glisur" finish="ground" type="dielectric_dielectric" value="0.98" >
+	</opticalsurface>
 	<opticalsurface name="Al_mirror_surface" model="glisur" finish="ground" type="dielectric_metal" value="0.98" >
 		<property name="REFLECTIVITY" ref="Aluminium_Surf_Reflectivity" />
 	</opticalsurface>
@@ -266,6 +268,12 @@
 		<auxiliary auxtype="Alpha" auxvalue="0.0"/>
 	</volume>
 
+	<skinsurface name="quartz_skin_surface" surfaceproperty="quartz_surface" >
+		<volumeref ref="logic_quartz_0_0"/>
+		<volumeref ref="logic_quartz_0_1"/>
+		<volumeref ref="logic_quartz_0_2"/>
+		<volumeref ref="logic_quartz_0_3"/>
+	</skinsurface>
 	<skinsurface name="suitcase_skin_surface" surfaceproperty="Al_mirror_surface" >
 		<volumeref ref="logic_suitcase_tungstenquartz_0"/>
 	</skinsurface>

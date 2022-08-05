@@ -1,6 +1,5 @@
 #include "qsimPrimaryGeneratorAction.hh"
 
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
@@ -70,11 +69,11 @@ void qsimPrimaryGeneratorAction::SourceModeSet(G4int mode = 0) {
 		
 		fthetaMin = 0*deg;
 		fthetaMax = 0*deg;
-    
-    fEmin = 1.063*GeV; 
-    fEmax = 1.063*GeV; 
-    
-  }
+
+	} else if (fSourceMode==2){
+		fEmin = 2.0*GeV; 
+		fEmax = 8.0*GeV; 
+	}
 }
 
 qsimPrimaryGeneratorAction::qsimPrimaryGeneratorAction() {
@@ -85,7 +84,7 @@ qsimPrimaryGeneratorAction::qsimPrimaryGeneratorAction() {
 	fParticleGun = new G4ParticleGun(n_particle);
 	fDefaultEvent = new qsimEvent();
 	
-	fZ = -10.0*cm;
+	fZ = -41.0*mm;
 }
 
 
@@ -147,7 +146,7 @@ void qsimPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent) {
 	double p = sqrt( E*E - mass*mass );
 	double pX, pY, pZ;
 	double randTheta, randPhi;
-  double tanth, tanph;
+	//double tanth, tanph;
   
 	if (fSourceMode == 0 || fSourceMode == 1) {
 		bool goodTheta = false;
@@ -165,23 +164,32 @@ void qsimPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent) {
 	
 	if (fSourceMode == 2) {
 		int chosenEvent;
-    TFile *primaryFile = new TFile("primaryDistribution.root");
-    TTree *T = (TTree*)primaryFile->Get("T");
-    chosenEvent = rand() % T->GetEntries();
-    T->GetEntry(chosenEvent);		
-		xPos = T->GetLeaf("x")->GetValue()*m;
-		yPos = T->GetLeaf("y")->GetValue()*m;
-    tanth = T->GetLeaf("theta")->GetValue();		
-    tanph = T->GetLeaf("phi")->GetValue();		
-    primaryFile->Close();
-
-		//pZ = sqrt(p/(1. + tanth*tanth + tanph*tanph));
-		//pX = pZ*tanth;
-		//pY = pZ*tanph;	
+		G4String extGenFileName ="InputEventDistribution/smPrimaryEventDistOpen.root"; 
+		TFile *primaryFile = new TFile(extGenFileName);
+		if (primaryFile==nullptr){
+			G4cerr << "Could not find the external file " << extGenFileName << G4endl;
+		} else{
+			G4cout << "Setting external generator file to " << extGenFileName << G4endl;
+		}
+		TTree *T = (TTree*)primaryFile->Get("T");
+		if (T == nullptr){
+			G4cerr << "Could not find tree T in event file " << extGenFileName << G4endl;
+		} else{
+			G4cout << "Reading tree T from event file " << extGenFileName << G4endl;
+		}
+		chosenEvent = rand() % T->GetEntries();
+		T->GetEntry(chosenEvent);
+		xPos = T->GetLeaf("x")->GetValue()*mm;
+		yPos = T->GetLeaf("y")->GetValue()*mm;
+		pX = T->GetLeaf("px")->GetValue()*MeV;
+		pY = T->GetLeaf("py")->GetValue()*MeV;
+		pZ = T->GetLeaf("pz")->GetValue()*MeV;
+		E = T->GetLeaf("energy")->GetValue()*MeV;
+		primaryFile->Close();
 	}
   
-	assert( E > 0.0 );
-	assert( E > mass );
+	//assert( E > 0.0 );
+	//assert( E > mass );
   
 	fDefaultEvent->ProduceNewParticle(
 				    G4ThreeVector(xPos, yPos, zPos),
@@ -234,7 +242,6 @@ void qsimPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent) {
 		fParticleGun->GeneratePrimaryVertex(anEvent);
 		fParticleGun->GeneratePrimaryVertex(anEvent);
 	}
-  
 }
 
 G4ParticleGun* qsimPrimaryGeneratorAction::GetParticleGun() {

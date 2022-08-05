@@ -34,6 +34,7 @@
 /gui/addButton run "beamOn 200"  "/run/beamOn 200"
 /gui/addButton run "beamOn 1000" "/run/beamOn 1000"
 /gui/addButton run "beamOn 2000" "/run/beamOn 2000"
+/gui/addButton run "runexample" "/control/execute macros/runexample.mac"
 
 #
 # Viewer menu :

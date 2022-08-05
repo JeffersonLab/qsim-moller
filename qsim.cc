@@ -178,6 +178,7 @@ int main(int argc, char** argv){
 		UI->ApplyCommand(command+fileName);
 		} else{           // interactive mode
 		UImanager->ApplyCommand("/control/execute vis/vis.mac");     
+		UImanager->ApplyCommand("/control/execute macros/gui.mac");     
 		ui->SessionStart();
 		delete ui;
 		}

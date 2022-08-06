@@ -90,6 +90,14 @@
 		<position name="pos_subtract_suitcase_tungstenquartz_12" x="0.5" y="0" z="0"/>
 		<rotation name="rot_subtract_suitcase_tungstenquartz_12" x="0" y="0" z="0"/>
 	</subtraction>
+	<box name="solid_front_back_plate" lunit="mm" x="181.698" y="313.8" z="6.35"/>
+	<box name="solid_front_plate_hole" lunit="mm" x="81.28" y="213.35999999999999" z="7.35"/>
+	<subtraction name="solid_front_plate">
+		<first ref="solid_front_back_plate"/>
+		<second ref="solid_front_plate_hole"/>
+		<position name="pos_subtract_front_plate" x="0" y="0" z="0"/>
+		<rotation name="rot_subtract_front_plate" x="0" y="0" z="0"/>
+	</subtraction>
 	<trd name="solid_mirror_box_bot_1" lunit="mm" x1="56.976"  x2="86.868" y1="266.0"  y2="266.0" z="67.462"/>
 	<trd name="solid_mirror_box_bot_2" lunit="mm" x1="55.976"  x2="85.868" y1="265.0"  y2="265.0" z="68.462"/>
 	<subtraction name="solid_mirror_box_bot">
@@ -109,8 +117,8 @@
 	<tube name="solid_pmt_filter" rmin="0" rmax="38.099999999999994" z="5.0" deltaphi="2*pi" startphi="0" aunit="rad" lunit="mm"/>
 	<tube name="solid_pmt_window" rmin="0" rmax="38.099999999999994" z="3.0" deltaphi="2*pi" startphi="0" aunit="rad" lunit="mm"/>
 	<tube name="solid_pmt_cathode" rmin="0" rmax="38.099999999999994" z="3e-06" deltaphi="2*pi" startphi="0" aunit="rad" lunit="mm"/>
-	<box name="solid_singledet" lunit="mm" x="800" y="300" z="200"/>
-	<box name="solid_showerMaxMother" lunit="mm" x="900" y="350" z="250"/>
+	<box name="solid_singledet" lunit="mm" x="800" y="350" z="200"/>
+	<box name="solid_showerMaxMother" lunit="mm" x="900" y="400" z="250"/>
 
 	<opticalsurface name="quartz_surface" model="glisur" finish="ground" type="dielectric_dielectric" value="0.98" >
 	</opticalsurface>
@@ -161,6 +169,16 @@
 		<materialref ref="Aluminum_material"/>
 		<solidref ref="solid_suitcase_tungstenquartz"/>
 	</volume>
+	<volume name="logic_front_back_plate_0">
+		<materialref ref="G4_Al"/>
+		<solidref ref="solid_front_back_plate"/>
+		<auxiliary auxtype="Color" auxvalue="orange"/>
+	</volume>
+	<volume name="logic_front_plate_0">
+		<materialref ref="G4_Al"/>
+		<solidref ref="solid_front_plate"/>
+		<auxiliary auxtype="Color" auxvalue="orange"/>
+	</volume>
 	<volume name="logic_mirror_box_bot_0">
 		<materialref ref="Aluminum_material"/>
 		<solidref ref="solid_mirror_box_bot"/>
@@ -190,6 +208,16 @@
 			<position name="pos_logic_suitcase_tungstenquartz_0" x="0" y="0" z="0"/>
 			<rotation name="rot_logic_suitcase_tungstenquartz_0" x="0" y="0" z="0"/>
 		</physvol>
+		<physvol name="front_plate_0">
+			<volumeref ref="logic_front_plate_0"/>
+			<position name="pos_logic_front_plate_0" x="0" y="0" z="-35.663"/>
+			<rotation name="rot_logic_front_plate_0" x="0" y="0" z="0"/>
+		</physvol>
+		<physvol name="back_plate_0">
+			<volumeref ref="logic_front_back_plate_0"/>
+			<position name="pos_logic_back_plate_0" x="0" y="0" z="35.663"/>
+			<rotation name="rot_logic_back_plate_0" x="0" y="0" z="0"/>
+		</physvol>
 		<physvol name="mirror_box_bot_0">
 			<volumeref ref="logic_mirror_box_bot_0"/>
 			<position name="pos_logic_mirror_box_bot_0" x="124.58000000000001" y="0" z="4.0"/>
@@ -200,11 +228,13 @@
 			<position name="pos_logic_mirror_box_top_0" x="249.84" y="0" z="4.0"/>
 			<rotation name="rot_logic_mirror_box_top_0" x="0" y="-pi/2" z="0"/>
 		</physvol>
+		<!--
 		<physvol name="pmt_filter_0">
 			<volumeref ref="logic_pmt_filter_0"/>
 			<position name="pos_logic_pmt_filter_0" x= "350.21900000000005" y="0" z="4.0"/>
 			<rotation name="rot_logic_pmt_filter_0" x="0" y="-pi/2" z="0"/>
 		</physvol>
+		-->
 		<physvol name="pmt_window_0">
 			<volumeref ref="logic_pmt_window_0"/>
 			<position name="pos_logic_pmt_window_0" x="354.21900000000005" y="0" z="4.0"/>

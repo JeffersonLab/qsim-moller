@@ -49,8 +49,8 @@
 </material>
 <material formula="SiO2" name="Quartz" >
 	<property name="RINDEX" ref="Quartz_RINDEX"/>
-	<property name="ABSLENGTH" ref="Quartz_ABSLENGTH"/>
-	<property name="TRANSMISSION" ref="Quartz_TRANSMISSION"/>
+	<property name="ABSLENGTH" ref="Quartz_ABSLENGTH_DATA"/>
+	<property name="REFLECTIVITY" ref="Quartz_REFLECTIVITY"/>
 	<D value="2.203" />
 	<composite n="1" ref="Silicon" />
 	<composite n="2" ref="Oxygen" />
@@ -90,8 +90,8 @@
 	<opticalsurface name="quartz_surface" model="glisur" finish="ground" type="dielectric_dielectric" value="0.98" >
 	</opticalsurface>
 	<opticalsurface name="Cathode_surface" model="glisur" finish="polished" type="dielectric_metal" value="1.0">
-		<property name="REFLECTIVITY" ref="Cathode_Surf_Reflectivity" />
-		<property name="EFFICIENCY" ref="Cathode_Surf_Efficiency" />
+		<property name="REFLECTIVITY" ref="CathodeSurf_REFLECTIVITY" />
+		<property name="EFFICIENCY" ref="Cathode_EFFICIENCY" />
 	</opticalsurface>
 </solids>
 

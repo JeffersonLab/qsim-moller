@@ -1,6 +1,7 @@
 # Directories
 build/
 .vscode/
+slurm_job/*/
 
 #Files
 ./*.root

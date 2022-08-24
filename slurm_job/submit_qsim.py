@@ -1,6 +1,6 @@
 # Description: This script creates the run macro file and job submit file for qsim and submits the job to ifarm
 #              It submits job for multiple gdml geomerties and different energies
-# Change: config, beamEnergy
+# Change: config, beamEnergy, geometry, eventsNum and sourceDir as needed
 
 import os
 
@@ -16,9 +16,11 @@ geometry = ["smBenchmark1quartzQsim",
 eventsNum = 10000
 sourceDir = "/home/sudip/programs/qsim/qsim-showermax/"
 #sourceDir = "/w/halla-scshelf2102/moller12gev/sudip/qsim/qsim-showermax"
+
 logDir = sourceDir + "slurm_job/job_log/" + config + "/"
 macroDir = sourceDir + "slurm_job/macros/" + config + "/"
 jobDir = sourceDir + "slurm_job/sbatch_scripts/" + config + "/"
+outRootFileDir = sourceDir + "rootfiles/" + config + "/"
 print (jobDir)
 
 # Make directories if required
@@ -28,6 +30,8 @@ if not os.path.exists(macroDir):
     os.makedirs(macroDir)
 if not os.path.exists(jobDir):
     os.makedirs(jobDir)
+if not os.path.exists(outRootFileDir):
+    os.makedirs(outRootFileDir)
 
 # Define functions
 def writeQsimRunMacro(macroName:str, outFileName="qsim_out.root", beamEnergy=2, events=100):
@@ -35,7 +39,7 @@ def writeQsimRunMacro(macroName:str, outFileName="qsim_out.root", beamEnergy=2, 
     file = open(macroDir + macroName, "w")
     file.write("/qsim/fSourceMode 1\n")
     file.write("/run/initialize\n")
-    file.write("/qsim/filename rootfiles/" + outFileName + ".root\n")
+    file.write("/qsim/filename " + outRootFileDir + outFileName + ".root\n")
     file.write("/qsim/seed 50\n")
     file.write("/qsim/emin " + str(beamEnergy) + " GeV\n")
     file.write("/qsim/emax " + str(beamEnergy) + " GeV\n")
@@ -62,7 +66,7 @@ def writeJobSubmitScript(scriptName:str, jobOutErrName:str, geometryGDML:str, ma
     file.write("#SBATCH --error= " + logDir + jobOutErrName + ".err\n")
     file.write("source /site/12gev_phys/softenv.sh 2.4\n\n")
     file.write("cd " + sourceDir + "\n")
-    file.write("./build/qsim geometry/" +geometryGDML + " slurm_job/macros/" + macro)
+    file.write("./build/qsim geometry/" +geometryGDML + " " + macroDir + macroFileName)
     file.close
     print("Ifarm job submission script " + scriptName + " created.")
 
@@ -78,4 +82,4 @@ for iBeam in range(len(beamEnergy)):
         geometryFile = geometry[iGeomtry]+".gdml"
         writeJobSubmitScript(jobSubmitFileName,jobOutErrName, geometryFile, macroFileName)
 
-        #os.system("sh " + jobDir + jobSubmitFileName)     
+        os.system("sh " + jobDir + jobSubmitFileName)     

@@ -1,8 +1,11 @@
-# This script submits the job to ifarm
+# Description: This script creates the run macro file and job submit file for qsim and submits the job to ifarm
+#              It submits job for multiple gdml geomerties and different energies
+# Change: config, beamEnergy
 
-from asyncio import events
 import os
 
+# Define variables
+config = "stackStudy_cathRefl0125"
 beamEnergy = [2, 5, 8]
 geometry = ["smBenchmark1quartzQsim",
             "smBenchmark1stackQsim",
@@ -13,17 +16,20 @@ geometry = ["smBenchmark1quartzQsim",
 eventsNum = 10000
 sourceDir = "/home/sudip/programs/qsim/qsim-showermax/"
 #sourceDir = "/w/halla-scshelf2102/moller12gev/sudip/qsim/qsim-showermax"
-jobDir = sourceDir + "slurm_job/sbatch_scripts/"
-logDir = sourceDir + "slurm_job/job_log/"
-macroDir = sourceDir + "slurm_job/macros/"
+logDir = sourceDir + "slurm_job/job_log/" + config + "/"
+macroDir = sourceDir + "slurm_job/macros/" + config + "/"
+jobDir = sourceDir + "slurm_job/sbatch_scripts/" + config + "/"
+print (jobDir)
 
+# Make directories if required
 if not os.path.exists(logDir):
-    os.mkdir(logDir)
+    os.makedirs(logDir)
 if not os.path.exists(macroDir):
-    os.mkdir(macroDir)
+    os.makedirs(macroDir)
 if not os.path.exists(jobDir):
-    os.mkdir(jobDir)
+    os.makedirs(jobDir)
 
+# Define functions
 def writeQsimRunMacro(macroName:str, outFileName="qsim_out.root", beamEnergy=2, events=100):
     '''Creates a macro file to run in qsim'''
     file = open(macroDir + macroName, "w")
@@ -60,9 +66,7 @@ def writeJobSubmitScript(scriptName:str, jobOutErrName:str, geometryGDML:str, ma
     file.close
     print("Ifarm job submission script " + scriptName + " created.")
 
-#writeQsimRunMacro("runexample.mac", events=eventsNum)
-#writeJobSubmitScript("testJob", "job1", "sm.gdml", "testMacro.mac")
-
+# Use loop to create different macros and job submission file and sbatch them
 for iBeam in range(len(beamEnergy)):
     for iGeomtry in range(len(geometry)):
         macroFileName = "runbatch_{}GeV_{}_{}k.mac".format(beamEnergy[iBeam], geometry[iGeomtry], eventsNum//1000)

@@ -1,0 +1,8 @@
+/qsim/fSourceMode 1
+/run/initialize
+/qsim/filename rootfiles/qsim_out_2GeV_smBenchmark1quartzQsim.gdml_0k.root
+/qsim/seed 50
+/qsim/emin 2 GeV
+/qsim/emax 2 GeV
+/gun/particle e-
+/run/beamOn 10

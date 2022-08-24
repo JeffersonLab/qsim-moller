@@ -3,17 +3,17 @@
 from asyncio import events
 import os
 
-beamEnergy = [2]#, 5.5, 8}
-geometry = ["smBenchmark1quartzQsim.gdml"]
-            #"smBenchmark1stackQsim.gdml",
-            #"smBenchmark2stackQsim.gdml",
-            #"smBenchmark3stackQsim.gdml",
-            #"smBenchmark4stackQsim.gdml",
-            #"showermaxQsim.gdml"}
-eventsNum = 10
+beamEnergy = [2, 5, 8]
+geometry = ["smBenchmark1quartzQsim",
+            "smBenchmark1stackQsim",
+            "smBenchmark2stackQsim",
+            "smBenchmark3stackQsim",
+            "smBenchmark4stackQsim",
+            "showermaxQsim"]
+eventsNum = 10000
 sourceDir = "/home/sudip/programs/qsim/qsim-showermax/"
 #sourceDir = "/w/halla-scshelf2102/moller12gev/sudip/qsim/qsim-showermax"
-jobDir = sourceDir + "slurm_job/"
+jobDir = sourceDir + "slurm_job/sbatch_scripts/"
 logDir = sourceDir + "slurm_job/job_log/"
 macroDir = sourceDir + "slurm_job/macros/"
 
@@ -21,6 +21,8 @@ if not os.path.exists(logDir):
     os.mkdir(logDir)
 if not os.path.exists(macroDir):
     os.mkdir(macroDir)
+if not os.path.exists(jobDir):
+    os.mkdir(jobDir)
 
 def writeQsimRunMacro(macroName:str, outFileName="qsim_out.root", beamEnergy=2, events=100):
     '''Creates a macro file to run in qsim'''
@@ -52,7 +54,7 @@ def writeJobSubmitScript(scriptName:str, jobOutErrName:str, geometryGDML:str, ma
     file.write("#SBATCH --mem=6G\n")
     file.write("#SBATCH --output= " + logDir + jobOutErrName + ".out\n")
     file.write("#SBATCH --error= " + logDir + jobOutErrName + ".err\n")
-    #file.write("source /site/12gev_phys/softenv.sh 2.4\n\n")
+    file.write("source /site/12gev_phys/softenv.sh 2.4\n\n")
     file.write("cd " + sourceDir + "\n")
     file.write("./build/qsim geometry/" +geometryGDML + " slurm_job/macros/" + macro)
     file.close
@@ -63,12 +65,13 @@ def writeJobSubmitScript(scriptName:str, jobOutErrName:str, geometryGDML:str, ma
 
 for iBeam in range(len(beamEnergy)):
     for iGeomtry in range(len(geometry)):
-        macroFileName = "runbatch_{}GeV_{}k.mac".format(beamEnergy[iBeam],eventsNum//1000)
+        macroFileName = "runbatch_{}GeV_{}_{}k.mac".format(beamEnergy[iBeam], geometry[iGeomtry], eventsNum//1000)
         outRootFile = "qsim_out_{}GeV_{}_{}k".format(beamEnergy[iBeam],geometry[iGeomtry],eventsNum//1000)
         writeQsimRunMacro(macroFileName,outRootFile,beamEnergy[iBeam],eventsNum)
 
-        jobSubmitFileName = "jobsubmit_{}GeV_{}k.sh".format(beamEnergy[iBeam],eventsNum//1000)
+        jobSubmitFileName = "jobsubmit_{}GeV_{}_{}k.sh".format(beamEnergy[iBeam],geometry[iGeomtry], eventsNum//1000)
         jobOutErrName = "qsim_{}GeV_{}".format(beamEnergy[iBeam], geometry[iGeomtry])
-        writeJobSubmitScript(jobSubmitFileName,jobOutErrName, geometry[iGeomtry], macroFileName)
+        geometryFile = geometry[iGeomtry]+".gdml"
+        writeJobSubmitScript(jobSubmitFileName,jobOutErrName, geometryFile, macroFileName)
 
-        os.system("sh " + jobDir + jobSubmitFileName)     
+        #os.system("sh " + jobDir + jobSubmitFileName)     

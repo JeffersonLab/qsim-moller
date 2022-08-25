@@ -15,7 +15,7 @@ geometry = ["smBenchmark1quartzQsim",
             "showermaxQsim"]
 eventsNum = 10000
 sourceDir = "/home/sudip/programs/qsim/qsim-showermax/"
-#sourceDir = "/w/halla-scshelf2102/moller12gev/sudip/qsim/qsim-showermax"
+#sourceDir = "/w/halla-scshelf2102/moller12gev/sudip/qsim/qsim-showermax/"
 
 logDir = sourceDir + "slurm_job/job_log/" + config + "/"
 macroDir = sourceDir + "slurm_job/macros/" + config + "/"
@@ -48,13 +48,13 @@ def writeQsimRunMacro(macroName:str, outFileName="qsim_out.root", beamEnergy=2, 
     file.close
     print("\nRun macro " + macroFileName + " created.")
 
-def writeJobSubmitScript(scriptName:str, jobOutErrName:str, geometryGDML:str, macro:str):
+def writeJobSubmitScript(scriptName:str, jobOutErrName:str, geometryGDML:str, macro:str, jobName="Qsim"):
     '''Creates a job submission script to run qsim in the Jlab ifarm'''
     file = open(jobDir + scriptName, "w")
     file.write("#!/bin/bash\n\n")
     file.write("#SBATCH --account=halla\n")
     file.write("#SBATCH --partition=production\n")
-    file.write("#SBATCH --job-name=QSIM\n")
+    file.write("#SBATCH --job-name={}\n".format(jobName))
     file.write("#SBATCH --mail-user=sudip@jlab.org\n")
     file.write("#SBATCH --mail-type=FAIL,END\n")
     file.write("#SBATCH --time=1-23:59:59\n")
@@ -62,8 +62,8 @@ def writeJobSubmitScript(scriptName:str, jobOutErrName:str, geometryGDML:str, ma
     file.write("#SBATCH --ntasks=1\n")
     file.write("#SBATCH --cpus-per-task=2\n")
     file.write("#SBATCH --mem=6G\n")
-    file.write("#SBATCH --output= " + logDir + jobOutErrName + ".out\n")
-    file.write("#SBATCH --error= " + logDir + jobOutErrName + ".err\n")
+    file.write("#SBATCH --output=" + logDir + jobOutErrName + ".out\n")
+    file.write("#SBATCH --error=" + logDir + jobOutErrName + ".err\n")
     file.write("source /site/12gev_phys/softenv.sh 2.4\n\n")
     file.write("cd " + sourceDir + "\n")
     file.write("./build/qsim geometry/" +geometryGDML + " " + macroDir + macroFileName)
@@ -80,6 +80,7 @@ for iBeam in range(len(beamEnergy)):
         jobSubmitFileName = "jobsubmit_{}GeV_{}_{}k.sh".format(beamEnergy[iBeam],geometry[iGeomtry], eventsNum//1000)
         jobOutErrName = "qsim_{}GeV_{}".format(beamEnergy[iBeam], geometry[iGeomtry])
         geometryFile = geometry[iGeomtry]+".gdml"
+        jobName = "qsim{}-{}".format(iBeam,iGeomtry)
         writeJobSubmitScript(jobSubmitFileName,jobOutErrName, geometryFile, macroFileName)
 
-        os.system("sh " + jobDir + jobSubmitFileName)     
+        #os.system("sh " + jobDir + jobSubmitFileName)     

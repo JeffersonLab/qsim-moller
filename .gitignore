@@ -2,7 +2,9 @@
 build/
 .vscode/
 slurm_job/*/
+plots/
 
 #Files
 ./*.root
 rootfiles/*.root
+rootfile/*/*.root

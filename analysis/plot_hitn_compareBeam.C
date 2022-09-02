@@ -23,8 +23,11 @@ void plot_hitn_compareBeam(){
     //gStyle->SetPadGridY(1);
     //TGaxis::SetMaxDigits(3);
     
+    string config = "qsim_07";
+    string particle = "gamma";
     float beamEnergy[] = {2, 5.5, 8};
     string geometry = "showermaxQsim";
+    int color[] = {kBlack, kRed, kBlue, kMagenta, kGreen+2};
 
     // Map geometry and upper bound of the histogram
     map<string, int> geomXmax;
@@ -40,7 +43,8 @@ void plot_hitn_compareBeam(){
     int nbins = 100; 
 
     //string inFileDir = "/run/user/1000/gvfs/dav+sd:host=Spice%2520client%2520folder._webdav._tcp.local/qsim_rootfiles/qsim_02/";
-    string inFileDir = "/run/user/1000/gvfs/sftp:host=sudips-mbp.local/Users/sudip/utm-ubuntu-shared/qsim_rootfiles/qsim_03/";
+    //string inFileDir = "/run/user/1000/gvfs/sftp:host=sudips-mbp.local/Users/sudip/utm-ubuntu-shared/qsim_rootfiles/qsim_03/";
+    string inFileDir = Form("/volatile/halla/moller12gev/sudip/qsim_rootfiles/%s/",config.c_str());
     //string inFileDir = "~/programs/qsim/qsim-showermax/rootfiles/";
     string inRootFileName[3] = {Form("qsim_out_2GeV_%s_10k.root", geometry.c_str()),
                               Form("qsim_out_5GeV_%s_10k.root", geometry.c_str()),
@@ -58,9 +62,9 @@ void plot_hitn_compareBeam(){
         T->SetBranchAddress("hit.n", &hitn);
         int events = T->GetEntries();
 
-        h_hitn[i] = new TH1F(Form("h_hitn_%.1fGeV",beamEnergy[i]), Form("Photo electrons distribution of %s;PE per event; Counts/bin", geometry.c_str()),
+        h_hitn[i] = new TH1F(Form("h_hitn_%.1fGeV",beamEnergy[i]), Form("PE hits distribution of %s with %s beam;PE per event; Counts/bin", geometry.c_str(), particle.c_str()),
                 nbins, hist_xmin, hist_xmax);
-        h_hitn[i]->SetLineColor(i+1);
+        h_hitn[i]->SetLineColor(color[i]);
         //h_hitn[i]->SetLineWidth(1);
         
         cout << "Processing hist" << i << endl; 
@@ -80,13 +84,13 @@ void plot_hitn_compareBeam(){
     gPad->Update();
     for (int i=0; i<3; i++){
         stat[i] = (TPaveStats*)h_hitn[i]->FindObject("stats");
-        stat[i]->SetTextColor(i+1);
+        stat[i]->SetTextColor(color[i]);
         stat[i]->SetX1NDC(0.3+i*0.2);
         stat[i]->SetX2NDC(0.5+i*0.2);
         stat[i]->SetY1NDC(0.9);
         stat[i]->SetY2NDC(0.75);
         stat[i]->Draw();
     }
-    gSystem->Exec("mkdir -p plots");
-    c1->SaveAs(Form("./plots/%s.pdf",geometry.c_str()));
+    gSystem->Exec(Form("mkdir -p plots/%s/",config.c_str()));
+    c1->SaveAs(Form("./plots/%s/%s_%s.pdf",config.c_str(), geometry.c_str(),particle.c_str()));
 }

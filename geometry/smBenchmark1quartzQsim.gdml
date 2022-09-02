@@ -87,7 +87,7 @@
 	<box name="solid_singledet" lunit="mm" x="400" y="150" z="100"/>
 	<box name="solid_showerMaxMother" lunit="mm" x="450" y="200" z="150"/>
 
-	<opticalsurface name="quartz_surface" model="glisur" finish="ground" type="dielectric_dielectric" value="0.98" >
+	<opticalsurface name="quartz_surface" model="glisur" finish="ground" type="dielectric_dielectric" value="0.96" >
 	</opticalsurface>
 	<opticalsurface name="Cathode_surface" model="glisur" finish="polished" type="dielectric_metal" value="1.0">
 		<property name="REFLECTIVITY" ref="CathodeSurf_REFLECTIVITY" />

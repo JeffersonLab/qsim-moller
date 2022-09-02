@@ -50,7 +50,7 @@
 <material formula="SiO2" name="Quartz" >
 	<property name="RINDEX" ref="Quartz_RINDEX"/>
 	<property name="ABSLENGTH" ref="Quartz_ABSLENGTH_DATA"/>
-	<property name="TRANSMISSION" ref="Quartz_TRANSMISSION"/>
+	<property name="REFLECTIVITY" ref="Quartz_REFLECTIVITY"/>
 	<D value="2.203" />
 	<composite n="1" ref="Silicon" />
 	<composite n="2" ref="Oxygen" />
@@ -120,9 +120,9 @@
 	<box name="solid_singledet" lunit="mm" x="800" y="350" z="200"/>
 	<box name="solid_showerMaxMother" lunit="mm" x="900" y="400" z="250"/>
 
-	<opticalsurface name="quartz_surface" model="glisur" finish="ground" type="dielectric_dielectric" value="0.98" >
+	<opticalsurface name="quartz_surface" model="glisur" finish="ground" type="dielectric_dielectric" value="0.96" >
 	</opticalsurface>
-	<opticalsurface name="Al_mirror_surface" model="glisur" finish="ground" type="dielectric_metal" value="0.98" >
+	<opticalsurface name="Al_mirror_surface" model="glisur" finish="ground" type="dielectric_metal" value="0.96" >
 		<property name="REFLECTIVITY" ref="MiroSilver_REFLECTIVITY_30DEG" />
 	</opticalsurface>
 	<opticalsurface name="Cathode_surface" model="glisur" finish="polished" type="dielectric_metal" value="1.0">

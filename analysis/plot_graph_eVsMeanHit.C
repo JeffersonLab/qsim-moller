@@ -45,7 +45,6 @@ void plot_graph_eVsMeanHit(){
     }
 
     TH1F *h_hitn[beamEnergy.size()];
-    TCanvas* c1 = new TCanvas("c1", "Photon distribution");
 
     for (int i=0; i<beamEnergy.size(); i++){
         inRootFileName.push_back(Form("qsim_out_%.fGeV_%s_10k.root", beamEnergy.at(i), geometry.c_str()));
@@ -65,10 +64,13 @@ void plot_graph_eVsMeanHit(){
         float rms = h_hitn[i]->GetRMS();
         detRes.push_back(meanHits[i]/rms);
 
-        cout << meanHits[i] << " " << peakHit[i] << endl;
+        //cout << meanHits[i] << " " << peakHit[i] << endl;
+        cout << beamEnergy[i] << " " << detRes[i] << endl;
 
     }
 
+    // Draw beam energy vs mean PE
+    TCanvas* c1 = new TCanvas("c1", "Energy vs mean PE");
     TGraphErrors *grMean = new TGraphErrors(beamEnergy.size(), &beamEnergy[0], &meanHits[0], 0, &meanHitsError[0]);
     grMean->SetTitle("Mean PE yield; Energy of e beam [GeV]; PE yield");
     grMean->SetMarkerStyle(20);
@@ -77,18 +79,27 @@ void plot_graph_eVsMeanHit(){
     grMean->SetMarkerColor(kRed);
     grMean->Draw("AP");
 
+    // Draw beam energy vs peak PE
+    //TCanvas* c2 = new TCanvas("c2", "Energy vs peak PE");
     TGraph *grPeak = new TGraph(beamEnergy.size(), &beamEnergy[0], &peakHit[0]);
     grPeak->SetMarkerStyle(30);
     grPeak->SetTitle("Peak PE");
     grPeak->SetDrawOption("AP");
-    grMean->SetMarkerColor(kBlue);
+    grPeak->SetMarkerColor(kBlue);
+    //grPeak->Draw();
     
-    TMultiGraph *mg = new TMultiGraph("mg", "mg");
-    mg->GetXaxis()->SetTitle("Electron beam energy [GeV]");
-    mg->GetYaxis()->SetTitle("PE count");
-    mg->Add(grMean);
-    //mg->Add(grPeak);
-    //mg->Draw("apl");
+    // Draw beam energy vs det resolution
+    TCanvas* c3 = new TCanvas("c3", "Energy vs det resolution");
+    TGraph *grRes = new TGraph(beamEnergy.size(), &beamEnergy[0], &detRes[0]);
+    grRes->SetTitle("Electron beam energy vs det resolution; Beam energy [in GeV]; RMS/Mean");
+    grRes->Draw();
 
-    //TGraph *grRes = new TGraph(beamEnergy.size(), &beamEnergy[0], &detRes[0]);
+    //// Draw multigraph of beam energy vs mean and peak PE
+    //TCanvas* c4 = new TCanvas("c4", "energy vs PE");
+    //TMultiGraph *mg = new TMultiGraph("mg", "mg");
+    //mg->SetTitle("Energy vs PE; ELectron beam energy [GeV]; PE count");
+    //mg->Add(grMean, "lp");
+    //mg->Add(grPeak, "cp");
+    //mg->Draw("ap");
+
 }

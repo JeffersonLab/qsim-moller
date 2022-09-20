@@ -19,7 +19,7 @@
 
 using namespace std;
 
-void plot_graph_eVsMeanHit(){
+void plot_graph_eVsMeanHit_gamma(){
     //gROOT->Reset();
     //gStyle->SetOptStat("neMR");
     //gStyle->SetTitleYOffset(1.3);
@@ -29,8 +29,8 @@ void plot_graph_eVsMeanHit(){
     //TGaxis::SetMaxDigits(3);
     
     string config = "qsim_08";
-    string particle = "e";
-    string geometry = "showermaxQsim";
+    string particle = "gamma";
+    string geometry = "smFullscaleQsim";
     int color[] = {kBlack, kRed, kBlue, kGreen+2, kMagenta,};
 
     vector<float> beamEnergy;
@@ -41,9 +41,9 @@ void plot_graph_eVsMeanHit(){
     vector<string> inRootFileName;
 
     //string inFileDir = Form("/volatile/halla/moller12gev/sudip/qsim_rootfiles/%s/",config.c_str());
-    string inFileDir = "~/programs/qsim/qsim-showermax/rootfiles/qsim_08/";
+    string inFileDir = "~/programs/qsim/qsim-showermax/rootfiles/qsim_07/";
 
-    for (float iBeamEnergy=1.0; iBeamEnergy<=2; iBeamEnergy+=0.2){
+    for (float iBeamEnergy=1.0; iBeamEnergy<=2; iBeamEnergy+=0.1){
         beamEnergy.push_back(iBeamEnergy);
     }
 
@@ -81,28 +81,31 @@ void plot_graph_eVsMeanHit(){
     grMean->SetDrawOption("AP");
     grMean->SetMarkerColor(kRed);
     grMean->Draw("AP");
-    
-    TF1 *fit = new TF1("fit", "pol2", 0, 10);
-    fit->SetParameters(-13.1647,148.634,-10.1366);
+    grMean->Fit("pol3");
+
+    TF1* fit = (TF1*)grMean->GetFunction("pol3");
     fit->SetLineColor(kBlue);
     fit->Print();
-    grMean->Fit("fit");
 
     //cout << fit->Eval(0.855) << endl;
 
-    TLegend *leg = new TLegend(0.1,0.8,0.4,0.9, "Legend");
-    leg->SetTextSize(0.03);
+    TLegend *leg = new TLegend(0.1,0.8,0.4,0.9);
+    leg->SetTextSize(0.04);
     leg->AddEntry(grMean, "Data points");
     leg->AddEntry(fit, "Pol2 best fit");
     leg->Draw();
 
-    //gPad->Update();
-    //TPaveStats *stat = (TPaveStats*)grMean->FindObject("stats");
-    //stat->SetX1NDC(0.1);
-    //stat->SetY1NDC(0.5);
-    //stat->SetX2NDC(0.4);
-    //stat->SetY2NDC(0.8);
-    //stat->Draw();
+    gPad->Update();
+    TPaveStats *stat = (TPaveStats*)grMean->FindObject("stats");
+    stat->SetX1NDC(0.1);
+    stat->SetY1NDC(0.6);
+    stat->SetX2NDC(0.4);
+    stat->SetY2NDC(0.8);
+    stat->Draw();
+
+    //Save canvas
+    gSystem->Exec(Form("mkdir -p plots/%s/",config.c_str()));
+    c1->SaveAs(Form("./plots/%s/eVsMeanHit_%s_%s.pdf",config.c_str(), geometry.c_str(),particle.c_str()));
 
     // Draw beam energy vs peak PE
     //TCanvas* c2 = new TCanvas("c2", "Energy vs peak PE");

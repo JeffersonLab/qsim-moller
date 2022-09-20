@@ -26,7 +26,7 @@ void plot_hitn_compareBeam(){
     string config = "qsim_07";
     string particle = "gamma";
     float beamEnergy[] = {2, 5.5, 8};
-    string geometry = "showermaxQsim";
+    string geometry = "smBenchmark1stackQsim";
     int color[] = {kBlack, kRed, kBlue, kMagenta, kGreen+2};
 
     // Map geometry and upper bound of the histogram
@@ -44,8 +44,8 @@ void plot_hitn_compareBeam(){
 
     //string inFileDir = "/run/user/1000/gvfs/dav+sd:host=Spice%2520client%2520folder._webdav._tcp.local/qsim_rootfiles/qsim_02/";
     //string inFileDir = "/run/user/1000/gvfs/sftp:host=sudips-mbp.local/Users/sudip/utm-ubuntu-shared/qsim_rootfiles/qsim_03/";
-    string inFileDir = Form("/volatile/halla/moller12gev/sudip/qsim_rootfiles/%s/",config.c_str());
-    //string inFileDir = "~/programs/qsim/qsim-showermax/rootfiles/";
+    //string inFileDir = Form("/volatile/halla/moller12gev/sudip/qsim_rootfiles/%s/",config.c_str());
+    string inFileDir = "~/programs/qsim/qsim-showermax/rootfiles/";
     string inRootFileName[3] = {Form("qsim_out_2GeV_%s_10k.root", geometry.c_str()),
                               Form("qsim_out_5GeV_%s_10k.root", geometry.c_str()),
                               Form("qsim_out_8GeV_%s_10k.root", geometry.c_str())};
@@ -82,13 +82,16 @@ void plot_hitn_compareBeam(){
     }
 
     gPad->Update();
+    float widthStat = 0.15; //width of a stat box
+    float heightStat = 0.15;
+    int nColStat = 1;   //number of columns of the stat boxes
     for (int i=0; i<3; i++){
         stat[i] = (TPaveStats*)h_hitn[i]->FindObject("stats");
-        stat[i]->SetTextColor(color[i]);
-        stat[i]->SetX1NDC(0.3+i*0.2);
-        stat[i]->SetX2NDC(0.5+i*0.2);
-        stat[i]->SetY1NDC(0.9);
-        stat[i]->SetY2NDC(0.75);
+        stat[i]->SetTextColor(i+1);
+        stat[i]->SetX1NDC(0.9-widthStat-(i%nColStat)*widthStat);
+        stat[i]->SetX2NDC(0.9-(i%nColStat)*widthStat);
+        stat[i]->SetY1NDC(0.9-(i/nColStat)*heightStat);
+        stat[i]->SetY2NDC(0.9-heightStat-(i/nColStat)*heightStat);
         stat[i]->Draw();
     }
     gSystem->Exec(Form("mkdir -p plots/%s/",config.c_str()));

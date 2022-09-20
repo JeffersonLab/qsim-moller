@@ -3,8 +3,9 @@ build/
 .vscode/
 slurm_job/*/
 plots/
+test/
 
 #Files
 ./*.root
 rootfiles/*.root
-rootfile/*/*.root
+rootfiles/*/*.root

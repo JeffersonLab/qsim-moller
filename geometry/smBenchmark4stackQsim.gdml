@@ -209,10 +209,11 @@
 		<volumeref ref="logic_quartz_0_1"/>
 		<volumeref ref="logic_quartz_0_2"/>
 		<volumeref ref="logic_quartz_0_3"/>
+		<volumeref ref="logic_pmt_window_0"/>
 	</skinsurface>
 	<bordersurface name="cathode_window_border_surface" surfaceproperty="Cathode_surface" >
-	<physvolref ref="pmt_window_0"/>
-	<physvolref ref="pmt_cathode_0"/>
+		<physvolref ref="pmt_window_0"/>
+		<physvolref ref="pmt_cathode_0"/>
 	</bordersurface>
 
 </structure>

@@ -16,6 +16,12 @@
 <define>
 	<quantity type="density" name="universe_mean_density" value="1.e-25" unit="g/cm3" />
 </define>
+<element Z="1" formula="H" name="Hydrogen" >
+	<atom value="1.008" />
+</element>
+<element Z="6" formula="C" name="Carbon" >
+	<atom value="12.011" />
+</element>
 <element Z="8" formula="O" name="Oxygen" >
 	<atom value="16" />
 </element>
@@ -69,37 +75,44 @@
 	<D value="19.3" />
 	<composite n="1" ref="Tungsten" />
 </material>
+<material formula="C12H22N2O2" name="Nylon" >
+	<D value="1.14" />
+	<composite n="12" ref="Carbon" />
+	<composite n="22" ref="Hydrogen" />
+	<composite n="2" ref="Nitrogen" />
+	<composite n="2" ref="Oxygen" />
+</material>
 </materials>
 
 
 <solids>
 	<xtru name="solid_quartz" lunit="mm">
-		<twoDimVertex x="-80.0" y="3.0"/>
-		<twoDimVertex x="-80.0" y="-3.0"/>
-		<twoDimVertex x="86.0" y="-3.0"/>
-		<twoDimVertex x="80.0" y="3.0"/>
-		<section zOrder="1" zPosition="-132.5" xOffset="0" yOffset="0" scalingFactor="1"/>
-		<section zOrder="2" zPosition="132.5" xOffset="0" yOffset="0" scalingFactor="1"/>
+		<twoDimVertex x="-52.5" y="3.0"/>
+		<twoDimVertex x="-52.5" y="-3.0"/>
+		<twoDimVertex x="58.5" y="-3.0"/>
+		<twoDimVertex x="52.5" y="3.0"/>
+		<section zOrder="1" zPosition="-123.0" xOffset="0" yOffset="0" scalingFactor="1"/>
+		<section zOrder="2" zPosition="123.0" xOffset="0" yOffset="0" scalingFactor="1"/>
 	</xtru>
-	<box name="solid_tungsten" lunit="mm" x="160.0" y="265.0" z="8.0"/>
+	<box name="solid_tungsten" lunit="mm" x="105.0" y="246.0" z="8.0"/>
 	<box name="solid_suitcase_tungstenquartz_1" lunit="mm" x="160.5" y="266.0" z="64.976"/>
-	<box name="solid_suitcase_tungstenquartz_2" lunit="mm" x="161.0" y="265.0" z="63.976"/>
+	<box name="solid_suitcase_tungstenquartz_2" lunit="mm" x="161.0" y="265" z="63.976"/>
 	<subtraction name="solid_suitcase_tungstenquartz">
 		<first ref="solid_suitcase_tungstenquartz_1"/>
 		<second ref="solid_suitcase_tungstenquartz_2"/>
 		<position name="pos_subtract_suitcase_tungstenquartz_12" x="0.5" y="0" z="0"/>
 		<rotation name="rot_subtract_suitcase_tungstenquartz_12" x="0" y="0" z="0"/>
 	</subtraction>
-	<box name="solid_front_back_plate" lunit="mm" x="181.698" y="313.8" z="6.35"/>
-	<box name="solid_front_plate_hole" lunit="mm" x="81.28" y="213.35999999999999" z="7.35"/>
-	<subtraction name="solid_front_plate">
-		<first ref="solid_front_back_plate"/>
-		<second ref="solid_front_plate_hole"/>
-		<position name="pos_subtract_front_plate" x="0" y="0" z="0"/>
-		<rotation name="rot_subtract_front_plate" x="0" y="0" z="0"/>
+	<box name="solid_spacer_suitcase_1" lunit="mm" x="160.0" y="265" z="63.976"/>
+	<box name="solid_spacer_suitcase_2" lunit="mm" x="106.0" y="247.0" z="64.976"/>
+	<subtraction name="solid_spacer_suitcase">
+		<first ref="solid_spacer_suitcase_1"/>
+		<second ref="solid_spacer_suitcase_2"/>
+		<position name="pos_subtract_spacer_suitcase_12" x="27.5" y="0" z="0"/>
+		<rotation name="rot_subtract_spacer_suitcase_12" x="0" y="0" z="0"/>
 	</subtraction>
 	<trd name="solid_mirror_box_bot_1" lunit="mm" x1="56.976"  x2="86.868" y1="266.0"  y2="266.0" z="67.462"/>
-	<trd name="solid_mirror_box_bot_2" lunit="mm" x1="55.976"  x2="85.868" y1="265.0"  y2="265.0" z="68.462"/>
+	<trd name="solid_mirror_box_bot_2" lunit="mm" x1="55.976"  x2="85.868" y1="265"  y2="265" z="68.462"/>
 	<subtraction name="solid_mirror_box_bot">
 		<first ref="solid_mirror_box_bot_1"/>
 		<second ref="solid_mirror_box_bot_2"/>
@@ -107,7 +120,7 @@
 		<rotation name="rot_subtract_mirror_box_bot_12" x="0" y="0" z="0"/>
 	</subtraction>
 	<trd name="solid_mirror_box_top_1" lunit="mm" x1="86.868"  x2="70.866" y1="266.0"  y2="70.866" z="183.058"/>
-	<trd name="solid_mirror_box_top_2" lunit="mm" x1="85.868"  x2="69.866" y1="265.0"  y2="69.866" z="184.058"/>
+	<trd name="solid_mirror_box_top_2" lunit="mm" x1="85.868"  x2="69.866" y1="265"  y2="69.866" z="184.058"/>
 	<subtraction name="solid_mirror_box_top">
 		<first ref="solid_mirror_box_top_1"/>
 		<second ref="solid_mirror_box_top_2"/>
@@ -117,12 +130,12 @@
 	<tube name="solid_pmt_filter" rmin="0" rmax="38.099999999999994" z="5.0" deltaphi="2*pi" startphi="0" aunit="rad" lunit="mm"/>
 	<tube name="solid_pmt_window" rmin="0" rmax="38.099999999999994" z="3.0" deltaphi="2*pi" startphi="0" aunit="rad" lunit="mm"/>
 	<tube name="solid_pmt_cathode" rmin="0" rmax="38.099999999999994" z="3e-06" deltaphi="2*pi" startphi="0" aunit="rad" lunit="mm"/>
-	<box name="solid_singledet" lunit="mm" x="800" y="350" z="200"/>
-	<box name="solid_showerMaxMother" lunit="mm" x="900" y="400" z="250"/>
+	<box name="solid_singledet" lunit="mm" x="800" y="300" z="200"/>
+	<box name="solid_showerMaxMother" lunit="mm" x="900" y="350" z="250"/>
 
-	<opticalsurface name="quartz_surface" model="glisur" finish="ground" type="dielectric_dielectric" value="0.96" >
+	<opticalsurface name="quartz_surface" model="glisur" finish="ground" type="dielectric_dielectric" value="0.98" >
 	</opticalsurface>
-	<opticalsurface name="Al_mirror_surface" model="glisur" finish="ground" type="dielectric_metal" value="0.96" >
+	<opticalsurface name="Al_mirror_surface" model="glisur" finish="ground" type="dielectric_metal" value="0.98" >
 		<property name="REFLECTIVITY" ref="MiroSilver_REFLECTIVITY_30DEG" />
 	</opticalsurface>
 	<opticalsurface name="Cathode_surface" model="glisur" finish="polished" type="dielectric_metal" value="1.0">
@@ -165,19 +178,13 @@
 		<materialref ref="Tungsten_material"/>
 		<solidref ref="solid_tungsten"/>
 	</volume>
+	<volume name="logic_spacer_suitcase_0">
+		<materialref ref="Nylon"/>
+		<solidref ref="solid_spacer_suitcase"/>
+	</volume>
 	<volume name="logic_suitcase_tungstenquartz_0">
 		<materialref ref="Aluminum_material"/>
 		<solidref ref="solid_suitcase_tungstenquartz"/>
-	</volume>
-	<volume name="logic_front_back_plate_0">
-		<materialref ref="G4_Al"/>
-		<solidref ref="solid_front_back_plate"/>
-		<auxiliary auxtype="Color" auxvalue="orange"/>
-	</volume>
-	<volume name="logic_front_plate_0">
-		<materialref ref="G4_Al"/>
-		<solidref ref="solid_front_plate"/>
-		<auxiliary auxtype="Color" auxvalue="orange"/>
 	</volume>
 	<volume name="logic_mirror_box_bot_0">
 		<materialref ref="Aluminum_material"/>
@@ -208,15 +215,10 @@
 			<position name="pos_logic_suitcase_tungstenquartz_0" x="0" y="0" z="0"/>
 			<rotation name="rot_logic_suitcase_tungstenquartz_0" x="0" y="0" z="0"/>
 		</physvol>
-		<physvol name="front_plate_0">
-			<volumeref ref="logic_front_plate_0"/>
-			<position name="pos_logic_front_plate_0" x="0" y="0" z="-35.663"/>
-			<rotation name="rot_logic_front_plate_0" x="0" y="0" z="0"/>
-		</physvol>
-		<physvol name="back_plate_0">
-			<volumeref ref="logic_front_back_plate_0"/>
-			<position name="pos_logic_back_plate_0" x="0" y="0" z="35.663"/>
-			<rotation name="rot_logic_back_plate_0" x="0" y="0" z="0"/>
+		<physvol name="spacer_suitcase_0">
+			<volumeref ref="logic_spacer_suitcase_0"/>
+			<position name="pos_logic_spacer_suitcase_0" x="0" y="0" z="0"/>
+			<rotation name="rot_logic_spacer_suitcase_0" x="0" y="0" z="0"/>
 		</physvol>
 		<physvol name="mirror_box_bot_0">
 			<volumeref ref="logic_mirror_box_bot_0"/>
@@ -228,13 +230,11 @@
 			<position name="pos_logic_mirror_box_top_0" x="249.84" y="0" z="4.0"/>
 			<rotation name="rot_logic_mirror_box_top_0" x="0" y="-pi/2" z="0"/>
 		</physvol>
-		<!--
 		<physvol name="pmt_filter_0">
 			<volumeref ref="logic_pmt_filter_0"/>
 			<position name="pos_logic_pmt_filter_0" x= "350.21900000000005" y="0" z="4.0"/>
 			<rotation name="rot_logic_pmt_filter_0" x="0" y="-pi/2" z="0"/>
 		</physvol>
-		-->
 		<physvol name="pmt_window_0">
 			<volumeref ref="logic_pmt_window_0"/>
 			<position name="pos_logic_pmt_window_0" x="354.21900000000005" y="0" z="4.0"/>
@@ -247,42 +247,42 @@
 		</physvol>
 		<physvol name="quartz_0_0">
 			<volumeref ref="logic_quartz_0_0"/>
-			<position name="pos_logic_quartz_0_0" x="0" y="0" z="28.118"/>
+			<position name="pos_logic_quartz_0_0" x="27.5" y="0" z="28.118"/>
 			<rotation name="rot_logic_quartz_0_0" x="pi/2" y="0" z="0"/>
 		</physvol>
 		<physvol name="tungsten_0_0">
 			<volumeref ref="logic_tungsten_0_0"/>
-			<position name="pos_logic_tungsten_0_0" x="0" y="0" z="20.248"/>
+			<position name="pos_logic_tungsten_0_0" x="27.5" y="0" z="20.248"/>
 			<rotation name="rot_logic_tungsten_0_0" x="0" y="0" z="0"/>
 		</physvol>
 		<physvol name="quartz_0_1">
 			<volumeref ref="logic_quartz_0_1"/>
-			<position name="pos_logic_quartz_0_1" x="0" y="0" z="12.378"/>
+			<position name="pos_logic_quartz_0_1" x="27.5" y="0" z="12.378"/>
 			<rotation name="rot_logic_quartz_0_1" x="-pi/2" y="0" z="0"/>
 		</physvol>
 		<physvol name="tungsten_0_1">
 			<volumeref ref="logic_tungsten_0_1"/>
-			<position name="pos_logic_tungsten_0_1" x="0" y="0" z="4.507999999999999"/>
+			<position name="pos_logic_tungsten_0_1" x="27.5" y="0" z="4.507999999999999"/>
 			<rotation name="rot_logic_tungsten_0_1" x="0" y="0" z="0"/>
 		</physvol>
 		<physvol name="quartz_0_2">
 			<volumeref ref="logic_quartz_0_2"/>
-			<position name="pos_logic_quartz_0_2" x="0" y="0" z="-3.362"/>
+			<position name="pos_logic_quartz_0_2" x="27.5" y="0" z="-3.362"/>
 			<rotation name="rot_logic_quartz_0_2" x="pi/2" y="0" z="0"/>
 		</physvol>
 		<physvol name="tungsten_0_2">
 			<volumeref ref="logic_tungsten_0_2"/>
-			<position name="pos_logic_tungsten_0_2" x="0" y="0" z="-11.232"/>
+			<position name="pos_logic_tungsten_0_2" x="27.5" y="0" z="-11.232"/>
 			<rotation name="rot_logic_tungsten_0_2" x="0" y="0" z="0"/>
 		</physvol>
 		<physvol name="quartz_0_3">
 			<volumeref ref="logic_quartz_0_3"/>
-			<position name="pos_logic_quartz_0_3" x="0" y="0" z="-19.102"/>
+			<position name="pos_logic_quartz_0_3" x="27.5" y="0" z="-19.102"/>
 			<rotation name="rot_logic_quartz_0_3" x="-pi/2" y="0" z="0"/>
 		</physvol>
 		<physvol name="tungsten_0_3">
 			<volumeref ref="logic_tungsten_0_3"/>
-			<position name="pos_logic_tungsten_0_3" x="0" y="0" z="-26.972"/>
+			<position name="pos_logic_tungsten_0_3" x="27.5" y="0" z="-26.972"/>
 			<rotation name="rot_logic_tungsten_0_3" x="0" y="0" z="0"/>
 		</physvol>
 		<auxiliary auxtype="Alpha" auxvalue="0.0"/>
@@ -299,7 +299,10 @@
 	</volume>
 
 	<skinsurface name="quartz_skin_surface" surfaceproperty="quartz_surface" >
-		<volumeref ref="logic_pmt_window_0"/>
+		<volumeref ref="logic_quartz_0_0"/>
+		<volumeref ref="logic_quartz_0_1"/>
+		<volumeref ref="logic_quartz_0_2"/>
+		<volumeref ref="logic_quartz_0_3"/>
 	</skinsurface>
 	<skinsurface name="suitcase_skin_surface" surfaceproperty="Al_mirror_surface" >
 		<volumeref ref="logic_suitcase_tungstenquartz_0"/>

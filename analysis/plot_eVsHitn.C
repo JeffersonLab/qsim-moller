@@ -37,8 +37,6 @@ void plot_eVsHitn(){
     int ymax = 1500;
     int nbins = 100; 
 
-    //string inFileDir = "/run/user/1000/gvfs/dav+sd:host=Spice%2520client%2520folder._webdav._tcp.local/qsim_rootfiles/qsim_02/";
-    //string inFileDir = "/run/user/1000/gvfs/sftp:host=sudips-mbp.local/Users/sudip/utm-ubuntu-shared/qsim_rootfiles/qsim_03/";
     //string inFileDir = Form("/volatile/halla/moller12gev/sudip/qsim_rootfiles/%s/",config.c_str());
     string inFileDir = "~/programs/qsim/qsim-showermax/rootfiles/";
     //string inRootFileName = Form("qsim_out_8GeV_%s_10k.root", geometry.c_str());
@@ -67,6 +65,7 @@ void plot_eVsHitn(){
         if (j%1000==0) cout << "Processed " << j << " events." << endl;
     }
 
+    gPad->SetRightMargin(0.13);
     h_eVsHitn->Draw("COLZ");
 
     //System->Exec(Form("mkdir -p plots/%s/",config.c_str()));

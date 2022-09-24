@@ -1,4 +1,5 @@
-// This script plots the hit.n distribution from qsim
+// This script plots the hit.n distribution from qsim. 
+// Several long pass filter are applied using TCuts and plotted in the same canvas
 
 #include <string>
 #include <iostream>
@@ -28,19 +29,18 @@ void plot_photonEnergyDistn(){
     string config = "qsim_07";
     string particle = "e";
     int lpValue[3] = {0, 350, 400};     //long pass filter wavelength
-    string geometry = "smBenchmark1stackQsim";
+    string geometry = "smRetroQsim";
+    string energy = "855MeV";
     int color[] = {kBlack, kRed, kGreen+2, kBlue, kMagenta};
 
     int xmin = 150;
     int xmax =700;
     int nbins = 500; 
 
-    //string inFileDir = "/run/user/1000/gvfs/dav+sd:host=Spice%2520client%2520folder._webdav._tcp.local/qsim_rootfiles/qsim_02/";
-    //string inFileDir = "/run/user/1000/gvfs/sftp:host=sudips-mbp.local/Users/sudip/utm-ubuntu-shared/qsim_rootfiles/qsim_03/";
     //string inFileDir = Form("/volatile/halla/moller12gev/sudip/qsim_rootfiles/%s/",config.c_str());
     string inFileDir = "~/programs/qsim/qsim-showermax/rootfiles/";
-    //string inRootFileName = Form("qsim_out_8GeV_%s_10k.root", geometry.c_str());
-    string inRootFileName = "qsim_out_e6.root";
+    string inRootFileName = Form("qsim_out_%s_%s_%s_10k.root", energy.c_str(), particle.c_str(), geometry.c_str());
+    //string inRootFileName = "qsim_out_855MeV_e_smRetroQsim_10k.root";
     string inRootFile;
     TH1F* h_hite[3];
     TPaveStats* stat[3];
@@ -64,7 +64,7 @@ void plot_photonEnergyDistn(){
                 nbins, xmin, xmax);
         h_hite[i]->SetLineColor(color[i+1]);
         h_hite[i]->SetFillColor(color[i+1]);
-        h_hite[i]->SetTitle("Hello");
+        h_hite[i]->SetTitle("Photon spectrum with diffferent long pass fiilters");
 
     } 
 

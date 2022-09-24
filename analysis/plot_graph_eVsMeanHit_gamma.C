@@ -28,10 +28,11 @@ void plot_graph_eVsMeanHit_gamma(){
     gStyle->SetOptFit();
     //TGaxis::SetMaxDigits(3);
     
-    string config = "qsim_08";
+    string config = "qsim_07";
     string particle = "gamma";
     string geometry = "smFullscaleQsim";
     int color[] = {kBlack, kRed, kBlue, kGreen+2, kMagenta,};
+    string fitFn = "pol3";
 
     vector<float> beamEnergy;
     vector<float> meanHits;
@@ -81,9 +82,9 @@ void plot_graph_eVsMeanHit_gamma(){
     grMean->SetDrawOption("AP");
     grMean->SetMarkerColor(kRed);
     grMean->Draw("AP");
-    grMean->Fit("pol3");
+    grMean->Fit(fitFn.c_str());
 
-    TF1* fit = (TF1*)grMean->GetFunction("pol3");
+    TF1* fit = (TF1*)grMean->GetFunction(fitFn.c_str());
     fit->SetLineColor(kBlue);
     fit->Print();
 

@@ -3,19 +3,21 @@
 # Change: config, beamEnergy, geometry, eventsNum and sourceDir as needed
 
 import os
+import numpy as np
 
 # Define variables
-config = "qsim_07"
-beamParticle = "gamma"
-beamEnergy = [100, 200, 500]#, 400, 500, 600, 700, 800, 900, 1000]
-#beamEnergy = [1, 2, 5, 8, 11]
+config = "qsim_11"
+beamParticle = "e-"
+beamEnergy = []
+for i in np.arange(0.5, 100.0, 0.5):
+    beamEnergy.append(i)
 energyUnit = "MeV"
 geometry = ["smBenchmark1quartzQsim",
             "smBenchmark1stackQsim",
             "smBenchmark2stackQsim",
             "smBenchmark3stackQsim",
             "smBenchmark4stackQsim",
-            "showermaxQsim"]
+            "smFullscaleQsim"]
 eventsNum = 10000
 #sourceDir = "/home/sudip/programs/qsim/qsim-showermax/"
 sourceDir = "/w/halla-scshelf2102/moller12gev/sudip/qsim/qsim-showermax/"

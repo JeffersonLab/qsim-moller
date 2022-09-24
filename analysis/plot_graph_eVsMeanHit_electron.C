@@ -80,6 +80,7 @@ void plot_graph_eVsMeanHit_electron(){
     grMean->SetTitle("Mean PE");
     grMean->SetDrawOption("AP");
     grMean->SetMarkerColor(kRed);
+    //grMean->GetYaxis()->SetRangeUser(-50, 400);
     grMean->Draw("AP");
     grMean->Fit("pol2");
 

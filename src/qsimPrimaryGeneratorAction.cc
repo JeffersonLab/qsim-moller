@@ -164,19 +164,10 @@ void qsimPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent) {
 	
 	if (fSourceMode == 2) {
 		int chosenEvent;
-		G4String extGenFileName ="InputEventDistribution/smPrimaryEventDistOpen.root"; 
+		//G4String extGenFileName ="InputEventDistribution/smEvGen_moller_open_electron.root"; 
+		G4String extGenFileName = fExtGenFileName;
 		TFile *primaryFile = new TFile(extGenFileName);
-		if (primaryFile==nullptr){
-			G4cerr << "Could not find the external file " << extGenFileName << G4endl;
-		} else{
-			G4cout << "Setting external generator file to " << extGenFileName << G4endl;
-		}
 		TTree *T = (TTree*)primaryFile->Get("T");
-		if (T == nullptr){
-			G4cerr << "Could not find tree T in event file " << extGenFileName << G4endl;
-		} else{
-			G4cout << "Reading tree T from event file " << extGenFileName << G4endl;
-		}
 		chosenEvent = rand() % T->GetEntries();
 		T->GetEntry(chosenEvent);
 		xPos = T->GetLeaf("x")->GetValue()*mm;
@@ -248,3 +239,6 @@ G4ParticleGun* qsimPrimaryGeneratorAction::GetParticleGun() {
 	return fParticleGun;
 } 
 
+void qsimPrimaryGeneratorAction::setExtEvGenerator(G4String filename){
+	fExtGenFileName = filename;
+}

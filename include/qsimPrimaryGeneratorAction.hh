@@ -24,6 +24,7 @@ class qsimPrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
 		bool pspectrum(double );
 		//void SourceModeSet();
 		void SourceModeSet(G4int );
+    void setExtEvGenerator(G4String );
 
 	private:
     G4ParticleGun* fParticleGun;
@@ -31,6 +32,7 @@ class qsimPrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
 
     qsimEvent *fDefaultEvent;
     qsimIO *fIO;
+    G4String fExtGenFileName;
 
   public:
 		G4double fXmin, fXmax, fYmin, fYmax;

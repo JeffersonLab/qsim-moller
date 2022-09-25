@@ -36,6 +36,10 @@ qsimMessenger::qsimMessenger(){
     fileCmd->SetGuidance("Output filename");
     fileCmd->SetParameterName("filename", false);
 
+    fEvGenCmd = new G4UIcmdWithAString("/qsim/evgenfilename",this);
+    fEvGenCmd->SetGuidance("Event generator (from remoll) file name");
+    fEvGenCmd->SetParameterName("evgenfilename", false);
+
     seedCmd = new G4UIcmdWithAnInteger("/qsim/seed",this);
     seedCmd->SetGuidance("Set random engine seed");
     seedCmd->SetParameterName("seed", false);
@@ -127,6 +131,10 @@ qsimMessenger::~qsimMessenger(){
 void qsimMessenger::SetNewValue(G4UIcommand* cmd, G4String newValue){
     if( cmd == fileCmd ){
 	fIO->SetFilename(newValue);
+    }
+
+    if( cmd == fEvGenCmd ){
+		fprigen->setExtEvGenerator(newValue);
     }
 
     if( cmd == seedCmd ){

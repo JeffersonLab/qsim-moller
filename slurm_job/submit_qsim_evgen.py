@@ -2,9 +2,7 @@
 #              It submits job for multiple gdml geomerties and different energies
 # Change: config, beamEnergy, geometry, eventsNum and sourceDir as needed
 
-from ast import Str
 import os
-import numpy as np
 
 # Define variables
 config = "qsim_12"

@@ -4,6 +4,7 @@ build*/
 slurm_job/*/
 plots/
 test/
+output_files
 
 #Files
 ./*.root

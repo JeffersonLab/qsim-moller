@@ -1,0 +1,30 @@
+# Example run macro for qsim
+
+# Set run mode
+#/qsim/fDetMode 1 
+#/qsim/fStandMode 0 
+/qsim/fSourceMode 1
+
+# Set detector properties
+#/qsim/fQuartzPolish 0.975 
+#/qsim/fDetAngle 0 deg
+#/qsim/fDetPosX 0 cm
+#/qsim/fDetPosY 0 cm
+
+/run/initialize 
+
+/qsim/filename rootfiles/qsim_05/qsim_out_1GeV_mu_smFullscale_10k_1002.root
+/qsim/seed 123456
+
+#/qsim/ymin -15 mm
+#/qsim/ymax 15 mm
+
+#/qsim/xmin 27.5 mm
+#/qsim/xmax 27.5 mm
+
+/qsim/emin 1 GeV
+/qsim/emax 1 GeV
+
+/gun/particle mu-
+
+/run/beamOn 10000

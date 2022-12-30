@@ -3,7 +3,7 @@
 # Set run mode
 #/qsim/fDetMode 1 
 #/qsim/fStandMode 0 
-/qsim/fSourceMode 2 
+/qsim/fSourceMode 1
 
 # Set detector properties
 #/qsim/fQuartzPolish 0.975 
@@ -13,12 +13,21 @@
 
 /run/initialize 
 
-/qsim/filename rootfiles/qsim_out.root
-/qsim/seed 50 
+/qsim/filename rootfiles/qsim_out_retro2.root
+#/qsim/seed 50 
 
-#/qsim/emin   5.0 GeV
-#/qsim/emax   5.0 GeV
+#/qsim/ymin -15 mm
+#/qsim/ymax 15 mm
 
-/gun/particle e- 
+/qsim/xmin 27.5 mm
+/qsim/xmax 27.5 mm
 
-/run/beamOn 1
+/qsim/emin 855 MeV
+/qsim/emax 855 MeV
+
+#/qsim/evgenfilename /run/user/1000/gvfs/sftp:host=sudips-mbp.local/Users/sudip/academics/Research/Scripts/moller-analysis/rootfiles/sm_qsim_v02/smEvGen_moller_trans_electron.root
+
+/gun/particle e-
+
+
+/run/beamOn 1000

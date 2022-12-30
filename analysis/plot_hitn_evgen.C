@@ -27,10 +27,12 @@ void plot_hitn_evgen(){
     //TGaxis::SetMaxDigits(3);
     
     string config = "qsim_20";
+    string generator[] = {"moller", "elastic", "inelastic"};
     string sector[] = {"open", "closed", "trans"};
     string particle[] = {"electron", "gamma"};
     string geometry = "smFullscaleQsim";
-    int color[3][2] = {{kBlack, kRed}, {kGreen+2, kBlue}, {kMagenta, kBrownCyan}};
+    int color[3][2] = {{kBlack, kRed}, {kGreen+2, kBlue}, {kMagenta, kCyan+2}};
+    int nGen = 3;
     int nSector = 3;
     int nParticle = 2;
 
@@ -44,67 +46,70 @@ void plot_hitn_evgen(){
     TString inRootFileName[nSector][nParticle];
 
     TH1D *h_hitn[nSector][nParticle];
-    TCanvas* c1 = new TCanvas("c1", "Photon distribution");
+    TCanvas *c[nGen];
 
-    for (int iSector=0; iSector<nSector; iSector++){
-        for (int iParticle=0; iParticle<nParticle; iParticle++){
-            inRootFileName[iSector][iParticle] = Form("qsim_out_moller_%s_%s.root", sector[iSector].c_str(), particle[iParticle].c_str());
-            TString inRootFile = inFileDir + inRootFileName[iSector][iParticle];
-            
-            TFile *inFile = new TFile(inRootFile, "READ");
-            TTree *T = (TTree*)inFile->Get("T");
-            
-            T->Draw(Form("hit.n>>h_hitn_%s_%s", sector[iSector].c_str(), particle[iParticle].c_str()), "", "goff");
-            //h_hitn[iSector][iParticle] = new TH1D(Form("h_hitn_%s_%s", sector[iSector].c_str(), particle[iParticle].c_str()), 
-                    //Form("PE hits distribution of %s, %s sector, %s;PE per event; Counts/bin", geometry.c_str(), sector[iSector].c_str(), particle[iParticle].c_str()),
-                    //nbins, hist_xmin, hist_xmax);
+    for (int iGen=0; iGen<nGen; iGen++){
+        c[iGen] = new TCanvas(Form("c_%s", generator[iGen].c_str()), "Photon distribution");
+        for (int iSector=0; iSector<nSector; iSector++){
+            for (int iParticle=0; iParticle<nParticle; iParticle++){
+                inRootFileName[iSector][iParticle] = Form("qsim_out_%s_%s_%s.root", generator[iGen].c_str(), sector[iSector].c_str(), particle[iParticle].c_str());
+                TString inRootFile = inFileDir + inRootFileName[iSector][iParticle];
+                
+                TFile *inFile = new TFile(inRootFile, "READ");
+                TTree *T = (TTree*)inFile->Get("T");
+                
+                T->Draw(Form("hit.n>>h_hitn_%s_%s", sector[iSector].c_str(), particle[iParticle].c_str()), "", "goff");
+                //h_hitn[iSector][iParticle] = new TH1D(Form("h_hitn_%s_%s", sector[iSector].c_str(), particle[iParticle].c_str()), 
+                        //Form("PE hits distribution of %s, %s sector, %s;PE per event; Counts/bin", geometry.c_str(), sector[iSector].c_str(), particle[iParticle].c_str()),
+                        //nbins, hist_xmin, hist_xmax);
 
-            h_hitn[iSector][iParticle] = (TH1D*)gDirectory->FindObject(Form("h_hitn_%s_%s", sector[iSector].c_str(), particle[iParticle].c_str()));
+                h_hitn[iSector][iParticle] = (TH1D*)gDirectory->FindObject(Form("h_hitn_%s_%s", sector[iSector].c_str(), particle[iParticle].c_str()));
 
+            }
         }
-    }
 
-    for (int iSector=0; iSector<nSector; iSector++){
-        for (int iParticle=0; iParticle<nParticle; iParticle++){
-            h_hitn[iSector][iParticle]->SetTitle("PE Response; PE yield; Counts/bin");
-            h_hitn[iSector][iParticle]->SetMarkerStyle(20);
-            h_hitn[iSector][iParticle]->SetMarkerSize(1.5);
-            h_hitn[iSector][iParticle]->SetLineColor(color[iSector][iParticle]);
-            h_hitn[iSector][iParticle]->SetAxisRange(0, 1000, "Y");
-            h_hitn[iSector][iParticle]->Draw("hist sames");
+        for (int iSector=0; iSector<nSector; iSector++){
+            for (int iParticle=0; iParticle<nParticle; iParticle++){
+                h_hitn[iSector][iParticle]->SetTitle(Form("PE Response of %s generator; PE/event; Counts/bin", generator[iGen].c_str()));
+                h_hitn[iSector][iParticle]->SetMarkerStyle(20);
+                h_hitn[iSector][iParticle]->SetMarkerSize(1.5);
+                h_hitn[iSector][iParticle]->SetLineColor(color[iSector][iParticle]);
+                h_hitn[iSector][iParticle]->SetAxisRange(0, 1000, "Y");
+                h_hitn[iSector][iParticle]->Draw("hist sames");
+            }
         }
-    }
 
-    TPaveStats* stat[nSector][nParticle];
-    TLatex * res = new TLatex();
-    res->SetTextFont(42);
-    res->SetTextSize(0.03);
+        TPaveStats* stat[nSector][nParticle];
+        TLatex * res = new TLatex();
+        res->SetTextFont(42);
+        res->SetTextSize(0.03);
 
-    c1->Update();
-    float widthStat = 0.25; //width of a stat box
-    float heightStat = 0.20;
-    float gap = 0.05;
-    int nColStat = nSector;   //number of columns of the stat boxes
-    
-    for (int iSector=0; iSector<nSector; iSector++){
-        for (int iParticle=0; iParticle<nParticle; iParticle++){
-            //h_hitn[iSector][iParticle]->SetStats("neMR");
-            stat[iSector][iParticle] = (TPaveStats*)h_hitn[iSector][iParticle]->FindObject("stats");
-            //stat[iSector][iParticle] = (TPaveStats*)c1->GetPrimitive("stats");
-            stat[iSector][iParticle]->SetTextColor(color[iSector][iParticle]);
-            stat[iSector][iParticle]->SetX1NDC(0.9-(iSector+1)*widthStat);
-            stat[iSector][iParticle]->SetX2NDC(0.9-(iSector)*widthStat);
-            stat[iSector][iParticle]->SetY1NDC(0.9-(iParticle)*heightStat);
-            stat[iSector][iParticle]->SetY2NDC(0.9-(iParticle+1)*(heightStat)+gap);
+        c[iGen]->Update();
+        float widthStat = 0.25; //width of a stat box
+        float heightStat = 0.20;
+        float gap = 0.05;
+        int nColStat = nSector;   //number of columns of the stat boxes
+        
+        for (int iSector=0; iSector<nSector; iSector++){
+            for (int iParticle=0; iParticle<nParticle; iParticle++){
+                //h_hitn[iSector][iParticle]->SetStats("neMR");
+                stat[iSector][iParticle] = (TPaveStats*)h_hitn[iSector][iParticle]->FindObject("stats");
+                //stat[iSector][iParticle] = (TPaveStats*)c1->GetPrimitive("stats");
+                stat[iSector][iParticle]->SetTextColor(color[iSector][iParticle]);
+                stat[iSector][iParticle]->SetX1NDC(0.9-(iSector+1)*widthStat);
+                stat[iSector][iParticle]->SetX2NDC(0.9-(iSector)*widthStat);
+                stat[iSector][iParticle]->SetY1NDC(0.9-(iParticle)*heightStat);
+                stat[iSector][iParticle]->SetY2NDC(0.9-(iParticle+1)*(heightStat)+gap);
 
-            //stat[iSector][iParticle]->Print();
-            stat[iSector][iParticle]->Draw();
+                //stat[iSector][iParticle]->Print();
+                stat[iSector][iParticle]->Draw();
 
-            //Resolution print in the pad
-            res->DrawLatexNDC(0.9-(iSector+1)*widthStat+0.01, 0.9-(iParticle+1)*heightStat+0.015, Form("RMS/Mean = %0.1f", h_hitn[iSector][iParticle]->GetStdDev()/h_hitn[iSector][iParticle]->GetMean()));
+                //Resolution print in the pad
+                res->DrawLatexNDC(0.9-(iSector+1)*widthStat+0.01, 0.9-(iParticle+1)*heightStat+0.015, Form("RMS/Mean = %0.1f", h_hitn[iSector][iParticle]->GetStdDev()/h_hitn[iSector][iParticle]->GetMean()));
+            }
         }
+        c[iGen]->SaveAs(Form("./plots/%s/hitDistn_%s.pdf",config.c_str(), generator[iGen].c_str()));
     }
-    c1->SaveAs(Form("~/programs/qsim/qsim-showermax/plots/%s/hitDistn_evGen.pdf",config.c_str()));
 
 /*
     double rms = h_hitn->GetRMS();

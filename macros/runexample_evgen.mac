@@ -1,0 +1,33 @@
+# Example run macro for qsim
+
+# Set run mode
+#/qsim/fDetMode 1 
+#/qsim/fStandMode 0 
+/qsim/fSourceMode 2
+
+# Set detector properties
+#/qsim/fQuartzPolish 0.975 
+#/qsim/fDetAngle 0 deg
+#/qsim/fDetPosX 0 cm
+#/qsim/fDetPosY 0 cm
+
+/run/initialize 
+
+/qsim/filename rootfiles/qsim_out_evgen3.root
+/qsim/seed 50 
+
+#/qsim/ymin -15 mm
+#/qsim/ymax 15 mm
+
+#/qsim/xmin 27.5 mm
+#/qsim/xmax 27.5 mm
+
+#/qsim/emin 2 GeV
+#/qsim/emax 2 GeV
+
+/qsim/evgenfilename /run/user/1000/gvfs/sftp:host=sudips-mbp.local/Users/sudip/academics/Research/Scripts/moller-analysis/rootfiles/sm_qsim_v02/smEvGen_moller_open_electron.root
+
+/gun/particle e-
+
+
+/run/beamOn 1

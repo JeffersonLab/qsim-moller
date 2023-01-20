@@ -25,9 +25,10 @@
 #/qsim/emin 2 GeV
 #/qsim/emax 2 GeV
 
-/qsim/evgenfilename /run/user/1000/gvfs/sftp:host=sudips-mbp.local/Users/sudip/academics/Research/Scripts/moller-analysis/rootfiles/sm_qsim_v02/smEvGen_moller_open_electron.root
+/qsim/evgenfilename /run/user/1000/gvfs/sftp:host=sudips-mbp.local/Users/sudip/academics/Research/Scripts/moller-analysis/rootfiles/sm_qsim_v04/smEvGen_beam_open_0.root
+#/qsim/evgenfilename InputEventDistribution/smEvGen_moller_open_electron.root
+#/qsim/evgenfilename InputEventDistribution/smEvGen_moller_open_gamma.root
 
-/gun/particle e-
 
 
 /run/beamOn 1

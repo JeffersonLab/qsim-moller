@@ -25,6 +25,7 @@ class qsimPrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
 		//void SourceModeSet();
 		void SourceModeSet(G4int );
     void setExtEvGenerator(G4String );
+    static G4String GetExtEvParticleName(G4int);
 
 	private:
     G4ParticleGun* fParticleGun;
@@ -39,6 +40,12 @@ class qsimPrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
     G4double fZ;
     G4double fEmin, fEmax;
 		G4double fthetaMin, fthetaMax;
+    G4double xPos, yPos, zPos;  // Positions of the event particle generated
+    G4double p, pX, pY, pZ;  // Momentum of the event
+    G4double E;           // Energy of the event
+    G4int pid;            // Particle ID
+    G4int nEvents;        // number of events for fSource==2, get from event generator file.
+
 };
 
 #endif

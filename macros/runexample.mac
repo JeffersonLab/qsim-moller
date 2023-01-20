@@ -25,7 +25,6 @@
 /qsim/emin 855 MeV
 /qsim/emax 855 MeV
 
-#/qsim/evgenfilename /run/user/1000/gvfs/sftp:host=sudips-mbp.local/Users/sudip/academics/Research/Scripts/moller-analysis/rootfiles/sm_qsim_v02/smEvGen_moller_trans_electron.root
 
 /gun/particle e-
 

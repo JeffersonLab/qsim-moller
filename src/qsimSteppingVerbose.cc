@@ -42,66 +42,59 @@
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-qsimSteppingVerbose::qsimSteppingVerbose()
-{
-       outfile = new TFile("rootfiles/qsim_trackEvent.root","RECREATE");
-       tree = new TTree("tree", "qsim traking file");
-       tree->Branch("EventID",&EventID,"EventID/I");
-       tree->Branch("PDGEncoding",&PDGEncoding,"PDGEncoding/I");
-       tree->Branch("ParticleName",&ParticleName);
-       tree->Branch("StepNumber",&StepNumber,"StepNumber/I");
-       tree->Branch("TrackID",&TrackID,"TrackID/I");
-       tree->Branch("ParentID",&ParentID,"ParentID/I");
-       tree->Branch("Position_x",&Position_x,"Position_x/D");
-       tree->Branch("Position_y",&Position_y,"Position_y/D");
-       tree->Branch("Position_z",&Position_z,"Position_z/D");
-       tree->Branch("Momentum_x",&Momentum_x,"Momentum_x/D");
-       tree->Branch("Momentum_y",&Momentum_y,"Momentum_y/D");
-       tree->Branch("Momentum_z",&Momentum_z,"Momentum_z/D");
-       tree->Branch("KineticEnergy",&KineticEnergy,"KineticEnergy/D");
-       tree->Branch("VolumeName",&VolumeName);
-       tree->Branch("ProcessName",&ProcessName);
+qsimSteppingVerbose::qsimSteppingVerbose() {
+    outfile = new TFile("rootfiles/qsim_trackEvent.root","RECREATE");
+    tree = new TTree("tree", "qsim traking file");
+    tree->Branch("EventID",&EventID,"EventID/I");
+    tree->Branch("PDGEncoding",&PDGEncoding,"PDGEncoding/I");
+    tree->Branch("ParticleName",&ParticleName);
+    tree->Branch("StepNumber",&StepNumber,"StepNumber/I");
+    tree->Branch("TrackID",&TrackID,"TrackID/I");
+    tree->Branch("ParentID",&ParentID,"ParentID/I");
+    tree->Branch("Position_x",&Position_x,"Position_x/D");
+    tree->Branch("Position_y",&Position_y,"Position_y/D");
+    tree->Branch("Position_z",&Position_z,"Position_z/D");
+    tree->Branch("Momentum_x",&Momentum_x,"Momentum_x/D");
+    tree->Branch("Momentum_y",&Momentum_y,"Momentum_y/D");
+    tree->Branch("Momentum_z",&Momentum_z,"Momentum_z/D");
+    tree->Branch("KineticEnergy",&KineticEnergy,"KineticEnergy/D");
+    tree->Branch("VolumeName",&VolumeName);
+    tree->Branch("ProcessName",&ProcessName);
 
-       //tree->Write();
+    //tree->Write();
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-qsimSteppingVerbose::~qsimSteppingVerbose()
-{
- //outfile->cd();
- //tree->Write();
- outfile->Close();
+qsimSteppingVerbose::~qsimSteppingVerbose() {
+    //outfile->cd();
+    //tree->Write();
+    outfile->Close();
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void qsimSteppingVerbose::StepInfo()
-{
-  CopyState();
-  
-  G4int prec = G4cout.precision(3);
+void qsimSteppingVerbose::StepInfo() {
+    CopyState();
+    G4int prec = G4cout.precision(3);
 
-  //if(fTrack->GetVolume()->GetName()=="Quartz" && fTrack->GetCurrentStepNumber()==1 && fTrack->GetKineticEnergy()>0)
-    //{
-      EventID = G4EventManager::GetEventManager()->GetConstCurrentEvent()->GetEventID();
-      PDGEncoding = fTrack->GetDefinition()->GetPDGEncoding();
-      ParticleName = fTrack->GetDefinition()->GetParticleName();
-      StepNumber = fTrack->GetCurrentStepNumber();
-      TrackID = fTrack->GetTrackID();
-      ParentID = fStep->GetTrack()->GetParentID();
-      Position_x = fTrack->GetPosition().x();
-      Position_y = fTrack->GetPosition().y();
-      Position_z = fTrack->GetPosition().z();
-      Momentum_x = fTrack->GetMomentum().x();
-      Momentum_y = fTrack->GetMomentum().y();
-      Momentum_z = fTrack->GetMomentum().z();
-      KineticEnergy = fTrack->GetKineticEnergy();
-      VolumeName = fTrack->GetVolume()->GetName();
-      ProcessName = fStep->GetPostStepPoint()->GetProcessDefinedStep()->GetProcessName();
+    EventID = G4EventManager::GetEventManager()->GetConstCurrentEvent()->GetEventID();
+    PDGEncoding = fTrack->GetDefinition()->GetPDGEncoding();
+    ParticleName = fTrack->GetDefinition()->GetParticleName();
+    StepNumber = fTrack->GetCurrentStepNumber();
+    TrackID = fTrack->GetTrackID();
+    ParentID = fStep->GetTrack()->GetParentID();
+    Position_x = fTrack->GetPosition().x();
+    Position_y = fTrack->GetPosition().y();
+    Position_z = fTrack->GetPosition().z();
+    Momentum_x = fTrack->GetMomentum().x();
+    Momentum_y = fTrack->GetMomentum().y();
+    Momentum_z = fTrack->GetMomentum().z();
+    KineticEnergy = fTrack->GetKineticEnergy();
+    VolumeName = fTrack->GetVolume()->GetName();
+    ProcessName = fStep->GetPostStepPoint()->GetProcessDefinedStep()->GetProcessName();
 
-      tree->Fill();      
-    //}
+    tree->Fill();      
 
   if( verboseLevel >= 1 ){
     //if( verboseLevel >= 4 ) VerboseTrack();

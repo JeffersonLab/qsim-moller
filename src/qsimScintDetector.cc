@@ -16,7 +16,6 @@ qsimScintDetector::qsimScintDetector( G4String name, G4int detnum ) : G4VSensiti
 
     sprintf(colname, "scihit_%s_%d", name.data(), detnum);
     collectionName.insert(G4String(colname));
-
 }
 
 qsimScintDetector::~qsimScintDetector(){

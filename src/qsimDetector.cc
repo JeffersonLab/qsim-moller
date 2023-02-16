@@ -13,7 +13,6 @@ qsimDetector::qsimDetector( G4String name, G4int detnum ) : G4VSensitiveDetector
     
     G4String colname = "genhit_" + name + "_" + std::to_string(detnum);
     collectionName.insert(colname);
-
 }
 
 qsimDetector::~qsimDetector(){

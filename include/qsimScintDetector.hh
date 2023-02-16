@@ -8,9 +8,7 @@
 
 /*! 
       Default detector class.  This will record information on:
-
       - Primary generated hit information
-
 */
 
 class G4HCofThisEvent;

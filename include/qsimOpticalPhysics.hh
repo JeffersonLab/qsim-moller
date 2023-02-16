@@ -14,37 +14,33 @@
 
 #include "G4VPhysicsConstructor.hh"
 
-class qsimOpticalPhysics : public G4VPhysicsConstructor
-{
-  public:
+class qsimOpticalPhysics : public G4VPhysicsConstructor {
+    public:
+        qsimOpticalPhysics(G4bool toggle=true);
+        virtual ~qsimOpticalPhysics();
 
-    qsimOpticalPhysics(G4bool toggle=true);
-    virtual ~qsimOpticalPhysics();
+        virtual void ConstructParticle();
+        virtual void ConstructProcess();
 
-    virtual void ConstructParticle();
-    virtual void ConstructProcess();
+        G4OpWLS* GetWLSProcess() {return theWLSProcess;}
+        G4Cerenkov* GetCerenkovProcess() {return theCerenkovProcess;}
+        G4Scintillation* GetScintillationProcess() {return theScintProcess;}
+        G4OpAbsorption* GetAbsorptionProcess() {return theAbsorptionProcess;}
+        G4OpRayleigh* GetRayleighScatteringProcess() {return theRayleighScattering;}
+        G4OpMieHG* GetMieHGScatteringProcess() {return theMieHGScatteringProcess;}
+        G4OpBoundaryProcess* GetBoundaryProcess() { return theBoundaryProcess;}
 
-    G4OpWLS* GetWLSProcess() {return theWLSProcess;}
-    G4Cerenkov* GetCerenkovProcess() {return theCerenkovProcess;}
-    G4Scintillation* GetScintillationProcess() {return theScintProcess;}
-    G4OpAbsorption* GetAbsorptionProcess() {return theAbsorptionProcess;}
-    G4OpRayleigh* GetRayleighScatteringProcess() {return theRayleighScattering;}
-    G4OpMieHG* GetMieHGScatteringProcess() {return theMieHGScatteringProcess;}
-    G4OpBoundaryProcess* GetBoundaryProcess() { return theBoundaryProcess;}
+        void SetNbOfPhotonsCerenkov(G4int);
 
-    void SetNbOfPhotonsCerenkov(G4int);
-
-private:
-
-    G4OpWLS*             theWLSProcess;
-    G4Cerenkov*          theCerenkovProcess;
-    G4Scintillation*     theScintProcess;
-    G4OpAbsorption*      theAbsorptionProcess;
-    G4OpRayleigh*        theRayleighScattering;
-    G4OpMieHG*           theMieHGScatteringProcess;
-    G4OpBoundaryProcess* theBoundaryProcess;
- 
-    G4bool AbsorptionOn;
+    private:
+        G4OpWLS*             theWLSProcess;
+        G4Cerenkov*          theCerenkovProcess;
+        G4Scintillation*     theScintProcess;
+        G4OpAbsorption*      theAbsorptionProcess;
+        G4OpRayleigh*        theRayleighScattering;
+        G4OpMieHG*           theMieHGScatteringProcess;
+        G4OpBoundaryProcess* theBoundaryProcess;
+        G4bool AbsorptionOn;
 
 };
 #endif//__QSIMOPTICALPHYSICS_HH 

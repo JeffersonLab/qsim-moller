@@ -33,29 +33,14 @@ qsim - Quartz Detector Simluation
 #include "G4GDMLParser.hh"
 #include <G4UIterminal.hh>
 
-//#ifdef G4UI_USE_QT
 #include "G4UIQt.hh"
-//#endif
-
-//#ifdef G4UI_USE_XM
-//#include "G4UIXm.hh"
-//#endif
-
-//#ifdef G4UI_USE_TCSH
 #include "G4UItcsh.hh"
-//#endif
-
-//#ifdef G4VIS_USE
 #include "G4VisExecutive.hh"
-//#endif
 
 #include <sys/types.h>
 #include <sys/stat.h>
 
 int main(int argc, char** argv){
-	
-	// Initialize the CLHEP random engine used by
-	// "shoot" type functions
 	
 	unsigned int seed = time(0);
 	
@@ -125,7 +110,7 @@ int main(int argc, char** argv){
 	
 	// Initialize Run manager
 	
-	//runManager->Initialize(); 
+	runManager->Initialize(); 
 	
 	// do initialization in all macro files, 
 	//see remoll examples for assistance. 
@@ -157,7 +142,6 @@ int main(int argc, char** argv){
 	G4VisManager* visManager = new G4VisExecutive;
 	//visManager -> SetVerboseLevel (1);
 	visManager ->Initialize();
-	//#endif
 	
 	//get the pointer to the User Interface manager
 	G4UImanager * UI = G4UImanager::GetUIpointer();

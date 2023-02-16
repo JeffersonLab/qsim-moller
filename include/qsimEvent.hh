@@ -18,12 +18,12 @@ class qsimEvent {
 		qsimEvent();
 		~qsimEvent();
 
-	void ProduceNewParticle( G4ThreeVector, G4ThreeVector, G4String );
-	void Reset();
-	void UndoLastParticle();
+		void ProduceNewParticle( G4ThreeVector, G4ThreeVector, G4String );
+		void Reset();
+		void UndoLastParticle();
 
-	G4bool EventIsSane();
-	void   Print();
+		G4bool EventIsSane();
+		void   Print();
 
     public:
 		// Particles to be produced

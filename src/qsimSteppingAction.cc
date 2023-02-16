@@ -6,10 +6,7 @@
 #include "G4VisAttributes.hh"
 #include "G4SteppingManager.hh"
 
-qsimSteppingAction::qsimSteppingAction()
-:drawFlag(false)
-{
-
+qsimSteppingAction::qsimSteppingAction() :drawFlag(false) {
 }
 
 void qsimSteppingAction::UserSteppingAction(const G4Step *aStep) {

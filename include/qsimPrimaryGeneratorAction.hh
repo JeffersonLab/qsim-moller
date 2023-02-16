@@ -10,34 +10,33 @@ class G4Event;
 class qsimIO;
 class qsimEvent;
 
-class qsimPrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
-{
-  public:
-    qsimPrimaryGeneratorAction();
-    ~qsimPrimaryGeneratorAction();
+class qsimPrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction {
+    public:
+        qsimPrimaryGeneratorAction();
+        ~qsimPrimaryGeneratorAction();
 
-  public:
-    void GeneratePrimaries(G4Event* anEvent);
-    G4ParticleGun* GetParticleGun();
-    void SetIO( qsimIO *io ){ fIO = io; }
+    public:
+        void GeneratePrimaries(G4Event* anEvent);
+        G4ParticleGun* GetParticleGun();
+        void SetIO( qsimIO *io ){ fIO = io; }
 		bool Thetaspectrum(double );
 		bool pspectrum(double );
 		//void SourceModeSet();
 		void SourceModeSet(G4int );
-    void setExtEvGenerator(G4String );
+        void setExtEvGenerator(G4String );
 
 	private:
-    G4ParticleGun* fParticleGun;
+        G4ParticleGun* fParticleGun;
 		G4int fSourceMode;
 
-    qsimEvent *fDefaultEvent;
-    qsimIO *fIO;
-    G4String fExtGenFileName;
+        qsimEvent *fDefaultEvent;
+        qsimIO *fIO;
+        G4String fExtGenFileName;
 
   public:
 		G4double fXmin, fXmax, fYmin, fYmax;
-    G4double fZ;
-    G4double fEmin, fEmax;
+        G4double fZ;
+        G4double fEmin, fEmax;
 		G4double fthetaMin, fthetaMax;
 };
 

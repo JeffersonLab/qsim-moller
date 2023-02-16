@@ -41,8 +41,8 @@ void qsimIO::SetFilename(G4String fn){
 
 void qsimIO::InitializeTree(){
     if( fFile ){
-	fFile->Close();
-	delete fFile;
+        fFile->Close();
+        delete fFile;
     }
 
     fFile = new TFile(fFilename, "RECREATE");
@@ -104,8 +104,8 @@ void qsimIO::InitializeTree(){
 
 void qsimIO::FillTree(){
     if( !fTree ){ 
-	fprintf(stderr, "Error %s: %s line %d - Trying to fill non-existant tree\n", __PRETTY_FUNCTION__, __FILE__, __LINE__ );
-	return; 
+        fprintf(stderr, "Error %s: %s line %d - Trying to fill non-existant tree\n", __PRETTY_FUNCTION__, __FILE__, __LINE__ );
+        return; 
     }
 
     fTree->Fill();
@@ -122,8 +122,8 @@ void qsimIO::WriteTree(){
     assert( fTree );
 
     if( !fFile->IsOpen() ){
-	G4cerr << "ERROR: " << __FILE__ << " line " << __LINE__ << ": TFile not open" << G4endl;
-	exit(1);
+        G4cerr << "ERROR: " << __FILE__ << " line " << __LINE__ << ": TFile not open" << G4endl;
+        exit(1);
     }
 
     G4cout << "Writing output to " << fFile->GetName() << "... ";
@@ -174,7 +174,7 @@ void qsimIO::AddDetectorHit(qsimDetectorHit *hit){
     //printf("%d hits in detector\n", fNDetHit );
 
     if( n >= __IO_MAXHIT ){
-//	G4cerr << "WARNING: " << __PRETTY_FUNCTION__ << " line " << __LINE__ << ":  Buffer size exceeded!" << G4endl;
+    //G4cerr << "WARNING: " << __PRETTY_FUNCTION__ << " line " << __LINE__ << ":  Buffer size exceeded!" << G4endl;
 	return;
     }
 
@@ -217,7 +217,7 @@ void qsimIO::AddDetectorHit(qsimDetectorHit *hit){
 void qsimIO::AddScintDetectorHit(qsimScintDetectorHit *hit){
     int n = fNScintDetHit;
     if( n >= __IO_MAXHIT ){
-//	G4cerr << "WARNING: " << __PRETTY_FUNCTION__ << " line " << __LINE__ << ":  Buffer size exceeded!" << G4endl;
+    //G4cerr << "WARNING: " << __PRETTY_FUNCTION__ << " line " << __LINE__ << ":  Buffer size exceeded!" << G4endl;
 	return;
     }
 

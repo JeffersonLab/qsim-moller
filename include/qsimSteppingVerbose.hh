@@ -44,38 +44,35 @@ class qsimSteppingVerbose;
 class TFile;
 class TTree;
 
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-class qsimSteppingVerbose : public G4SteppingVerbose
-{
- public:   
+class qsimSteppingVerbose : public G4SteppingVerbose {
+    public:   
+        qsimSteppingVerbose();
+        ~qsimSteppingVerbose();
 
-   qsimSteppingVerbose();
-  ~qsimSteppingVerbose();
+        void StepInfo();
+        void TrackingStarted();
 
-   void StepInfo();
-   void TrackingStarted();
+    private:
+        TFile *outfile;
+        TTree *tree;
 
- private:
-   TFile *outfile;
-   TTree *tree;
-
-   int EventID;
-   int PDGEncoding;
-   std::string ParticleName;
-   int StepNumber;
-   int TrackID;
-   int ParentID;
-   double Position_x;
-   double Position_y;
-   double Position_z;
-   double Momentum_x;
-   double Momentum_y;
-   double Momentum_z;
-   double KineticEnergy;
-   std::string VolumeName;
-   std::string ProcessName;
+        int EventID;
+        int PDGEncoding;
+        std::string ParticleName;
+        int StepNumber;
+        int TrackID;
+        int ParentID;
+        double Position_x;
+        double Position_y;
+        double Position_z;
+        double Momentum_x;
+        double Momentum_y;
+        double Momentum_z;
+        double KineticEnergy;
+        std::string VolumeName;
+        std::string ProcessName;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

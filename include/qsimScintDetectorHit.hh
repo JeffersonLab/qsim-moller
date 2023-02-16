@@ -8,37 +8,37 @@
 
 class qsimScintDetectorHit : public G4VHit {
     public:
-	qsimScintDetectorHit(G4int, G4int);
-	~qsimScintDetectorHit();
+		qsimScintDetectorHit(G4int, G4int);
+		~qsimScintDetectorHit();
 
-	qsimScintDetectorHit(const qsimScintDetectorHit &right);
-	const qsimScintDetectorHit& operator=(const qsimScintDetectorHit &right);
-	G4int operator==(const qsimScintDetectorHit &right) const;
+		qsimScintDetectorHit(const qsimScintDetectorHit &right);
+		const qsimScintDetectorHit& operator=(const qsimScintDetectorHit &right);
+		G4int operator==(const qsimScintDetectorHit &right) const;
 
-	inline void *operator new(size_t);
-	inline void operator delete(void *aHit);
-	void *operator new(size_t,void*p){return p;}
+		inline void *operator new(size_t);
+		inline void operator delete(void *aHit);
+		void *operator new(size_t,void*p){return p;}
 
     private:
 
-    public:
-	G4int fDetID;
-	G4int fCopyID;
+		public:
+		G4int fDetID;
+		G4int fCopyID;
 
-	// Position and momentum in lab coordinates
-	G4ThreeVector f3X;
-	G4ThreeVector f3P;
-	// Total momentum, energy, mass
-	G4double fP, fE, fM;
-	// Origin
-	G4ThreeVector f3V;
-	G4ThreeVector f3D;
-	// Geant4 track ID, particle type, and mother ID
-	G4int    fTrID, fPID, fmTrID;
-	// Process generator type
-	G4int    fGen;
+		// Position and momentum in lab coordinates
+		G4ThreeVector f3X;
+		G4ThreeVector f3P;
+		// Total momentum, energy, mass
+		G4double fP, fE, fM;
+		// Origin
+		G4ThreeVector f3V;
+		G4ThreeVector f3D;
+		// Geant4 track ID, particle type, and mother ID
+		G4int    fTrID, fPID, fmTrID;
+		// Process generator type
+		G4int    fGen;
 
-	G4double fEdep;
+		G4double fEdep;
 };
 
 

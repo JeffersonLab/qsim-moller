@@ -20,6 +20,7 @@
 
 #include <iostream>
 
+
 qsimMessenger::qsimMessenger(){
     /*  Initialize all the things it talks to to NULL */
 
@@ -126,7 +127,6 @@ qsimMessenger::qsimMessenger(){
 
 qsimMessenger::~qsimMessenger(){
 }
-
 
 void qsimMessenger::SetNewValue(G4UIcommand* cmd, G4String newValue){
     if( cmd == fileCmd ){
@@ -245,5 +245,4 @@ void qsimMessenger::SetNewValue(G4UIcommand* cmd, G4String newValue){
 		G4double x = fZCmd->GetNewDoubleValue(newValue);
 		fprigen->fZ = x;
     }
-
 }

@@ -1,0 +1,31 @@
+# Example run macro for qsim
+
+# Set run mode
+#/qsim/fDetMode 1 
+#/qsim/fStandMode 0 
+/qsim/fSourceMode 1
+
+# Set detector properties
+#/qsim/fQuartzPolish 0.975 
+#/qsim/fDetAngle 0 deg
+#/qsim/fDetPosX 0 cm
+#/qsim/fDetPosY 0 cm
+
+/run/initialize 
+/process/optical/boundary/setInvokeSD true
+
+/qsim/filename rootfiles/qsim_out.root
+/qsim/seed 52 
+
+#/qsim/ymin -15 mm
+#/qsim/ymax 15 mm
+
+/qsim/xmin 27.5 mm
+/qsim/xmax 27.5 mm
+
+/qsim/emin 855 MeV
+/qsim/emax 855 MeV
+
+/gun/particle e-
+
+/run/beamOn 1

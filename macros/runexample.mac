@@ -3,7 +3,7 @@
 # Set run mode
 #/qsim/fDetMode 1 
 #/qsim/fStandMode 0 
-/qsim/fSourceMode 2 
+/qsim/fSourceMode 1 
 
 # Set detector properties
 #/qsim/fQuartzPolish 0.975 
@@ -12,13 +12,24 @@
 #/qsim/fDetPosY 0 cm
 
 /run/initialize 
+/process/optical/boundary/setInvokeSD true
 
-/qsim/filename rootfiles/qsim_out.root
+/qsim/filename rootfiles/qsim_out_photon.root
 /qsim/seed 50 
 
-#/qsim/emin   5.0 GeV
-#/qsim/emax   5.0 GeV
+/qsim/emin 2 GeV
+/qsim/emax 2 GeV
 
-/gun/particle e- 
+/qsim/xmin -20 mm
+/qsim/xmax 20 mm
+/qsim/ymin -20 mm
+/qsim/ymax 20 mm
+/qsim/thetamax -25 deg
+/qsim/thetamin 25 deg
 
-/run/beamOn 1
+/gun/particle opticalphoton 
+#/gun/particle e- 
+#/gun/energy 3 eV
+/gun/polarization 0 0 1
+
+/run/beamOn 20

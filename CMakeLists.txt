@@ -39,7 +39,7 @@ include(${Geant4_USE_FILE})
 
 
 #debugging symbols, complains
-set(CMAKE_CXX_FLAGS "-g -Wall")
+#set(CMAKE_CXX_FLAGS "-g -Wall")
 
 #----------------------------------------------------------------------------
 # Generate dictionaries as well (so we can write objects to ROOT files
@@ -51,7 +51,7 @@ include_directories(${PROJECT_SOURCE_DIR}/include ${ROOT_INCLUDE_DIR} ${CMAKE_CU
 # Locate sources and headers for this project
 # NB: headers are included so they will show up in IDEs
 #
-file(GLOB sources ${PROJECT_SOURCE_DIR}/src/qsim*.cc)
+file(GLOB sources ${PROJECT_SOURCE_DIR}/src/*.cc)
 file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
 
 #----------------------------------------------------------------------------
@@ -59,9 +59,7 @@ file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
 #
 #add_executable(qsim qsim.cc ${sources} ${headers} qsimDict.cxx)
 add_executable(qsim qsim.cc ${sources} ${headers})
-#add_library(qsimroot SHARED ${libsources} ${libheaders} qsimDict.cxx)
 target_link_libraries(qsim ${Geant4_LIBRARIES} ${ROOT_LIBRARIES})
-#target_link_libraries(qsimroot ${ROOT_LIBRARIES})
 
 #----------------------------------------------------------------------------
 # Copy all scripts to the build directory, i.e. the directory in which we
@@ -85,7 +83,7 @@ set(QSIM_SCRIPTS
     macros/batchrun.mac
     macros/runscript.sh
     macros/handler.sh
-	macros/merger.sh
+    macros/merger.sh
 )
 
 foreach(_script ${QSIM_SCRIPTS})
@@ -100,7 +98,7 @@ endforeach()
 # For internal Geant4 use - but has no effect if you build this
 # example standalone
 #
-add_custom_target(QSIM DEPENDS qsim)
+add_custom_target(QSIM DEPENDS qsim-showermax)
 
 #----------------------------------------------------------------------------
 # Install the executable to 'bin' directory under CMAKE_INSTALL_PREFIX

@@ -1,5 +1,5 @@
-/*!
-  qsim - Quartz Detector Simluation
+/*
+qsim - Quartz Detector Simluation
   
   Seamus Riordan, et al.
   riordan@jlab.org
@@ -94,9 +94,9 @@ int main(int argc, char** argv){
 	rmmess->SetDetCon( ((qsimDetectorConstruction *) detector) );
 	
 	// Physics we want to use
-	G4int verbose = 3;
+	G4int verbose = 4;
 	G4PhysListFactory factory;
-	G4VModularPhysicsList* physlist = factory.GetReferencePhysList("FTFP_BERT");//FTFP_BERT
+	G4VModularPhysicsList* physlist = factory.GetReferencePhysList("FTFP_BER_OPT1");//FTFP_BERT
 	physlist->RegisterPhysics(new G4StepLimiterPhysics());
 	physlist->SetVerboseLevel(verbose);
 	runManager->SetUserInitialization(physlist);

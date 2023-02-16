@@ -8,9 +8,7 @@
 
 /*! 
       Default detector class.  This will record information on:
-
       - Primary generated hit information
-
 */
 
 class G4HCofThisEvent;
@@ -32,8 +30,6 @@ class qsimDetector : public G4VSensitiveDetector {
 
 	G4bool fTrackSecondaries;
 	G4int fDetNo;
-
-	G4double fDontRecordThresh;
 };
 
 #endif//__QSIMDETECTOR_HH

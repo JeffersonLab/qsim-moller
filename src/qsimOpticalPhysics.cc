@@ -45,7 +45,7 @@ void qsimOpticalPhysics::ConstructProcess()
   theWLSProcess = new G4OpWLS();
   
   theScintProcess = new G4Scintillation();
-  theScintProcess->SetScintillationYieldFactor(1.);
+  //theScintProcess->SetScintillationYieldFactor(1.);
   theScintProcess->SetTrackSecondariesFirst(true);
   
   theCerenkovProcess = new G4Cerenkov();
@@ -80,8 +80,8 @@ void qsimOpticalPhysics::ConstructProcess()
   
   pManager->AddDiscreteProcess(theWLSProcess);
   
-  theScintProcess->SetScintillationYieldFactor(1.);
-  theScintProcess->SetScintillationExcitationRatio(0.0);
+  //theScintProcess->SetScintillationYieldFactor(1.);
+  //theScintProcess->SetScintillationExcitationRatio(0.0);
   theScintProcess->SetTrackSecondariesFirst(true);
   
   // Use Birks Correction in the Scintillation process

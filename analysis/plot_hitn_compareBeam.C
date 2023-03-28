@@ -12,6 +12,7 @@
 #include "TCanvas.h"
 #include "TPaveStats.h"
 #include "TSystem.h"
+#include "TLatex.h"
 
 using namespace std;
 
@@ -23,10 +24,10 @@ void plot_hitn_compareBeam(){
     //gStyle->SetPadGridY(1);
     //TGaxis::SetMaxDigits(3);
     
-    string config = "qsim_07";
-    string particle = "gamma";
+    string config = "localMac";
+    string particle = "electron";
     float beamEnergy[] = {2, 5.5, 8};
-    string geometry = "smBenchmark1stackQsim";
+    string geometry = "smretro";
     int color[] = {kBlack, kRed, kBlue, kMagenta, kGreen+2};
 
     // Map geometry and upper bound of the histogram
@@ -37,24 +38,26 @@ void plot_hitn_compareBeam(){
     geomXmax.insert(pair<string,int>("smBenchmark3stackQsim", 9000));
     geomXmax.insert(pair<string,int>("smBenchmark4stackQsim", 10000));
     geomXmax.insert(pair<string,int>("showermaxQsim", 2000));
+    geomXmax.insert(pair<string,int>("smretro", 500));
 
     int hist_xmin = 0;
     int hist_xmax = geomXmax[geometry];
     int nbins = 100; 
+    const int nFiles = 3;
 
     //string inFileDir = "/run/user/1000/gvfs/dav+sd:host=Spice%2520client%2520folder._webdav._tcp.local/qsim_rootfiles/qsim_02/";
     //string inFileDir = "/run/user/1000/gvfs/sftp:host=sudips-mbp.local/Users/sudip/utm-ubuntu-shared/qsim_rootfiles/qsim_03/";
     //string inFileDir = Form("/volatile/halla/moller12gev/sudip/qsim_rootfiles/%s/",config.c_str());
     string inFileDir = "~/programs/qsim/qsim-showermax/rootfiles/";
-    string inRootFileName[3] = {Form("qsim_out_2GeV_%s_10k.root", geometry.c_str()),
-                              Form("qsim_out_5GeV_%s_10k.root", geometry.c_str()),
-                              Form("qsim_out_8GeV_%s_10k.root", geometry.c_str())};
-    string inRootFile[3];
-    TH1F* h_hitn[3];
-    TPaveStats* stat[3];
+    string inRootFileName[nFiles] = {Form("qsim_out_%s_2geV.root", geometry.c_str()),
+                              Form("qsim_out_%s_5geV.root", geometry.c_str()),
+                              Form("qsim_out_%s_8geV.root", geometry.c_str())};
+    string inRootFile[nFiles];
+    TH1F* h_hitn[nFiles];
+    TPaveStats* stat[nFiles];
     TCanvas* c1 = new TCanvas("c1", "Photon distribution");
 
-    for (int i=0; i<3; i++){
+    for (int i=0; i<nFiles; i++){
         inRootFile[i] = inFileDir + inRootFileName[i];
         TFile* inFile = new TFile(inRootFile[i].c_str(), "READ");
         TTree* T = (TTree*)inFile->Get("T");
@@ -75,24 +78,41 @@ void plot_hitn_compareBeam(){
         }
     }
     
-    for (int i=0; i<3; i++){
+    for (int i=0; i<nFiles; i++){
         //gPad->SetLogy();
         if (i==0) h_hitn[i]->Draw();
         else h_hitn[i]->Draw("sames");
     }
 
+
     gPad->Update();
-    float widthStat = 0.15; //width of a stat box
-    float heightStat = 0.15;
+    float widthStat = 0.25; //width of a stat box
+    float heightStat = 0.20;
     int nColStat = 1;   //number of columns of the stat boxes
-    for (int i=0; i<3; i++){
+    for (int i=0; i<nFiles; i++){
         stat[i] = (TPaveStats*)h_hitn[i]->FindObject("stats");
-        stat[i]->SetTextColor(i+1);
+        stat[i]->SetTextColor(color[i]);
         stat[i]->SetX1NDC(0.9-widthStat-(i%nColStat)*widthStat);
         stat[i]->SetX2NDC(0.9-(i%nColStat)*widthStat);
         stat[i]->SetY1NDC(0.9-(i/nColStat)*heightStat);
         stat[i]->SetY2NDC(0.9-heightStat-(i/nColStat)*heightStat);
-        stat[i]->Draw();
+    
+        // Retrieve the stats box
+        TPaveStats *ps = (TPaveStats*)c1->GetPrimitive("stats");
+        ps->SetName("myStats");
+        TList *listOfLines = ps->GetListOfLines();
+        
+        // Add a new line in the stat box
+        TLatex *t = new TLatex(0,0,Form("RMS/mean = %.2f",h_hitn[i]->GetRMS()/h_hitn[i]->GetMean()));
+        t->SetTextFont(62);
+        t->SetTextSize(0.03);
+        t->SetTextColor(color[i]);
+        listOfLines->Add(t);     
+
+        h_hitn[i]->SetStats(0);
+        c1->Modified();
+
+        //stat[i]->Draw();
     }
     gSystem->Exec(Form("mkdir -p plots/%s/",config.c_str()));
     c1->SaveAs(Form("./plots/%s/%s_%s.pdf",config.c_str(), geometry.c_str(),particle.c_str()));

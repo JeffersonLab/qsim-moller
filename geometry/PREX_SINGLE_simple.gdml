@@ -65,10 +65,10 @@
  <solids>
   <box aunit="radian" lunit="mm" name="WorldBox" x="1000" y="1000" z="1000"/>
   <xtru name="PREX_SINGLE_tile" lunit="mm">
-    <twoDimVertex x="-75" y="2.5"/>
-    <twoDimVertex x="-75" y="-2.5"/>
-    <twoDimVertex x="75" y="-2.5"/>
-    <twoDimVertex x="69" y="2.5"/>
+    <twoDimVertex x="-75" y="3"/>
+    <twoDimVertex x="-75" y="-3"/>
+    <twoDimVertex x="75" y="-3"/>
+    <twoDimVertex x="69" y="3"/>
     <section zOrder="1" zPosition="-17.5" xOffset="0" yOffset="0" scalingFactor="1"/>
     <section zOrder="2" zPosition="17.5" xOffset="0" yOffset="0" scalingFactor="1"/>
   </xtru>

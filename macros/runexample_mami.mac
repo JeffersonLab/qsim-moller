@@ -1,2 +1,24 @@
 
-/run/beamOn 10000
+# Example run macro for mami beam simulation
+
+# Set run mode
+/qsim/fSourceMode 1
+
+/run/initialize 
+/process/optical/boundary/setInvokeSD true
+
+/qsim/filename rootfiles/qsim_out.root
+/qsim/seed 50 
+
+#/qsim/ymin -15 mm
+#/qsim/ymax 15 mm
+
+/qsim/xmin 27.5 mm
+/qsim/xmax 27.5 mm
+
+/qsim/emin 855 MeV
+/qsim/emax 855 MeV
+
+/gun/particle e-
+
+/run/beamOn 100

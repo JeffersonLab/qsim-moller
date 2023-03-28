@@ -27,9 +27,9 @@
 /qsim/thetamax -25 deg
 /qsim/thetamin 25 deg
 
-/gun/particle opticalphoton 
-#/gun/particle e- 
+#/gun/particle opticalphoton 
+/gun/particle e- 
 #/gun/energy 3 eV
 /gun/polarization 0 0 1
 
-/run/beamOn 20
+/run/beamOn 1

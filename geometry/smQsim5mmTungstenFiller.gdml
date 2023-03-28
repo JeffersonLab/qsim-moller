@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE gdml [
-	<!ENTITY matrices SYSTEM "matrices.xml">
+	<!ENTITY matrices SYSTEM "showerMaxMatrices.xml">
 ]>
 
 <gdml

@@ -4,6 +4,7 @@ build*/
 slurm_job/*/
 plots/
 test/
+.DS_Store
 
 #Files
 ./*.root

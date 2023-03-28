@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE gdml [
-	<!ENTITY matrices SYSTEM "matrices.xml">
+	<!ENTITY matrices SYSTEM "showerMaxMatrices.xml">
 ]>
 
 <gdml
@@ -111,16 +111,16 @@
 		<position name="pos_subtract_spacer_suitcase_12" x="27.5" y="0" z="0"/>
 		<rotation name="rot_subtract_spacer_suitcase_12" x="0" y="0" z="0"/>
 	</subtraction>
-	<trd name="solid_mirror_box_bot_1" lunit="mm" x1="56.976"  x2="86.868" y1="266.0"  y2="266.0" z="67.462"/>
-	<trd name="solid_mirror_box_bot_2" lunit="mm" x1="55.976"  x2="85.868" y1="265"  y2="265" z="68.462"/>
+	<trd name="solid_mirror_box_bot_1" lunit="mm" x1="50.529999999999994"  x2="87.868" y1="266.0"  y2="266.0" z="67.4624"/>
+	<trd name="solid_mirror_box_bot_2" lunit="mm" x1="49.529999999999994"  x2="86.868" y1="265"  y2="265" z="68.4624"/>
 	<subtraction name="solid_mirror_box_bot">
 		<first ref="solid_mirror_box_bot_1"/>
 		<second ref="solid_mirror_box_bot_2"/>
 		<position name="pos_subtract_mirror_box_bot_12" x="0" y="0" z="0"/>
 		<rotation name="rot_subtract_mirror_box_bot_12" x="0" y="0" z="0"/>
 	</subtraction>
-	<trd name="solid_mirror_box_top_1" lunit="mm" x1="86.868"  x2="70.866" y1="266.0"  y2="70.866" z="183.058"/>
-	<trd name="solid_mirror_box_top_2" lunit="mm" x1="85.868"  x2="69.866" y1="265"  y2="69.866" z="184.058"/>
+	<trd name="solid_mirror_box_top_1" lunit="mm" x1="87.868"  x2="71.866" y1="266.0"  y2="69.83399999999999" z="183.0578"/>
+	<trd name="solid_mirror_box_top_2" lunit="mm" x1="86.868"  x2="70.866" y1="265"  y2="68.83399999999999" z="184.0578"/>
 	<subtraction name="solid_mirror_box_top">
 		<first ref="solid_mirror_box_top_1"/>
 		<second ref="solid_mirror_box_top_2"/>
@@ -131,12 +131,13 @@
 	<tube name="solid_pmt_window" rmin="0" rmax="38.099999999999994" z="3.0" deltaphi="2*pi" startphi="0" aunit="rad" lunit="mm"/>
 	<tube name="solid_pmt_cathode" rmin="0" rmax="38.099999999999994" z="3e-06" deltaphi="2*pi" startphi="0" aunit="rad" lunit="mm"/>
 	<box name="solid_singledet" lunit="mm" x="800" y="300" z="200"/>
-	<box name="solid_showerMaxMother" lunit="mm" x="900" y="350" z="250"/>
+	<box name="solid_showerMaxMother" lunit="mm" x="1000" y="500" z="300"/>
 
 	<opticalsurface name="quartz_surface" model="glisur" finish="ground" type="dielectric_dielectric" value="0.98" >
 	</opticalsurface>
 	<opticalsurface name="Al_mirror_surface" model="glisur" finish="ground" type="dielectric_metal" value="0.98" >
 		<property name="REFLECTIVITY" ref="MiroSilver_REFLECTIVITY_30DEG" />
+		<property name="EFFICIENCY" ref="AluminumSurf_EFFICIENCY" />
 	</opticalsurface>
 	<opticalsurface name="Cathode_surface" model="glisur" finish="polished" type="dielectric_metal" value="1.0">
 		<property name="REFLECTIVITY" ref="CathodeSurf_REFLECTIVITY" />
@@ -189,10 +190,18 @@
 	<volume name="logic_mirror_box_bot_0">
 		<materialref ref="Aluminum_material"/>
 		<solidref ref="solid_mirror_box_bot"/>
+		<auxiliary auxtype="Color" auxvalue="green"/>
+		<auxiliary auxtype="SensDet" auxvalue="mirror_box_bot_0"/>
+		<auxiliary auxtype="DetNo" auxvalue="70031"/>
+		<auxiliary auxtype="DetType" auxvalue="opticalphoton"/>
 	</volume>
 	<volume name="logic_mirror_box_top_0">
 		<materialref ref="Aluminum_material"/>
 		<solidref ref="solid_mirror_box_top"/>
+		<auxiliary auxtype="Color" auxvalue="green"/>
+		<auxiliary auxtype="SensDet" auxvalue="mirror_box_top_0"/>
+		<auxiliary auxtype="DetNo" auxvalue="70032"/>
+		<auxiliary auxtype="DetType" auxvalue="opticalphoton"/>
 	</volume>
 	<volume name="logic_pmt_filter_0">
 		<materialref ref="Quartz"/>
@@ -206,6 +215,9 @@
 		<materialref ref="Cathode"/>
 		<solidref ref="solid_pmt_cathode"/>
 		<auxiliary auxtype="SensDet" auxvalue="PhotoCathode" />
+		<auxiliary auxtype="Color" auxvalue="blue"/>
+		<auxiliary auxtype="DetNum" auxvalue="70016"/>
+		<auxiliary auxtype="DetType" auxvalue="opticalphoton"/>
 	</volume>
 	<volume name="logic_singledet_00">
 		<materialref ref="Air"/>
@@ -222,27 +234,22 @@
 		</physvol>
 		<physvol name="mirror_box_bot_0">
 			<volumeref ref="logic_mirror_box_bot_0"/>
-			<position name="pos_logic_mirror_box_bot_0" x="124.58000000000001" y="0" z="4.0"/>
+			<position name="pos_logic_mirror_box_bot_0" x="124.5802" y="0" z="4.0"/>
 			<rotation name="rot_logic_mirror_box_bot_0" x="0" y="-pi/2" z="0"/>
 		</physvol>
 		<physvol name="mirror_box_top_0">
 			<volumeref ref="logic_mirror_box_top_0"/>
-			<position name="pos_logic_mirror_box_top_0" x="249.84" y="0" z="4.0"/>
+			<position name="pos_logic_mirror_box_top_0" x="249.84029999999998" y="0" z="4.0"/>
 			<rotation name="rot_logic_mirror_box_top_0" x="0" y="-pi/2" z="0"/>
-		</physvol>
-		<physvol name="pmt_filter_0">
-			<volumeref ref="logic_pmt_filter_0"/>
-			<position name="pos_logic_pmt_filter_0" x= "350.21900000000005" y="0" z="4.0"/>
-			<rotation name="rot_logic_pmt_filter_0" x="0" y="-pi/2" z="0"/>
 		</physvol>
 		<physvol name="pmt_window_0">
 			<volumeref ref="logic_pmt_window_0"/>
-			<position name="pos_logic_pmt_window_0" x="354.21900000000005" y="0" z="4.0"/>
+			<position name="pos_logic_pmt_window_0" x="349.2192" y="0" z="4.0"/>
 			<rotation name="rot_logic_pmt_window_0" x="0" y="-pi/2" z="0"/>
 		</physvol>
 		<physvol name="pmt_cathode_0">
 			<volumeref ref="logic_pmt_cathode_0"/>
-			<position name="pos_logic_pmt_cathode_0" x="355.71900150000005" y="0" z="4.0"/>
+			<position name="pos_logic_pmt_cathode_0" x="350.7192015" y="0" z="4.0"/>
 			<rotation name="rot_logic_pmt_cathode_0" x="0" y="-pi/2" z="0"/>
 		</physvol>
 		<physvol name="quartz_0_0">
@@ -313,10 +320,9 @@
 	<skinsurface name="mirror_box_bottom_skin_surface" surfaceproperty="Al_mirror_surface" >
 		<volumeref ref="logic_mirror_box_bot_0"/>
 	</skinsurface>
-	<bordersurface name="cathode_window_border_surface" surfaceproperty="Cathode_surface" >
-	<physvolref ref="pmt_window_0"/>
-	<physvolref ref="pmt_cathode_0"/>
-	</bordersurface>
+	<skinsurface name="pmt_cathode_skin_surface" surfaceproperty="Cathode_surface" >
+		<volumeref ref="logic_pmt_cathode_0"/>
+	</skinsurface>
 
 </structure>
 <setup name="showerMaxWorld" version="1.0">

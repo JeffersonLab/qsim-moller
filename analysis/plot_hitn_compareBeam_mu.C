@@ -1,4 +1,4 @@
-// This script plots the hit.n distribution from qsim
+// This script plots the hit.n distribution from qsim for different mu beam energy
 
 #include <string>
 #include <iostream>

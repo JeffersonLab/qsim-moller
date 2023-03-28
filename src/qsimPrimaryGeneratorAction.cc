@@ -119,7 +119,6 @@ void qsimPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent) {
 	// Set data //////////////////////////////////
 	// Magic happens here
   
-	double xPos, yPos, zPos;	
   
 	if( fSourceMode == 0 || fSourceMode == 1) {
 		xPos = CLHEP::RandFlat::shoot( fXmin, fXmax );
@@ -143,10 +142,8 @@ void qsimPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent) {
   
 	// fTheta needs to be a random distribution determined by the cos^2(theta) distribution	
   
-	double p = sqrt( E*E - mass*mass );
-	double pX, pY, pZ;
+	p = sqrt( E*E - mass*mass );
 	double randTheta, randPhi;
-	//double tanth, tanph;
   
 	if (fSourceMode == 0 || fSourceMode == 1) {
 		bool goodTheta = false;
@@ -176,16 +173,26 @@ void qsimPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent) {
 		pY = T->GetLeaf("py")->GetValue()*MeV;
 		pZ = T->GetLeaf("pz")->GetValue()*MeV;
 		E = T->GetLeaf("energy")->GetValue()*MeV;
+		pid = T->GetLeaf("pid")->GetValue();
+		nEvents = T->GetEntries();
 		primaryFile->Close();
 	}
   
 	//assert( E > 0.0 );
 	//assert( E > mass );
   
-	fDefaultEvent->ProduceNewParticle(
-				    G4ThreeVector(xPos, yPos, zPos),
-				    G4ThreeVector(pX, pY, pZ ),
-				    fParticleGun->GetParticleDefinition()->GetParticleName() );
+	if (fSourceMode!=2){
+		fDefaultEvent->ProduceNewParticle(
+						G4ThreeVector(xPos, yPos, zPos),
+						G4ThreeVector(pX, pY, pZ ),
+						fParticleGun->GetParticleDefinition()->GetParticleName() );
+	} else{
+		fDefaultEvent->ProduceNewParticle(
+						G4ThreeVector(xPos, yPos, zPos),
+						G4ThreeVector(pX, pY, pZ ),
+						GetExtEvParticleName(pid));
+
+	}
   
 	// Register and create event
   
@@ -241,4 +248,35 @@ G4ParticleGun* qsimPrimaryGeneratorAction::GetParticleGun() {
 
 void qsimPrimaryGeneratorAction::setExtEvGenerator(G4String filename){
 	fExtGenFileName = filename;
+}
+
+G4String qsimPrimaryGeneratorAction::GetExtEvParticleName(G4int pid){
+	G4String particleName;
+	switch (pid) {
+		case 11:
+			particleName = "e-"; break;
+		case 22:
+			particleName = "gamma"; break;
+		case -11:
+			particleName = "e+"; break;
+		case 2212:
+			particleName = "proton"; break;
+		case 2112:
+			particleName = "neutron"; break;
+		case 211:
+			particleName = "pi+"; break;
+		case -211:
+			particleName = "pi-"; break;
+		case 111:
+			particleName = "pi0"; break;
+		case -13:
+			particleName = "mu+"; break;
+		case 13:
+			particleName = "mu-"; break;
+		
+		default:
+			break;
+	}
+
+	return particleName;
 }

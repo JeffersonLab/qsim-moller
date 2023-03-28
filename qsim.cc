@@ -167,5 +167,11 @@ int main(int argc, char** argv){
 		delete ui;
 		}
 	}
+
+	//// Ucomment 3 lines to decide the number of the events to throw from the event generator (need more work on it) 
+	//qsimPrimaryGeneratorAction *primGenAction = new qsimPrimaryGeneratorAction();
+	//G4int numberOfEvents = primGenAction->nEvents;
+	//runManager->BeamOn(10);
+	delete runManager;
 	delete visManager;
 }

@@ -1,4 +1,5 @@
-// This script plots the graph of energy vs mean/Peak hit distribution from qsim
+// Plots PE response for electron beam
+// the graph of energy of e- beam vs mean PE hit distribution from qsim
 
 #include <string>
 #include <iostream>

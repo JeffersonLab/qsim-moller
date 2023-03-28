@@ -2,7 +2,7 @@
 # Setup the project
 #
 cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
-project(QSIM)
+project(QSIM-SHOWERMAX)
 
 
 #ROOT path
@@ -70,7 +70,6 @@ target_link_libraries(qsim ${Geant4_LIBRARIES} ${ROOT_LIBRARIES})
 
 set(QSIM_SCRIPTS
     geometry/showermaxQsim.gdml
-    InputEventDistribution/PREXprimaryDistribution.root
     macros/vis.mac
     vis/OIX.mac
     vis/Qt.mac

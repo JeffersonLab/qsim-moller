@@ -1,4 +1,4 @@
-// This script plots the hit.n distribution from qsim
+// This script plots the energy vs hit.n distribution from qsim
 
 #include <string>
 #include <iostream>

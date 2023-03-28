@@ -38,6 +38,8 @@ G4bool qsimDetector::ProcessHits( G4Step *step, G4TouchableHistory *){
     G4int  copyID = hist->GetReplicaNumber();
 
     G4StepPoint *prestep = step->GetPreStepPoint();
+    G4StepPoint *poststep = step->GetPostStepPoint();
+
     G4Track     *track   = step->GetTrack();
 
 //    G4Material* material = track->GetMaterial();
@@ -45,15 +47,19 @@ G4bool qsimDetector::ProcessHits( G4Step *step, G4TouchableHistory *){
 //    printf("Standard detector %d hit by %s!\n", fDetNo, track->GetParticleDefinition()->GetParticleName().data());
 
 //    G4double edep = step->GetTotalEnergyDeposit();
+    G4bool isPostStepOutsideSD; //Checks if the reflected light is counted as a hit 
+    isPostStepOutsideSD = poststep->GetPhysicalVolume()->GetLogicalVolume()->GetSensitiveDetector() != nullptr;
 
     //  Make pointer to new hit if it's a valid track
     qsimDetectorHit *thishit;
-    if( !badhit ){
+    //if( !badhit ){
+    if( !badhit && isPostStepOutsideSD ){
 	thishit = new qsimDetectorHit(fDetNo, copyID);
 	fHitColl->insert( thishit );
     }
-
-    if( !badhit ){
+    
+    //if( !badhit ){
+    if( !badhit && isPostStepOutsideSD ){
 	// Hit
 	thishit->f3X = prestep->GetPosition();
 	thishit->f3V = track->GetVertexPosition();

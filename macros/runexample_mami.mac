@@ -14,24 +14,19 @@
 /run/initialize 
 
 /qsim/filename rootfiles/qsim_out.root
-/qsim/seed 52 
+/qsim/seed 50 
 
-#/qsim/ymin -25 mm
-#/qsim/ymax 25 mm
+#/qsim/ymin -15 mm
+#/qsim/ymax 15 mm
 
-/qsim/xmin -25 mm
-/qsim/xmax 25 mm
+/qsim/xmin 27.5 mm
+/qsim/xmax 27.5 mm
 
-/qsim/thetamax -25 deg
-/qsim/thetamin 25 deg
+/qsim/emin 855 MeV
+/qsim/emax 855 MeV
 
-#/qsim/emin 2 gev
-#/qsim/emax 2 GeV
-#/qsim/emin 855 MeV
-#/qsim/emax 855 MeV
 
-/gun/particle opticalphoton
-#/gun/particle e-
-/gun/polarization 0 0 1
+/gun/particle e-
+
 
 /run/beamOn 100

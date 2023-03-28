@@ -44,6 +44,7 @@ void plot_graph_eVsMeanHit_mu(){
     vector<float> peakHit;
     vector<float> detRes;
     vector<string> inRootFileName;
+    
 
     //string inFileDir = Form("/volatile/halla/moller12gev/sudip/qsim_rootfiles/%s/",config.c_str());
     string inFileDir = "/run/user/1000/gvfs/sftp:host=sudips-mbp.local/Users/sudip/test/qsim_rootfiles/qsim_18/";

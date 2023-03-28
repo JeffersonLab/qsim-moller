@@ -1,32 +1,27 @@
 # Description: This script creates the run macro file and job submit file for qsim and submits the job to ifarm
-#              It submits job for multiple gdml geomerties and different energies
+#              It submits job for smRetroQsim geometry and different y positions to mimic the MAMI longitudinal scan 
 # Change: config, beamEnergy, geometry, eventsNum and sourceDir as needed
 
 import os
-import sys
 import random
-import numpy as np
+import time
+#import numpy as np
 
 # Define variables
-config = "qsim_14"
-nJobs = 10
+config = "qsim_31"
+nJobs = 29
 beamParticle = "e-"
-beamEnergy = [855]
-#for i in np.arange(0.5, 100.0, 0.5):
-#    beamEnergy.append(i)
+beamEnergy = 855
 energyUnit = "MeV"
-geometry = ["smBenchmark1quartzQsim",
-            "smBenchmark1stackQsim",
-            "smBenchmark2stackQsim",
-            "smBenchmark3stackQsim",
-            "smBenchmark4stackQsim",
-            "smFullscaleQsim",
-            "smRetroQsim"]
+geometry = "smRetroQsim"
 eventsNum = 10000
+azimuthValueList = []
+for i in range(-14, 15, 1):
+    azimuthValueList.append(i)
 seed = []
 for i in range(nJobs):
-    seed.append(random.randrange(sys.maxsize))
-sourceDir = "/home/sudip/programs/qsim/qsim-showermax/"
+    seed.append(random.randrange(99999999))
+sourceDir = "/Users/sudip/programs/qsim/qsim-showermax/"
 #sourceDir = "/w/halla-scshelf2102/moller12gev/sudip/qsim/qsim-showermax/"
 
 logDir = sourceDir + "slurm_job/job_log/" + config + "/"
@@ -46,13 +41,18 @@ if not os.path.exists(outRootFileDir):
     os.makedirs(outRootFileDir)
 
 # Define functions
-def writeQsimRunMacro(macroName:str, outFileName="qsim_out.root", beamEnergy=2, events=100, seed = 50):
+def writeQsimRunMacro(macroName:str, yValue:int, outFileName="qsim_out.root", beamEnergy=855, events=100, seed = 50):
     '''Creates a macro file to run in qsim'''
     file = open(macroDir + macroName, "w")
     file.write("/qsim/fSourceMode 1\n")
     file.write("/run/initialize\n")
+    file.write("/process/optical/boundary/setInvokeSD true\n")
     file.write("/qsim/filename " + outRootFileDir + outFileName + ".root\n")
-    file.write("/qsim/seed {}\n".format(seed))
+    file.write("#/qsim/seed {}\n".format(seed))
+    file.write("/qsim/xmin 27.5 mm\n")
+    file.write("/qsim/xmax 27.5 mm\n")
+    file.write("/qsim/ymin {} mm\n".format(yValue))
+    file.write("/qsim/ymax {} mm\n".format(yValue))
     file.write("/qsim/emin {} {}\n".format(beamEnergy, energyUnit))
     file.write("/qsim/emax {} {}\n".format(beamEnergy, energyUnit))
     #file.write("/qsim/emax " + str(beamEnergy) + energyUnit + "\n")
@@ -84,17 +84,17 @@ def writeJobSubmitScript(scriptName:str, jobOutErrName:str, geometryGDML:str, ma
     print("Ifarm job submission script " + scriptName + " created.")
 
 # Use loop to create different macros and job submission file and sbatch them
-for iBeam in range(len(beamEnergy)):
-    for iGeomtry in range(6,len(geometry)):
-        for iJob in range(nJobs):
-            macroFileName = "runbatch_{}{}_{}_{}k_{}.mac".format(beamEnergy[iBeam], energyUnit, geometry[iGeomtry], eventsNum//1000, 1001+iJob)
-            outRootFile = "qsim_out_{}{}_{}_{}k_{}".format(beamEnergy[iBeam],energyUnit,geometry[iGeomtry],eventsNum//1000, 1001+iJob)
-            writeQsimRunMacro(macroFileName,outRootFile,beamEnergy[iBeam],eventsNum, seed[iJob])
+for iJob in range(nJobs):
+    macroFileName = "runbatch_{}{}_{}_{}k_{}.mac".format(beamEnergy, energyUnit, geometry, eventsNum//1000, 1001+iJob)
+    outRootFile = "qsim_out_{}{}_{}_{}k_{}".format(beamEnergy,energyUnit,geometry,eventsNum//1000, 1001+iJob)
+    writeQsimRunMacro(macroFileName, azimuthValueList[iJob], outRootFile,beamEnergy,eventsNum, seed[iJob])
+    
+    jobSubmitFileName = "jobsubmit_{}{}_{}_{}k_{}.sh".format(beamEnergy, energyUnit, geometry, eventsNum//1000, 1001+iJob)
+    jobOutErrName = "qsim_{}{}_{}".format(beamEnergy,energyUnit,geometry)
+    geometryFile = geometry+".gdml"
+    jobName = "{}-qsim".format(beamParticle)
+    writeJobSubmitScript(jobSubmitFileName,jobOutErrName, geometryFile, macroFileName, jobName)
+    
+    #os.system("sbatch " + jobDir + jobSubmitFileName)
 
-            jobSubmitFileName = "jobsubmit_{}{}_{}_{}k_{}.sh".format(beamEnergy[iBeam], energyUnit, geometry[iGeomtry], eventsNum//1000, 1001+iJob)
-            jobOutErrName = "qsim_{}{}_{}".format(beamEnergy[iBeam],energyUnit,geometry[iGeomtry])
-            geometryFile = geometry[iGeomtry]+".gdml"
-            jobName = "{}{}-{}-qsim".format(beamParticle,iBeam,iGeomtry)
-            writeJobSubmitScript(jobSubmitFileName,jobOutErrName, geometryFile, macroFileName, jobName)
-
-            #os.system("sbatch " + jobDir + jobSubmitFileName)     
+    #time.sleep(1.5) 

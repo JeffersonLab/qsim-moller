@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE gdml [
+	<!ENTITY matrices SYSTEM "showerMaxMatrices.xml">
+]>
+
+<gdml
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://service-spi.web.cern.ch/service-spi/app/releases/GDML/schema/gdml.xsd">
+
+<define>
+	&matrices;
+</define>
+
+<materials>
+<define>
+	<quantity type="density" name="universe_mean_density" value="1.e-25" unit="g/cm3" />
+</define>
+<element Z="8" formula="O" name="Oxygen" >
+	<atom value="16" />
+</element>
+<element Z="7" formula="N" name="Nitrogen" >
+	<atom value="14.01" />
+</element>
+<element Z="14" formula="Si" name="Silicon" >
+	<atom value="28.085" />
+</element>
+<element Z="13" formula="Al" name="Aluminum" >
+	<atom value="26.982" />
+</element>
+<element Z="51" formula="Sb" name="Antimony" >
+	<atom value="121.760" />
+</element>
+<element Z="55" formula="Cs" name="Caesium" >
+	<atom value="132.90545" />
+</element>
+<element Z="19" formula="K" name="Potassium" >
+	<atom value="39.0983" />
+</element>
+<material formula="noFormula" name="Air" >
+	<property name="RINDEX" ref="Air_RINDEX"/>
+	<D value="0.00129" />
+	<fraction n="0.3" ref="Oxygen" />
+	<fraction n="0.7" ref="Nitrogen" />
+</material>
+<material formula="SiO2" name="Quartz" >
+	<property name="RINDEX" ref="Quartz_RINDEX"/>
+	<property name="ABSLENGTH" ref="Quartz_ABSLENGTH_DATA"/>
+	<property name="REFLECTIVITY" ref="Quartz_REFLECTIVITY"/>
+	<D value="2.203" />
+	<composite n="1" ref="Silicon" />
+	<composite n="2" ref="Oxygen" />
+</material>
+<material formula="K2CsSb" name="Cathode" >
+	<D value="3.46" />
+	<composite n="2" ref="Potassium" />
+	<composite n="1" ref="Caesium" />
+	<composite n="1" ref="Antimony" />
+	</material>
+<material formula="Al" name="Aluminum_material" >
+	<D value="2.6982" />
+	<composite n="1" ref="Aluminum" />
+</material>
+</materials>
+
+
+<solids>
+	<xtru name="solid_quartz" lunit="mm">
+		<twoDimVertex x="-70.0" y="7.5"/>
+		<twoDimVertex x="-70.0" y="-7.5"/>
+		<twoDimVertex x="85.0" y="-7.5"/>
+		<twoDimVertex x="70.0" y="7.5"/>
+		<section zOrder="1" zPosition="-40.0" xOffset="0" yOffset="0" scalingFactor="1"/>
+		<section zOrder="2" zPosition="40.0" xOffset="0" yOffset="0" scalingFactor="1"/>
+	</xtru>
+	<trd name="solid_mirror_box_bot_1" lunit="mm" x1="24.0"  x2="84.131" y1="88.0"  y2="88.0" z="90.0"/>
+	<trd name="solid_mirror_box_bot_2" lunit="mm" x1="23.0"  x2="83.131" y1="87.0"  y2="87.0" z="91.0"/>
+	<subtraction name="solid_mirror_box_bot">
+		<first ref="solid_mirror_box_bot_1"/>
+		<second ref="solid_mirror_box_bot_2"/>
+		<position name="pos_subtract_mirror_box_bot_12" x="0" y="0" z="0"/>
+		<rotation name="rot_subtract_mirror_box_bot_12" x="0" y="0" z="0"/>
+	</subtraction>
+	<trd name="solid_mirror_box_top_1" lunit="mm" x1="84.131"  x2="71.88" y1="88.0"  y2="71.88" z="183.058"/>
+	<trd name="solid_mirror_box_top_2" lunit="mm" x1="83.131"  x2="70.88" y1="87.0"  y2="70.88" z="184.058"/>
+	<subtraction name="solid_mirror_box_top">
+		<first ref="solid_mirror_box_top_1"/>
+		<second ref="solid_mirror_box_top_2"/>
+		<position name="pos_subtract_mirror_box_top_12" x="0" y="0" z="0"/>
+		<rotation name="rot_subtract_mirror_box_top_12" x="0" y="0" z="0"/>
+	</subtraction>
+	<tube name="solid_pmt_window" rmin="0" rmax="38.099999999999994" z="3.0" deltaphi="2*pi" startphi="0" aunit="rad" lunit="mm"/>
+	<tube name="solid_pmt_cathode" rmin="0" rmax="38.099999999999994" z="3e-06" deltaphi="2*pi" startphi="0" aunit="rad" lunit="mm"/>
+	<box name="solid_singledet" lunit="mm" x="800" y="300" z="200"/>
+	<box name="solid_ring5Mother" lunit="mm" x="900" y="350" z="250"/>
+
+	<opticalsurface name="quartz_surface" model="glisur" finish="ground" type="dielectric_dielectric" value="0.98" >
+	</opticalsurface>
+	<opticalsurface name="Al_mirror_surface" model="glisur" finish="ground" type="dielectric_metal" value="0.98" >
+		<property name="REFLECTIVITY" ref="MiroSilver_REFLECTIVITY_30DEG" />
+	</opticalsurface>
+	<opticalsurface name="Cathode_surface" model="glisur" finish="polished" type="dielectric_metal" value="1.0">
+		<property name="REFLECTIVITY" ref="CathodeSurf_REFLECTIVITY" />
+		<property name="EFFICIENCY" ref="Cathode_EFFICIENCY" />
+	</opticalsurface>
+</solids>
+
+
+<structure>
+	<volume name="logic_quartz_0_0">
+		<materialref ref="Quartz"/>
+		<solidref ref="solid_quartz"/>
+	</volume>
+	<volume name="logic_mirror_box_bot_0">
+		<materialref ref="Aluminum_material"/>
+		<solidref ref="solid_mirror_box_bot"/>
+	</volume>
+	<volume name="logic_mirror_box_top_0">
+		<materialref ref="Aluminum_material"/>
+		<solidref ref="solid_mirror_box_top"/>
+	</volume>
+	<volume name="logic_pmt_window_0">
+		<materialref ref="Quartz"/>
+		<solidref ref="solid_pmt_window"/>
+	</volume>
+	<volume name="logic_pmt_cathode_0">
+		<materialref ref="Cathode"/>
+		<solidref ref="solid_pmt_cathode"/>
+		<auxiliary auxtype="SensDet" auxvalue="PhotoCathode" />
+	</volume>
+	<volume name="logic_singledet_00">
+		<materialref ref="Air"/>
+		<solidref ref="solid_singledet"/>
+		<physvol name="mirror_box_bot_0">
+			<volumeref ref="logic_mirror_box_bot_0"/>
+			<position name="pos_logic_mirror_box_bot_0" x="113.89149726033179" y="0" z="4.972610159648304"/>
+			<rotation name="rot_logic_mirror_box_bot_0" x="0" y="-90+2.5" z="0" unit="deg"/>
+		</physvol>
+		<physvol name="mirror_box_top_0">
+			<volumeref ref="logic_mirror_box_top_0"/>
+			<position name="pos_logic_mirror_box_top_0" x="250.29055190468125" y="0" z="10.927921497250262"/>
+			<rotation name="rot_logic_mirror_box_top_0" x="0" y="-90+2.5" z="0" unit="deg"/>
+		</physvol>
+		<physvol name="pmt_window_0">
+			<volumeref ref="logic_pmt_window_0"/>
+			<position name="pos_logic_pmt_window_0" x="343.2310089102199" y="0" z="14.985789484460105"/>
+			<rotation name="rot_logic_pmt_window_0" x="0" y="-90+2.5" z="0" unit="deg"/>
+		</physvol>
+		<physvol name="pmt_cathode_0">
+			<volumeref ref="logic_pmt_cathode_0"/>
+			<position name="pos_logic_pmt_cathode_0" x="344.729582741165" y="0" z="15.051218630937191"/>
+			<rotation name="rot_logic_pmt_cathode_0" x="0" y="-90+2.5" z="0" unit="deg"/>
+		</physvol>
+		<physvol name="quartz_0_0">
+			<volumeref ref="logic_quartz_0_0"/>
+			<position name="pos_logic_quartz_0_0" x="0" y="0" z="3.0126050606873322"/>
+			<rotation name="rot_logic_quartz_0_0" x="-pi/2" y="0" z="0"/>
+		</physvol>
+		<auxiliary auxtype="Alpha" auxvalue="0.0"/>
+	</volume>
+	<volume name="ring5Mother">
+		<materialref ref="Air"/>
+		<solidref ref="solid_ring5Mother"/>
+		<physvol name="singledet_00">
+			<volumeref ref="logic_singledet_00"/>
+			<position name="pos_singledet_0" x="0" y="0" z="0"/>
+			<rotation name="rot_singledet_0" x="0" y="0" z="0"/>
+		</physvol>
+		<auxiliary auxtype="Alpha" auxvalue="0.0"/>
+	</volume>
+
+	<skinsurface name="quartz_skin_surface" surfaceproperty="quartz_surface" >
+		<volumeref ref="logic_quartz_0_0"/>
+	</skinsurface>
+	<skinsurface name="mirror_box_top_skin_surface" surfaceproperty="Al_mirror_surface" >
+		<volumeref ref="logic_mirror_box_top_0"/>
+	</skinsurface>
+	<skinsurface name="mirror_box_bottom_skin_surface" surfaceproperty="Al_mirror_surface" >
+		<volumeref ref="logic_mirror_box_bot_0"/>
+	</skinsurface>
+	<bordersurface name="cathode_window_border_surface" surfaceproperty="Cathode_surface" >
+	<physvolref ref="pmt_window_0"/>
+	<physvolref ref="pmt_cathode_0"/>
+	</bordersurface>
+
+</structure>
+<setup name="ring5World" version="1.0">
+	<world ref="ring5Mother"/>
+</setup>
+</gdml>

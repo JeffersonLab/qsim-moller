@@ -25,30 +25,31 @@ void plot_hitn_mu(){
     //gStyle->SetPadGridY(1);
     //TGaxis::SetMaxDigits(3);
     
-    string config = "qsim_05";
+    string config = "localMac";
     string particle = "mu";
     float beamEnergy = 1;
-    string geometry = "smFullscaleQsim";
+    string geometry = "smRetroQsim";
     int color[] = {kBlack, kRed, kBlue, kMagenta, kGreen+2};
 
     int hist_xmin = 0;
-    int hist_xmax = 100;
-    int nbins = 100;
+    int hist_xmax = 60;
+    int nbins = 60;
     int fileSplit = 1;
 
     //TString inFileDir = Form("/volatile/halla/moller12gev/sudip/qsim_rootfiles/%s/",config.c_str());
-    TString inFileDir = Form("~/programs/qsim/qsim-showermax/rootfiles/%s/", config.c_str());
+    TString inFileDir = Form("~/programs/qsim/qsim-showermax/rootfiles/");
     TString inRootFileName[fileSplit];
 
     TChain *T = new TChain("T");
     for (int i=1; i<fileSplit+1; i++){
-        inRootFileName[i] = Form("qsim_out_1GeV_mu_%s_10k_%d.root",geometry.c_str(), 1000+i);
+        //inRootFileName[i] = Form("qsim_out_1GeV_mu_%s_10k_%d.root",geometry.c_str(), 1000+i);
+        inRootFileName[i] = Form("qsim_out_1GeV_mu_smRetro.root");
         T->Add(inFileDir + inRootFileName[i]);
     }
 
     TH1F* h_hitn;
     TPaveStats* stat[fileSplit];
-    TCanvas* c1 = new TCanvas("c1", "Photon distribution");
+    TCanvas* c1 = new TCanvas("c1", "Muon distribution");
 
     Int_t hitn;
     T->SetBranchAddress("hit.n", &hitn);

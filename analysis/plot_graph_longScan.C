@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream>
+#include <fstream>
 #include <map>
 #include "TROOT.h"
 #include "TStyle.h"
@@ -93,5 +94,15 @@ void plot_graph_longScan(){
     //TGraph *grRes = new TGraph(azimuthalPosition.size(), &azimuthalPosition[0], &detRes[0]);
     //grRes->SetTitle("Electron beam energy vs det resolution; Beam energy [in GeV]; RMS/Mean");
     //grRes->Draw();
+
+    // Save position vs mean PE to text file
+    ofstream outTextFile;
+    gSystem->Exec(Form("mkdir -p output/%s/",config.c_str()));
+    outTextFile.open(Form("./output/%s/meanHitVsAzPos_%s_%s.txt",config.c_str(), geometry.c_str(),particle.c_str()));
+    for (int i=0; i<azimuthalPosition.size(); i++){
+        outTextFile << azimuthalPosition[i] << " " << meanHits[i] << " " << meanHitsError[i] << endl;
+    }
+    outTextFile.close();
+
 
 }

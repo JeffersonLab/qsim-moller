@@ -100,7 +100,7 @@ bool qsimPrimaryGeneratorAction::pspectrum(double p) {
 	// Muon energy spctrum obtained from and fit to PDG data for 0 degree incident angle
 	// good to 25% out to 36 GeV.
 	// if the accelerator mode is on then just return true anyway.
-	if ( fSourceMode==1 || fSourceMode == 2 || (((pow(p/GeV,-2.7)*(exp(-0.7324*(pow(log(p/GeV),2))+4.7099*log(p/GeV)-1.5)))/0.885967) > test) ) 
+	if ( fSourceMode==1 || fSourceMode == 2 || (((pow(2.5*p/GeV,-2.7)*(exp(-0.7324*(pow(log(2.5*p/GeV),2))+4.7099*log(2.5*p/GeV)-1.5)))/(0.885967*2.5)) > test) ) 
 		return true;
 	else 
 		return false;

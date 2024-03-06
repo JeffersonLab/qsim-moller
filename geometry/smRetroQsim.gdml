@@ -55,7 +55,7 @@
 </material>
 <material formula="SiO2" name="Quartz" >
 	<property name="RINDEX" ref="Quartz_RINDEX"/>
-	<property name="ABSLENGTH" ref="Quartz_ABSLENGTH_DATA"/>
+	<property name="ABSLENGTH" ref="Quartz_ABSLENGTH_TEST"/>
 	<property name="REFLECTIVITY" ref="Quartz_REFLECTIVITY"/>
 	<D value="2.203" />
 	<composite n="1" ref="Silicon" />
@@ -83,7 +83,6 @@
 	<composite n="2" ref="Oxygen" />
 </material>
 </materials>
-
 
 <solids>
 	<xtru name="solid_quartz" lunit="mm">
@@ -135,16 +134,16 @@
 
 	<opticalsurface name="quartz_surface" model="glisur" finish="ground" type="dielectric_dielectric" value="0.98" >
 	</opticalsurface>
-	<opticalsurface name="Al_mirror_surface" model="glisur" finish="ground" type="dielectric_metal" value="0.98" >
-		<property name="REFLECTIVITY" ref="MiroSilver_REFLECTIVITY_30DEG" />
-		<property name="EFFICIENCY" ref="AluminumSurf_EFFICIENCY" />
+	<opticalsurface name="Al_mirror_surface" model="glisur" finish="ground" type="dielectric_metal" value="1.0" >
+		<property name="REFLECTIVITY" ref="Mylar_REFLECTIVITY_90DEG" />
+		<!-- <property name="REFLECTIVITY" ref="MiroSilver_REFLECTIVITY_30DEG" /> -->
+		<!-- <property name="REFLECTIVITY" ref="MiroIV_REFLECTIVITY_30DEG" /> -->
 	</opticalsurface>
 	<opticalsurface name="Cathode_surface" model="glisur" finish="polished" type="dielectric_metal" value="1.0">
 		<property name="REFLECTIVITY" ref="CathodeSurf_REFLECTIVITY" />
 		<property name="EFFICIENCY" ref="Cathode_EFFICIENCY" />
 	</opticalsurface>
 </solids>
-
 
 <structure>
 	<volume name="logic_quartz_0_0">

@@ -25,14 +25,6 @@
 		<section zOrder="2" zPosition="132.5" xOffset="0" yOffset="0" scalingFactor="1"/>
 	</xtru>
 	<box name="solid_tungsten" lunit="mm" x="160.0" y="265.0" z="8.0"/>
-	<box name="solid_wrap_1" lunit="mm" x="160.0" y="265.0" z="6.252"/>
-	<box name="solid_wrap_2" lunit="mm" x="160.0" y="266.0" z="6.1"/>
-	<subtraction name="solid_wrap">
-		<first ref="solid_wrap_1"/>
-		<second ref="solid_wrap_2"/>
-		<position name="pos_subtract_wrap_12" x="0.076" y="0" z="0"/>
-		<rotation name="rot_subtract_wrap_12" x="0" y="0" z="0"/>
-	</subtraction>
 	<box name="solid_suitcase_tungstenquartz_1" lunit="mm" x="161.0" y="266.0" z="58.407999999999994"/>
 	<box name="solid_suitcase_tungstenquartz_2" lunit="mm" x="161.0" y="265.0" z="57.407999999999994"/>
 	<subtraction name="solid_suitcase_tungstenquartz">
@@ -109,7 +101,8 @@
 	<opticalsurface name="quartz_surface" model="glisur" finish="ground" type="dielectric_dielectric" value="0.98" >
 	</opticalsurface>
 	<opticalsurface name="Al_mirror_surface" model="glisur" finish="ground" type="dielectric_metal" value="0.98" >
-		<property name="REFLECTIVITY" ref="MiroSilver_REFLECTIVITY_30DEG" />
+		<!-- <property name="REFLECTIVITY" ref="MiroSilver_REFLECTIVITY_30DEG" /> -->
+		<property name="REFLECTIVITY" ref="Mylar_REFLECTIVITY_90DEG" />
 	</opticalsurface>
 	<opticalsurface name="mylar_wrap_surface" model="glisur" finish="polished" type="dielectric_metal" value="0.99" >
 		<property name="REFLECTIVITY" ref="Mylar_REFLECTIVITY_90DEG" />
@@ -171,26 +164,6 @@
 		<auxiliary auxtype="SensDet" auxvalue="showerMaxTungsten" />
 		<auxiliary auxtype="DetNo" auxvalue="7001"/>
 		<auxiliary auxtype="Color" auxvalue="red"/>
-	</volume>
-	<volume name="logic_wrap_0_0">
-		<materialref ref="Aluminum_material"/>
-		<solidref ref="solid_wrap"/>
-		<auxiliary auxtype="Color" auxvalue="black"/>
-	</volume>
-	<volume name="logic_wrap_0_1">
-		<materialref ref="Aluminum_material"/>
-		<solidref ref="solid_wrap"/>
-		<auxiliary auxtype="Color" auxvalue="black"/>
-	</volume>
-	<volume name="logic_wrap_0_2">
-		<materialref ref="Aluminum_material"/>
-		<solidref ref="solid_wrap"/>
-		<auxiliary auxtype="Color" auxvalue="black"/>
-	</volume>
-	<volume name="logic_wrap_0_3">
-		<materialref ref="Aluminum_material"/>
-		<solidref ref="solid_wrap"/>
-		<auxiliary auxtype="Color" auxvalue="black"/>
 	</volume>
 	<volume name="logic_suitcase_tungstenquartz_0">
 		<materialref ref="Aluminum_material"/>
@@ -361,26 +334,6 @@
 			<position name="pos_logic_tungsten_0_3" x="0" y="0" z="-24.654"/>
 			<rotation name="rot_logic_tungsten_0_3" x="0" y="0" z="0"/>
 		</physvol>
-		<physvol name="wrap_0_0">
-			<volumeref ref="logic_wrap_0_0"/>
-			<position name="pos_logic_wrap_0_0" x="-0.088" y="0" z="25.578000000000003"/>
-			<rotation name="rot_logic_wrap_0_0" x="0" y="0" z="0"/>
-		</physvol>
-		<physvol name="wrap_0_1">
-			<volumeref ref="logic_wrap_0_1"/>
-			<position name="pos_logic_wrap_0_1" x="-0.088" y="0" z="11.226000000000004"/>
-			<rotation name="rot_logic_wrap_0_1" x="0" y="0" z="0"/>
-		</physvol>
-		<physvol name="wrap_0_2">
-			<volumeref ref="logic_wrap_0_2"/>
-			<position name="pos_logic_wrap_0_2" x="-0.088" y="0" z="-3.125999999999997"/>
-			<rotation name="rot_logic_wrap_0_2" x="0" y="0" z="0"/>
-		</physvol>
-		<physvol name="wrap_0_3">
-			<volumeref ref="logic_wrap_0_3"/>
-			<position name="pos_logic_wrap_0_3" x="-0.088" y="0" z="-17.477999999999998"/>
-			<rotation name="rot_logic_wrap_0_3" x="0" y="0" z="0"/>
-		</physvol>
 		<auxiliary auxtype="Alpha" auxvalue="0.0"/>
 	</volume>
 	<volume name="showerMaxMother">
@@ -406,24 +359,12 @@
 	<skinsurface name="mirror_box_bottom_skin_surface" surfaceproperty="Al_mirror_surface" >
 		<volumeref ref="logic_mirror_box_bot_0"/>
 	</skinsurface>
-	<skinsurface name="wrap_skin_surface_0_0" surfaceproperty="mylar_wrap_surface" >
-		<volumeref ref="logic_wrap_0_0"/>
-	</skinsurface>
-	<skinsurface name="wrap_skin_surface_0_1" surfaceproperty="mylar_wrap_surface" >
-		<volumeref ref="logic_wrap_0_1"/>
-	</skinsurface>
-	<skinsurface name="wrap_skin_surface_0_2" surfaceproperty="mylar_wrap_surface" >
-		<volumeref ref="logic_wrap_0_2"/>
-	</skinsurface>
-	<skinsurface name="wrap_skin_surface_0_3" surfaceproperty="mylar_wrap_surface" >
-		<volumeref ref="logic_wrap_0_3"/>
-	</skinsurface>
 	<skinsurface name="cathode_skin_surface" surfaceproperty="cathode_surface" >
 		<volumeref ref="logic_pmt_cathode_0"/>
 	</skinsurface>
 
 </structure>
-<setup name="showerMaxWorld" version="1.0">
+<setup name="showerMaxWorld" version="3-1-0">
 	<world ref="showerMaxMother"/>
 </setup>
 </gdml>

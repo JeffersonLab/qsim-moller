@@ -423,7 +423,7 @@
 	</skinsurface>
 
 </structure>
-<setup name="showerMaxWorld" version="1.0">
+<setup name="showerMaxWorld" version="3-0-0">
 	<world ref="showerMaxMother"/>
 </setup>
 </gdml>

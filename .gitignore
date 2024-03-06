@@ -5,6 +5,7 @@ slurm_job/*/
 plots/
 test/
 .DS_Store
+output/*
 
 #Files
 ./*.root

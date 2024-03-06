@@ -82,23 +82,13 @@
 		<section zOrder="2" zPosition="20.0" xOffset="0" yOffset="0" scalingFactor="1"/>
 	</xtru>
 	<box name="solid_tungsten" lunit="mm" x="80.0" y="40.0" z="8.0"/>
-	<box name="solid_wrap_1" lunit="mm" x="80.15" y="40.0" z="6.3"/>
-	<box name="solid_wrap_2" lunit="mm" x="80.25" y="41.0" z="6.1499999999999995"/>
-	<subtraction name="solid_wrap">
-		<first ref="solid_wrap_1"/>
-		<second ref="solid_wrap_2"/>
-		<position name="pos_subtract_wrap_12" x="0.075" y="0" z="0"/>
-		<rotation name="rot_subtract_wrap_12" x="0" y="0" z="0"/>
-	</subtraction>
+	<box name="solid_tungsten_thin" lunit="mm" x="80.0" y="40.0" z="6.0"/>
 	<tube name="solid_pmt_window" rmin="0" rmax="38.099999999999994" z="3.0" deltaphi="2*pi" startphi="0" aunit="rad" lunit="mm"/>
 	<tube name="solid_pmt_cathode" rmin="0" rmax="38.099999999999994" z="3e-06" deltaphi="2*pi" startphi="0" aunit="rad" lunit="mm"/>
 	<box name="solid_singledet" lunit="mm" x="400" y="150" z="100"/>
 	<box name="solid_showerMaxMother" lunit="mm" x="450" y="200" z="150"/>
 
-	<opticalsurface name="quartz_surface" model="glisur" finish="ground" type="dielectric_dielectric" value="0.98" >
-	</opticalsurface>
-	<opticalsurface name="mylar_surface" model="glisur" finish="polished" type="dielectric_metal" value="1.0" >
-		<!-- <property name="REFLECTIVITY" ref="Mylar_REFLECTIVITY_30DEG" /> -->
+	<opticalsurface name="quartz_surface" model="glisur" finish="ground" type="dielectric_dielectric" value="0.96" >
 	</opticalsurface>
 	<opticalsurface name="Cathode_surface" model="glisur" finish="polished" type="dielectric_metal" value="1.0">
 		<property name="REFLECTIVITY" ref="CathodeSurf_REFLECTIVITY" />
@@ -114,11 +104,7 @@
 	</volume>
 	<volume name="logic_tungsten_0_0">
 		<materialref ref="Tungsten_material"/>
-		<solidref ref="solid_tungsten"/>
-	</volume>
-	<volume name="logic_wrap_0_0">
-		<materialref ref="Aluminum_material"/>
-		<solidref ref="solid_wrap"/>
+		<solidref ref="solid_tungsten_thin"/>
 	</volume>
 	<volume name="logic_quartz_0_1">
 		<materialref ref="Quartz"/>
@@ -128,10 +114,6 @@
 		<materialref ref="Tungsten_material"/>
 		<solidref ref="solid_tungsten"/>
 	</volume>
-	<volume name="logic_wrap_0_1">
-		<materialref ref="Aluminum_material"/>
-		<solidref ref="solid_wrap"/>
-	</volume>
 	<volume name="logic_quartz_0_2">
 		<materialref ref="Quartz"/>
 		<solidref ref="solid_quartz"/>
@@ -140,10 +122,6 @@
 		<materialref ref="Tungsten_material"/>
 		<solidref ref="solid_tungsten"/>
 	</volume>
-	<volume name="logic_wrap_0_2">
-		<materialref ref="Aluminum_material"/>
-		<solidref ref="solid_wrap"/>
-	</volume>
 	<volume name="logic_quartz_0_3">
 		<materialref ref="Quartz"/>
 		<solidref ref="solid_quartz"/>
@@ -151,10 +129,6 @@
 	<volume name="logic_tungsten_0_3">
 		<materialref ref="Tungsten_material"/>
 		<solidref ref="solid_tungsten"/>
-	</volume>
-	<volume name="logic_wrap_0_3">
-		<materialref ref="Aluminum_material"/>
-		<solidref ref="solid_wrap"/>
 	</volume>
 	<volume name="logic_pmt_window_0">
 		<materialref ref="Quartz"/>
@@ -180,42 +154,42 @@
 		</physvol>
 		<physvol name="quartz_0_0">
 			<volumeref ref="logic_quartz_0_0"/>
-			<position name="pos_logic_quartz_0_0" x="0" y="0" z="25.9"/>
+			<position name="pos_logic_quartz_0_0" x="0" y="0" z="25.299999999999997"/>
 			<rotation name="rot_logic_quartz_0_0" x="pi/2" y="0" z="0"/>
 		</physvol>
 		<physvol name="tungsten_0_0">
 			<volumeref ref="logic_tungsten_0_0"/>
-			<position name="pos_logic_tungsten_0_0" x="0" y="0" z="18.599999999999998"/>
+			<position name="pos_logic_tungsten_0_0" x="0" y="0" z="18.2"/>
 			<rotation name="rot_logic_tungsten_0_0" x="0" y="0" z="0"/>
 		</physvol>
 		<physvol name="quartz_0_1">
 			<volumeref ref="logic_quartz_0_1"/>
-			<position name="pos_logic_quartz_0_1" x="0" y="0" z="11.299999999999999"/>
+			<position name="pos_logic_quartz_0_1" x="0" y="0" z="11.099999999999998"/>
 			<rotation name="rot_logic_quartz_0_1" x="-pi/2" y="0" z="0"/>
 		</physvol>
 		<physvol name="tungsten_0_1">
 			<volumeref ref="logic_tungsten_0_1"/>
-			<position name="pos_logic_tungsten_0_1" x="0" y="0" z="3.999999999999999"/>
+			<position name="pos_logic_tungsten_0_1" x="0" y="0" z="3.9999999999999987"/>
 			<rotation name="rot_logic_tungsten_0_1" x="0" y="0" z="0"/>
 		</physvol>
 		<physvol name="quartz_0_2">
 			<volumeref ref="logic_quartz_0_2"/>
-			<position name="pos_logic_quartz_0_2" x="0" y="0" z="-3.3000000000000007"/>
+			<position name="pos_logic_quartz_0_2" x="0" y="0" z="-3.1000000000000014"/>
 			<rotation name="rot_logic_quartz_0_2" x="pi/2" y="0" z="0"/>
 		</physvol>
 		<physvol name="tungsten_0_2">
 			<volumeref ref="logic_tungsten_0_2"/>
-			<position name="pos_logic_tungsten_0_2" x="0" y="0" z="-10.600000000000001"/>
+			<position name="pos_logic_tungsten_0_2" x="0" y="0" z="-10.200000000000001"/>
 			<rotation name="rot_logic_tungsten_0_2" x="0" y="0" z="0"/>
 		</physvol>
 		<physvol name="quartz_0_3">
 			<volumeref ref="logic_quartz_0_3"/>
-			<position name="pos_logic_quartz_0_3" x="0" y="0" z="-17.900000000000002"/>
+			<position name="pos_logic_quartz_0_3" x="0" y="0" z="-17.3"/>
 			<rotation name="rot_logic_quartz_0_3" x="-pi/2" y="0" z="0"/>
 		</physvol>
 		<physvol name="tungsten_0_3">
 			<volumeref ref="logic_tungsten_0_3"/>
-			<position name="pos_logic_tungsten_0_3" x="0" y="0" z="-25.2"/>
+			<position name="pos_logic_tungsten_0_3" x="0" y="0" z="-24.400000000000002"/>
 			<rotation name="rot_logic_tungsten_0_3" x="0" y="0" z="0"/>
 		</physvol>
 		<auxiliary auxtype="Alpha" auxvalue="0.0"/>
@@ -236,22 +210,11 @@
 		<volumeref ref="logic_quartz_0_1"/>
 		<volumeref ref="logic_quartz_0_2"/>
 		<volumeref ref="logic_quartz_0_3"/>
-	</skinsurface>
-	<skinsurface name="wrap_skin_surface_0_0" surfaceproperty="mylar_surface" >
-		<volumeref ref="logic_wrap_0_0"/>
-	</skinsurface>
-	<skinsurface name="wrap_skin_surface_0_1" surfaceproperty="mylar_surface" >
-		<volumeref ref="logic_wrap_0_1"/>
-	</skinsurface>
-	<skinsurface name="wrap_skin_surface_0_2" surfaceproperty="mylar_surface" >
-		<volumeref ref="logic_wrap_0_2"/>
-	</skinsurface>
-	<skinsurface name="wrap_skin_surface_0_3" surfaceproperty="mylar_surface" >
-		<volumeref ref="logic_wrap_0_3"/>
+		<volumeref ref="logic_pmt_window_0"/>
 	</skinsurface>
 	<bordersurface name="cathode_window_border_surface" surfaceproperty="Cathode_surface" >
-	<physvolref ref="pmt_window_0"/>
-	<physvolref ref="pmt_cathode_0"/>
+		<physvolref ref="pmt_window_0"/>
+		<physvolref ref="pmt_cathode_0"/>
 	</bordersurface>
 
 </structure>

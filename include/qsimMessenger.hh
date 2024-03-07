@@ -65,6 +65,8 @@ class qsimMessenger : public G4UImessenger {
 		G4UIcmdWithADoubleAndUnit *fXmaxCmd;
 		G4UIcmdWithADoubleAndUnit *fYminCmd;
 		G4UIcmdWithADoubleAndUnit *fYmaxCmd;
+		G4UIcmdWithADoubleAndUnit *fZminCmd;
+		G4UIcmdWithADoubleAndUnit *fZmaxCmd;
 		G4UIcmdWithADoubleAndUnit *fEminCmd;
 		G4UIcmdWithADoubleAndUnit *fEmaxCmd;
 

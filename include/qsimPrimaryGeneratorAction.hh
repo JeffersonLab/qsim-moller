@@ -35,16 +35,15 @@ class qsimPrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction {
         G4String fExtGenFileName;
 
   public:
-		G4double fXmin, fXmax, fYmin, fYmax;
-        G4double fZ;
+		G4double fXmin, fXmax, fYmin, fYmax, fZmin, fZmax;
+        G4double fZ; // unused
         G4double fEmin, fEmax;
 		G4double fthetaMin, fthetaMax;
-    G4double xPos, yPos, zPos;  // Positions of the event particle generated
-    G4double p, pX, pY, pZ;  // Momentum of the event
-    G4double E;           // Energy of the event
-    G4int pid;            // Particle ID
-    G4int nEvents;        // number of events for fSource==2, get from event generator file.
-
+        G4double xPos, yPos, zPos;  // Positions of the event particle generated
+        G4double p, pX, pY, pZ;  // Momentum of the event
+        G4double E;           // Energy of the event
+        G4int pid;            // Particle ID
+        G4int nEvents;        // number of events for fSource==2, get from event generator file.
 };
 
 #endif

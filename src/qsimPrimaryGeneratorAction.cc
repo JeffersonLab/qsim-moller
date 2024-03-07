@@ -50,6 +50,9 @@ void qsimPrimaryGeneratorAction::SourceModeSet(G4int mode = 0) {
 		
 		fYmin =  -5.*cm;
 		fYmax =  5.*cm;
+
+		fZmin = 90.*cm;
+		fZmax = 90.*cm;
 		
 		fEmin = 10.0*MeV;
 		fEmax = 50.0*GeV;
@@ -123,10 +126,9 @@ void qsimPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent) {
 	if( fSourceMode == 0 || fSourceMode == 1) {
 		xPos = CLHEP::RandFlat::shoot( fXmin, fXmax );
 		yPos = CLHEP::RandFlat::shoot( fYmin, fYmax );
+		zPos = CLHEP::RandFlat::shoot( fZmin, fZmax );
 	}
 	
-	zPos = fZ;
-  
 	// begin changed stuff to generate probability distribution of energies as expected
 	bool good_p = false;
 	double p3sq, E;

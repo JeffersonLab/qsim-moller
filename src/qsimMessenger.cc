@@ -95,6 +95,14 @@ qsimMessenger::qsimMessenger(){
     fYmaxCmd->SetGuidance("Set y range maximum");
     fYmaxCmd->SetParameterName("ymax", false); 
 
+	fZminCmd = new G4UIcmdWithADoubleAndUnit("/qsim/zmin", this);
+	fZminCmd->SetGuidance("Set z range minimum");
+	fZminCmd->SetParameterName("zmin", false);	
+
+	fZmaxCmd = new G4UIcmdWithADoubleAndUnit("/qsim/zmax", this);
+	fZmaxCmd->SetGuidance("Set z range maximum");
+	fZmaxCmd->SetParameterName("zmax", false);
+
     fEminCmd = new G4UIcmdWithADoubleAndUnit("/qsim/emin", this);
     fEminCmd->SetGuidance("Set energy range minimum");
     fEminCmd->SetParameterName("emin", false);
@@ -207,6 +215,16 @@ void qsimMessenger::SetNewValue(G4UIcommand* cmd, G4String newValue){
     if( cmd == fYmaxCmd ){
 		G4double x = fYmaxCmd->GetNewDoubleValue(newValue);
 		fprigen->fYmax = x;
+    }
+
+    if( cmd == fZminCmd ){
+		G4double x = fYminCmd->GetNewDoubleValue(newValue);
+		fprigen->fZmin = x;
+    }
+
+    if( cmd == fZmaxCmd ){
+		G4double x = fZmaxCmd->GetNewDoubleValue(newValue);
+		fprigen->fZmax = x;
     }
 
     if( cmd == fEminCmd ){

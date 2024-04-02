@@ -1,0 +1,30 @@
+# Example run macro for qsim 
+
+# Set run mode
+/qsim/fSourceMode 0
+/qsim/fStandMode 1
+
+/run/initialize 
+/process/optical/boundary/setInvokeSD true
+
+/qsim/filename rootfiles/qsim_out_smFull-v3-1-2_cosmic_10deg_polish99_1.root
+#/qsim/seed 50
+
+/qsim/xmin -150 mm
+/qsim/xmax 150 mm
+
+/qsim/ymin -150 mm
+/qsim/ymax 150 mm
+
+/qsim/zmin -900 mm
+/qsim/zmax -900 mm
+
+/qsim/thetamin 0 deg 
+/qsim/thetamax 10 deg
+
+/qsim/emin 0.5 GeV
+#/qsim/emax 0.5 GeV
+
+/gun/particle mu-
+
+/run/beamOn 5000

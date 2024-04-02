@@ -12,8 +12,9 @@
 #/qsim/fDetPosY 0 cm
 
 /run/initialize 
+/process/optical/boundary/setInvokeSD true
 
-/qsim/filename rootfiles/qsim_05/qsim_out_1GeV_mu_smFullscale_10k_1002.root
+/qsim/filename rootfiles/qsim_out_1GeV_mu_smFullscale_1.root
 /qsim/seed 123456
 
 #/qsim/ymin -15 mm
@@ -22,9 +23,9 @@
 #/qsim/xmin 27.5 mm
 #/qsim/xmax 27.5 mm
 
-/qsim/emin 1 GeV
-/qsim/emax 1 GeV
+/qsim/emin 2 GeV
+/qsim/emax 2 GeV
 
 /gun/particle mu-
 
-/run/beamOn 10000
+/run/beamOn 1

@@ -7,18 +7,21 @@
 /run/initialize 
 /process/optical/boundary/setInvokeSD true
 
-/qsim/filename rootfiles/qsim_out.root
-/qsim/seed 50 
+/qsim/filename rootfiles/qsim_out_smRetro-v1_mami_1.root
+#/qsim/seed 50 
+
+/qsim/zmin -90 mm
+/qsim/zmax -90 mm
 
 #/qsim/ymin -15 mm
 #/qsim/ymax 15 mm
 
-/qsim/xmin 27.5 mm
-/qsim/xmax 27.5 mm
+/qsim/xmin 26.5 mm
+/qsim/xmax 26.5 mm
 
 /qsim/emin 855 MeV
 /qsim/emax 855 MeV
 
 /gun/particle e-
 
-/run/beamOn 100
+/run/beamOn 5000

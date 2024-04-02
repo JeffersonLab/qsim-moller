@@ -14,22 +14,22 @@
 /run/initialize 
 /process/optical/boundary/setInvokeSD true
 
-/qsim/filename rootfiles/qsim_out_photon.root
-/qsim/seed 50 
+/qsim/filename rootfiles/qsim_out_NN3.root
+#/qsim/seed 50 
 
 /qsim/emin 2 GeV
-/qsim/emax 2 GeV
+/qsim/emax 8 GeV
 
-/qsim/xmin -20 mm
-/qsim/xmax 20 mm
-/qsim/ymin -20 mm
-/qsim/ymax 20 mm
-/qsim/thetamax -25 deg
-/qsim/thetamin 25 deg
+/qsim/xmin -75 mm
+/qsim/xmax 75 mm
+/qsim/ymin -130 mm
+/qsim/ymax 130 mm
+/qsim/thetamax -20 deg
+/qsim/thetamin 20 deg
 
 #/gun/particle opticalphoton 
 /gun/particle e- 
 #/gun/energy 3 eV
 /gun/polarization 0 0 1
 
-/run/beamOn 1
+/run/beamOn 10000

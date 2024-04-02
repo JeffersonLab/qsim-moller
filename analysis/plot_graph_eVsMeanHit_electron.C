@@ -29,9 +29,9 @@ void plot_graph_eVsMeanHit_electron(){
     gStyle->SetOptFit();
     //TGaxis::SetMaxDigits(3);
     
-    string config = "qsim_08";
+    string config = "qsim_38";
     string particle = "e";
-    string geometry = "showermaxQsim";
+    string geometry = "showerMaxDetector";
     int color[] = {kBlack, kRed, kBlue, kGreen+2, kMagenta,};
 
     vector<float> beamEnergy;
@@ -83,6 +83,8 @@ void plot_graph_eVsMeanHit_electron(){
     grMean->SetMarkerColor(kRed);
     //grMean->GetYaxis()->SetRangeUser(-50, 400);
     grMean->Draw("AP");
+    
+    
     grMean->Fit("pol2");
 
     TF1 *fit = (TF1*)grMean->GetFunction("pol2");
@@ -107,7 +109,6 @@ void plot_graph_eVsMeanHit_electron(){
     gSystem->Exec(Form("mkdir -p plots/%s/",config.c_str()));
     c1->SaveAs(Form("./plots/%s/eVsMeanHit_%s_%s.pdf",config.c_str(), geometry.c_str(),particle.c_str()));
 
-
     // Draw beam energy vs peak PE
     //TCanvas* c2 = new TCanvas("c2", "Energy vs peak PE");
     //TGraph *grPeak = new TGraph(beamEnergy.size(), &beamEnergy[0], &peakHit[0]);
@@ -122,6 +123,4 @@ void plot_graph_eVsMeanHit_electron(){
     //TGraph *grRes = new TGraph(beamEnergy.size(), &beamEnergy[0], &detRes[0]);
     //grRes->SetTitle("Electron beam energy vs det resolution; Beam energy [in GeV]; RMS/Mean");
     //grRes->Draw();
-
-
 }

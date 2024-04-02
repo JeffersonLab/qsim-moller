@@ -38,7 +38,7 @@ void plot_lpfilterVsPE(){
     Int_t color[] = {kBlack, kRed, kGreen+2, kBlue, kMagenta};
 
     //TString inFileDir = Form("/volatile/halla/moller12gev/sudip/qsim_rootfiles/%s/",config.c_str());
-    TString inFileDir = Form("/run/user/1000/gvfs/sftp:host=sudips-mbp.local/Users/sudip/test/qsim_rootfiles/%s/", config.Data());
+    TString inFileDir = Form("/Users/sudip/test/qsim_rootfiles/%s/", config.Data());
 
     TCut photonOnly = "hit.pid==0";
     TCut lpCut[nFilter];

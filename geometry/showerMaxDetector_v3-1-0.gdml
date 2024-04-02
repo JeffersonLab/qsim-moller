@@ -94,17 +94,17 @@
 	</subtraction>
 	<tube name="solid_pmt_filter" rmin="0" rmax="38.099999999999994" z="5.0" deltaphi="2*pi" startphi="0" aunit="rad" lunit="mm"/>
 	<tube name="solid_pmt_window" rmin="0" rmax="38.099999999999994" z="3.0" deltaphi="2*pi" startphi="0" aunit="rad" lunit="mm"/>
-	<tube name="solid_pmt_cathode" rmin="0" rmax="38.099999999999994" z="3e-06" deltaphi="2*pi" startphi="0" aunit="rad" lunit="mm"/>
+	<tube name="solid_pmt_cathode" rmin="0" rmax="35.0" z="3e-06" deltaphi="2*pi" startphi="0" aunit="rad" lunit="mm"/>
 	<box name="solid_singledet" lunit="mm" x="800" y="500" z="200"/>
 	<cone name="solid_showerMaxMother" rmin1="0"  rmax1="1000" rmin2="0" rmax2="1000"  z="258.736" startphi="0" deltaphi="360" aunit="deg" lunit="mm"/>
 
 	<opticalsurface name="quartz_surface" model="glisur" finish="ground" type="dielectric_dielectric" value="0.98" >
 	</opticalsurface>
-	<opticalsurface name="Al_mirror_surface" model="glisur" finish="ground" type="dielectric_metal" value="0.98" >
-		<!-- <property name="REFLECTIVITY" ref="MiroSilver_REFLECTIVITY_30DEG" /> -->
-		<property name="REFLECTIVITY" ref="Mylar_REFLECTIVITY_90DEG" />
+	<opticalsurface name="Al_mirror_surface" model="glisur" finish="polished" type="dielectric_metal" value="1.0" >
+		<property name="REFLECTIVITY" ref="MiroIV_REFLECTIVITY_60DEG" />
+		<!-- <property name="REFLECTIVITY" ref="Mylar_REFLECTIVITY_90DEG" /> -->
 	</opticalsurface>
-	<opticalsurface name="mylar_wrap_surface" model="glisur" finish="polished" type="dielectric_metal" value="0.99" >
+	<opticalsurface name="mylar_wrap_surface" model="glisur" finish="polished" type="dielectric_metal" value="1.0" >
 		<property name="REFLECTIVITY" ref="Mylar_REFLECTIVITY_90DEG" />
 	</opticalsurface>
 	<opticalsurface name="cathode_surface" model="glisur" finish="polished" type="dielectric_metal" value="1.0">
@@ -266,12 +266,12 @@
 		</physvol>
 		<physvol name="pmt_window_0">
 			<volumeref ref="logic_pmt_window_0"/>
-			<position name="pos_logic_pmt_window_0" x="349.21900000000005" y="0" z="4.0"/>
+			<position name="pos_logic_pmt_window_0" x="349.21900000000005-5" y="0" z="4.0"/>
 			<rotation name="rot_logic_pmt_window_0" x="0" y="-pi/2" z="0"/>
 		</physvol>
 		<physvol name="pmt_cathode_0">
 			<volumeref ref="logic_pmt_cathode_0"/>
-			<position name="pos_logic_pmt_cathode_0" x="350.71900300000004" y="0" z="4.0"/>
+			<position name="pos_logic_pmt_cathode_0" x="350.71900300000004-5" y="0" z="4.0"/>
 			<rotation name="rot_logic_pmt_window_0" x="0" y="-pi/2" z="0"/>
 		</physvol>
 		<physvol name="front_plate_0">
@@ -342,7 +342,7 @@
 		<physvol name="singledet_00">
 			<volumeref ref="logic_singledet_00"/>
 			<position name="pos_singledet_0" x="0" y="0" z="0"/>
-			<rotation name="rot_singledet_0" x="0" y="0" z="0"/>
+			<rotation name="rot_singledet_0" x="3.141592653589793" y="0" z="0"/>
 		</physvol>
 		<auxiliary auxtype="Alpha" auxvalue="0.0"/>
 	</volume>

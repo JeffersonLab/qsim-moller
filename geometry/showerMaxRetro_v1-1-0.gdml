@@ -55,7 +55,7 @@
 </material>
 <material formula="SiO2" name="Quartz" >
 	<property name="RINDEX" ref="Quartz_RINDEX"/>
-	<property name="ABSLENGTH" ref="Quartz_ABSLENGTH_TEST"/>
+	<property name="ABSLENGTH" ref="Quartz_ABSLENGTH_DATA"/>
 	<property name="REFLECTIVITY" ref="Quartz_REFLECTIVITY"/>
 	<D value="2.203" />
 	<composite n="1" ref="Silicon" />
@@ -83,6 +83,7 @@
 	<composite n="2" ref="Oxygen" />
 </material>
 </materials>
+
 
 <solids>
 	<xtru name="solid_quartz" lunit="mm">
@@ -118,13 +119,21 @@
 		<position name="pos_subtract_mirror_box_bot_12" x="0" y="0" z="0"/>
 		<rotation name="rot_subtract_mirror_box_bot_12" x="0" y="0" z="0"/>
 	</subtraction>
-	<trd name="solid_mirror_box_top_1" lunit="mm" x1="87.868"  x2="71.866" y1="266.0"  y2="69.83399999999999" z="183.0578"/>
-	<trd name="solid_mirror_box_top_2" lunit="mm" x1="86.868"  x2="70.866" y1="265"  y2="68.83399999999999" z="184.0578"/>
+	<trd name="solid_mirror_box_top_1" lunit="mm" x1="87.868"  x2="87.868" y1="266.0"  y2="266.0" z="183.0578"/>
+	<trd name="solid_mirror_box_top_2" lunit="mm" x1="86.868"  x2="86.868" y1="265"  y2="265" z="184.0578"/>
 	<subtraction name="solid_mirror_box_top">
 		<first ref="solid_mirror_box_top_1"/>
 		<second ref="solid_mirror_box_top_2"/>
 		<position name="pos_subtract_mirror_box_top_12" x="0" y="0" z="0"/>
 		<rotation name="rot_subtract_mirror_box_top_12" x="0" y="0" z="0"/>
+	</subtraction>
+	<box name="solid_mirror_box_top_cover_1" lunit="mm" x="0.5" y="265" z="86.868"/>
+	<tube name="solid_mirror_box_top_cover_hole" rmin="0" rmax="38.099999999999994" z="1.5" deltaphi="2*pi" startphi="0" aunit="rad" lunit="mm"/>
+	<subtraction name="solid_mirror_box_top_cover">
+		<first ref="solid_mirror_box_top_cover_1"/>
+		<second ref="solid_mirror_box_top_cover_hole"/>
+		<position name="pos_subtract_mirror_box_top_cover" x="0" y="0" z="0"/>
+		<rotation name="rot_subtract_mirror_box_top_cover" x="0" y="pi/2" z="0"/>
 	</subtraction>
 	<tube name="solid_pmt_filter" rmin="0" rmax="38.099999999999994" z="5.0" deltaphi="2*pi" startphi="0" aunit="rad" lunit="mm"/>
 	<tube name="solid_pmt_window" rmin="0" rmax="38.099999999999994" z="3.0" deltaphi="2*pi" startphi="0" aunit="rad" lunit="mm"/>
@@ -135,15 +144,15 @@
 	<opticalsurface name="quartz_surface" model="glisur" finish="ground" type="dielectric_dielectric" value="0.98" >
 	</opticalsurface>
 	<opticalsurface name="Al_mirror_surface" model="glisur" finish="ground" type="dielectric_metal" value="1.0" >
-		<property name="REFLECTIVITY" ref="Mylar_REFLECTIVITY_90DEG" />
-		<!-- <property name="REFLECTIVITY" ref="MiroSilver_REFLECTIVITY_30DEG" /> -->
-		<!-- <property name="REFLECTIVITY" ref="MiroIV_REFLECTIVITY_30DEG" /> -->
+		<property name="REFLECTIVITY" ref="MiroSilver_REFLECTIVITY_30DEG" />
+		<property name="EFFICIENCY" ref="AluminumSurf_EFFICIENCY" />
 	</opticalsurface>
 	<opticalsurface name="Cathode_surface" model="glisur" finish="polished" type="dielectric_metal" value="1.0">
 		<property name="REFLECTIVITY" ref="CathodeSurf_REFLECTIVITY" />
 		<property name="EFFICIENCY" ref="Cathode_EFFICIENCY" />
 	</opticalsurface>
 </solids>
+
 
 <structure>
 	<volume name="logic_quartz_0_0">
@@ -202,6 +211,14 @@
 		<auxiliary auxtype="DetNo" auxvalue="70032"/>
 		<auxiliary auxtype="DetType" auxvalue="opticalphoton"/>
 	</volume>
+	<volume name="logic_mirror_box_top_cover_0">
+		<materialref ref="Aluminum_material"/>
+		<solidref ref="solid_mirror_box_top_cover"/>
+		<auxiliary auxtype="Color" auxvalue="green"/>
+		<auxiliary auxtype="SensDet" auxvalue="mirror_box_top_cover_0"/>
+		<auxiliary auxtype="DetNo" auxvalue="70033"/>
+		<auxiliary auxtype="DetType" auxvalue="opticalphoton"/>
+	</volume>
 	<volume name="logic_pmt_filter_0">
 		<materialref ref="Quartz"/>
 		<solidref ref="solid_pmt_filter"/>
@@ -240,6 +257,11 @@
 			<volumeref ref="logic_mirror_box_top_0"/>
 			<position name="pos_logic_mirror_box_top_0" x="249.84029999999998" y="0" z="4.0"/>
 			<rotation name="rot_logic_mirror_box_top_0" x="0" y="-pi/2" z="0"/>
+		</physvol>
+		<physvol name="mirror_box_top_cover_0">
+			<volumeref ref="logic_mirror_box_top_cover_0"/>
+			<position name="pos_logic_mirror_box_top_cover_0" x="341.6192" y="0" z="4.0"/>
+			<rotation name="rot_logic_mirror_box_top_cover_0" x="0" y="0" z="0"/>
 		</physvol>
 		<physvol name="pmt_window_0">
 			<volumeref ref="logic_pmt_window_0"/>
@@ -318,6 +340,9 @@
 	</skinsurface>
 	<skinsurface name="mirror_box_bottom_skin_surface" surfaceproperty="Al_mirror_surface" >
 		<volumeref ref="logic_mirror_box_bot_0"/>
+	</skinsurface>
+	<skinsurface name="mirror_box_top_cover_skin_surface" surfaceproperty="Al_mirror_surface" >
+		<volumeref ref="logic_mirror_box_top_cover_0"/>
 	</skinsurface>
 	<skinsurface name="pmt_cathode_skin_surface" surfaceproperty="Cathode_surface" >
 		<volumeref ref="logic_pmt_cathode_0"/>

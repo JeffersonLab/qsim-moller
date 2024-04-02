@@ -150,8 +150,15 @@ void qsimPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent) {
 	if (fSourceMode == 0 || fSourceMode == 1) {
 		bool goodTheta = false;
 		while ( goodTheta == false ) {
-			randTheta = CLHEP::RandFlat::shoot( fthetaMin, fthetaMax );
-			goodTheta = Thetaspectrum(randTheta);
+			if (fSourceMode==1){
+				randTheta = CLHEP::RandFlat::shoot( fthetaMin, fthetaMax );
+				goodTheta = Thetaspectrum(randTheta);
+			}
+			else if (fSourceMode==0){ //cosmic mode
+				randTheta = CLHEP::RandGauss::shoot(0.0, 40/degree);
+				if (randTheta <=fthetaMax && randTheta >= fthetaMin) goodTheta = true;
+				else goodTheta = false;
+			}
 		}
 		
 		randPhi = CLHEP::RandFlat::shoot( 0.0, 360.0)*deg ;

@@ -87,6 +87,7 @@ Set by: /qsim/fSourceMode <0, 1, 2>
 0 = cosmic muons
 Generates primary particles following cosmic muon angular distribution and energy spectrum.  
 Energy spectrum obtained from fit to PDG data for muons with 0 deg incidence (good to 25% out to 36 GeV).  
+The theta-angular distribution of the muon is obatined from page 48 of: https://dspace.mit.edu/bitstream/handle/1721.1/61208/701107722-MIT.pdf?sequence=2&isAllowed=y
 Note that this does not automatically change the primary particle type to muons; this must be set by "/gun/particle mu-"
 
 1 = beam
@@ -96,7 +97,7 @@ Energy of beam can be changed in qsimPrimaryGeneratorAction.cc
 
 2 = remoll
 Generates 2-8 GeV particles following position, angular, energy and momentum distribution obtained from remoll simulation. In remoll simulation, three sensitive detectors are placed right infront of the open(beam right), closed(beam left) and transition(beam up) SM modules and the output rootfiles is skimmed to make Event distribution root file.
-The z position of primary vertex can be changed in qsimPrimaryGeneratorAction.cc, to effectively move detector closer/farther from VDC.
+The z position of primary vertex can be changed using macros /qsim/zmin and /qsim/zmax.
 The distributions are stored in file RemollPrimaryDistribution.root (copied to build directory when qsim is made), which has <not yet decided> events.
  
 ## Stand mode
@@ -136,7 +137,3 @@ Reflectivity (Photo cathode):
 Quantum Efficiency (Photo Cathode):
 
 Surface roughness (Quartz): Glisur model
-
-
-
-

@@ -55,7 +55,7 @@
 </material>
 <material formula="SiO2" name="Quartz" >
 	<property name="RINDEX" ref="Quartz_RINDEX"/>
-	<property name="ABSLENGTH" ref="Quartz_ABSLENGTH_TEST"/>
+	<property name="ABSLENGTH" ref="Quartz_ABSLENGTH_DATA"/>
 	<property name="REFLECTIVITY" ref="Quartz_REFLECTIVITY"/>
 	<D value="2.203" />
 	<composite n="1" ref="Silicon" />
@@ -83,6 +83,7 @@
 	<composite n="2" ref="Oxygen" />
 </material>
 </materials>
+
 
 <solids>
 	<xtru name="solid_quartz" lunit="mm">
@@ -128,22 +129,21 @@
 	</subtraction>
 	<tube name="solid_pmt_filter" rmin="0" rmax="38.099999999999994" z="5.0" deltaphi="2*pi" startphi="0" aunit="rad" lunit="mm"/>
 	<tube name="solid_pmt_window" rmin="0" rmax="38.099999999999994" z="3.0" deltaphi="2*pi" startphi="0" aunit="rad" lunit="mm"/>
-	<tube name="solid_pmt_cathode" rmin="0" rmax="35.0" z="3e-06" deltaphi="2*pi" startphi="0" aunit="rad" lunit="mm"/>
+	<tube name="solid_pmt_cathode" rmin="0" rmax="38.099999999999994" z="3e-06" deltaphi="2*pi" startphi="0" aunit="rad" lunit="mm"/>
 	<box name="solid_singledet" lunit="mm" x="800" y="300" z="200"/>
 	<box name="solid_showerMaxMother" lunit="mm" x="1000" y="500" z="300"/>
 
-	<opticalsurface name="quartz_surface" model="glisur" finish="polished" type="dielectric_dielectric" value="0.98" >
+	<opticalsurface name="quartz_surface" model="glisur" finish="ground" type="dielectric_dielectric" value="0.98" >
 	</opticalsurface>
-	<opticalsurface name="Al_mirror_surface" model="glisur" finish="polished" type="dielectric_metal" value="1.0" >
-		<!-- <property name="REFLECTIVITY" ref="Mylar_REFLECTIVITY_90DEG" /> -->
-		<!-- <property name="REFLECTIVITY" ref="MiroSilver_REFLECTIVITY_30DEG" /> -->
-		<property name="REFLECTIVITY" ref="MiroIV_REFLECTIVITY_60DEG" />
+	<opticalsurface name="Al_mirror_surface" model="glisur" finish="ground" type="dielectric_metal" value="0.98" >
+		<property name="REFLECTIVITY" ref="MiroSilver_REFLECTIVITY_30DEG" />
 	</opticalsurface>
 	<opticalsurface name="Cathode_surface" model="glisur" finish="polished" type="dielectric_metal" value="1.0">
 		<property name="REFLECTIVITY" ref="CathodeSurf_REFLECTIVITY" />
 		<property name="EFFICIENCY" ref="Cathode_EFFICIENCY" />
 	</opticalsurface>
 </solids>
+
 
 <structure>
 	<volume name="logic_quartz_0_0">
@@ -189,18 +189,10 @@
 	<volume name="logic_mirror_box_bot_0">
 		<materialref ref="Aluminum_material"/>
 		<solidref ref="solid_mirror_box_bot"/>
-		<auxiliary auxtype="Color" auxvalue="green"/>
-		<auxiliary auxtype="SensDet" auxvalue="mirror_box_bot_0"/>
-		<auxiliary auxtype="DetNo" auxvalue="70031"/>
-		<auxiliary auxtype="DetType" auxvalue="opticalphoton"/>
 	</volume>
 	<volume name="logic_mirror_box_top_0">
 		<materialref ref="Aluminum_material"/>
 		<solidref ref="solid_mirror_box_top"/>
-		<auxiliary auxtype="Color" auxvalue="green"/>
-		<auxiliary auxtype="SensDet" auxvalue="mirror_box_top_0"/>
-		<auxiliary auxtype="DetNo" auxvalue="70032"/>
-		<auxiliary auxtype="DetType" auxvalue="opticalphoton"/>
 	</volume>
 	<volume name="logic_pmt_filter_0">
 		<materialref ref="Quartz"/>
@@ -214,9 +206,6 @@
 		<materialref ref="Cathode"/>
 		<solidref ref="solid_pmt_cathode"/>
 		<auxiliary auxtype="SensDet" auxvalue="PhotoCathode" />
-		<auxiliary auxtype="Color" auxvalue="blue"/>
-		<auxiliary auxtype="DetNum" auxvalue="70016"/>
-		<auxiliary auxtype="DetType" auxvalue="opticalphoton"/>
 	</volume>
 	<volume name="logic_singledet_00">
 		<materialref ref="Air"/>

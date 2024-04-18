@@ -87,12 +87,12 @@
 
 <solids>
 	<xtru name="solid_quartz" lunit="mm">
-		<twoDimVertex x="-52.5" y="3.0"/>
-		<twoDimVertex x="-52.5" y="-3.0"/>
-		<twoDimVertex x="58.5" y="-3.0"/>
-		<twoDimVertex x="52.5" y="3.0"/>
-		<section zOrder="1" zPosition="-123.0" xOffset="0" yOffset="0" scalingFactor="1"/>
-		<section zOrder="2" zPosition="123.0" xOffset="0" yOffset="0" scalingFactor="1"/>
+		<twoDimVertex x="-80.0" y="3.0"/>
+		<twoDimVertex x="-80.0" y="-3.0"/>
+		<twoDimVertex x="86.0" y="-3.0"/>
+		<twoDimVertex x="80.0" y="3.0"/>
+		<section zOrder="1" zPosition="-132.5" xOffset="0" yOffset="0" scalingFactor="1"/>
+		<section zOrder="2" zPosition="132.5" xOffset="0" yOffset="0" scalingFactor="1"/>
 	</xtru>
 	<box name="solid_tungsten" lunit="mm" x="105.0" y="246.0" z="8.0"/>
 	<box name="solid_suitcase_tungstenquartz_1" lunit="mm" x="160.5" y="266.0" z="64.976"/>
@@ -104,11 +104,11 @@
 		<rotation name="rot_subtract_suitcase_tungstenquartz_12" x="0" y="0" z="0"/>
 	</subtraction>
 	<box name="solid_spacer_suitcase_1" lunit="mm" x="160.0" y="265" z="63.976"/>
-	<box name="solid_spacer_suitcase_2" lunit="mm" x="106.0" y="247.0" z="64.976"/>
+	<box name="solid_spacer_suitcase_2" lunit="mm" x="161.0" y="266.0" z="64.976"/>
 	<subtraction name="solid_spacer_suitcase">
 		<first ref="solid_spacer_suitcase_1"/>
 		<second ref="solid_spacer_suitcase_2"/>
-		<position name="pos_subtract_spacer_suitcase_12" x="27.5" y="0" z="0"/>
+		<position name="pos_subtract_spacer_suitcase_12" x="0.0" y="0" z="0"/>
 		<rotation name="rot_subtract_spacer_suitcase_12" x="0" y="0" z="0"/>
 	</subtraction>
 	<trd name="solid_mirror_box_bot_1" lunit="mm" x1="50.529999999999994"  x2="87.868" y1="266.0"  y2="266.0" z="67.4624"/>
@@ -254,42 +254,42 @@
 		</physvol>
 		<physvol name="quartz_0_0">
 			<volumeref ref="logic_quartz_0_0"/>
-			<position name="pos_logic_quartz_0_0" x="27.5" y="0" z="28.118"/>
+			<position name="pos_logic_quartz_0_0" x="0.0" y="0" z="28.118"/>
 			<rotation name="rot_logic_quartz_0_0" x="pi/2" y="0" z="0"/>
 		</physvol>
 		<physvol name="tungsten_0_0">
 			<volumeref ref="logic_tungsten_0_0"/>
-			<position name="pos_logic_tungsten_0_0" x="27.5" y="0" z="20.248"/>
+			<position name="pos_logic_tungsten_0_0" x="0.0" y="0" z="20.248"/>
 			<rotation name="rot_logic_tungsten_0_0" x="0" y="0" z="0"/>
 		</physvol>
 		<physvol name="quartz_0_1">
 			<volumeref ref="logic_quartz_0_1"/>
-			<position name="pos_logic_quartz_0_1" x="27.5" y="0" z="12.378"/>
+			<position name="pos_logic_quartz_0_1" x="0.0" y="0" z="12.378"/>
 			<rotation name="rot_logic_quartz_0_1" x="-pi/2" y="0" z="0"/>
 		</physvol>
 		<physvol name="tungsten_0_1">
 			<volumeref ref="logic_tungsten_0_1"/>
-			<position name="pos_logic_tungsten_0_1" x="27.5" y="0" z="4.507999999999999"/>
+			<position name="pos_logic_tungsten_0_1" x="0.0" y="0" z="4.507999999999999"/>
 			<rotation name="rot_logic_tungsten_0_1" x="0" y="0" z="0"/>
 		</physvol>
 		<physvol name="quartz_0_2">
 			<volumeref ref="logic_quartz_0_2"/>
-			<position name="pos_logic_quartz_0_2" x="27.5" y="0" z="-3.362"/>
+			<position name="pos_logic_quartz_0_2" x="0.0" y="0" z="-3.362"/>
 			<rotation name="rot_logic_quartz_0_2" x="pi/2" y="0" z="0"/>
 		</physvol>
 		<physvol name="tungsten_0_2">
 			<volumeref ref="logic_tungsten_0_2"/>
-			<position name="pos_logic_tungsten_0_2" x="27.5" y="0" z="-11.232"/>
+			<position name="pos_logic_tungsten_0_2" x="0.0" y="0" z="-11.232"/>
 			<rotation name="rot_logic_tungsten_0_2" x="0" y="0" z="0"/>
 		</physvol>
 		<physvol name="quartz_0_3">
 			<volumeref ref="logic_quartz_0_3"/>
-			<position name="pos_logic_quartz_0_3" x="27.5" y="0" z="-19.102"/>
+			<position name="pos_logic_quartz_0_3" x="0.0" y="0" z="-19.102"/>
 			<rotation name="rot_logic_quartz_0_3" x="-pi/2" y="0" z="0"/>
 		</physvol>
 		<physvol name="tungsten_0_3">
 			<volumeref ref="logic_tungsten_0_3"/>
-			<position name="pos_logic_tungsten_0_3" x="27.5" y="0" z="-26.972"/>
+			<position name="pos_logic_tungsten_0_3" x="0.0" y="0" z="-26.972"/>
 			<rotation name="rot_logic_tungsten_0_3" x="0" y="0" z="0"/>
 		</physvol>
 		<auxiliary auxtype="Alpha" auxvalue="0.0"/>

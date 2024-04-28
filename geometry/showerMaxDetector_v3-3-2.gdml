@@ -24,7 +24,7 @@
 		<section zOrder="1" zPosition="-132.5" xOffset="0" yOffset="0" scalingFactor="1"/>
 		<section zOrder="2" zPosition="132.5" xOffset="0" yOffset="0" scalingFactor="1"/>
 	</xtru>
-	<box name="solid_tungsten" lunit="mm" x="105.0" y="246.0" z="8.0"/>
+	<box name="solid_tungsten" lunit="mm" x="160.0" y="265.0" z="8.0"/>
 	<box name="solid_wrap_1" lunit="mm" x="160.0" y="265.0" z="6.252"/>
 	<box name="solid_wrap_2" lunit="mm" x="160.0" y="266.0" z="6.1"/>
 	<subtraction name="solid_wrap">
@@ -33,15 +33,15 @@
 		<position name="pos_subtract_wrap_12" x="0.076" y="0" z="0"/>
 		<rotation name="rot_subtract_wrap_12" x="0" y="0" z="0"/>
 	</subtraction>
-	<box name="solid_suitcase_tungstenquartz_1" lunit="mm" x="161.0" y="266.0" z="65.768"/>
-	<box name="solid_suitcase_tungstenquartz_2" lunit="mm" x="161.0" y="265.0" z="64.768"/>
+	<box name="solid_suitcase_tungstenquartz_1" lunit="mm" x="161.0" y="266.0" z="58.407999999999994"/>
+	<box name="solid_suitcase_tungstenquartz_2" lunit="mm" x="161.0" y="265.0" z="57.407999999999994"/>
 	<subtraction name="solid_suitcase_tungstenquartz">
 		<first ref="solid_suitcase_tungstenquartz_1"/>
 		<second ref="solid_suitcase_tungstenquartz_2"/>
 		<position name="pos_subtract_suitcase_tungstenquartz_12" x="0.5" y="0" z="0"/>
 		<rotation name="rot_subtract_suitcase_tungstenquartz_12" x="0" y="0" z="0"/>
 	</subtraction>
-	<box name="solid_front_back_plate" lunit="mm" x="181.698" y="313.8" z="6.35"/>
+	<box name="solid_front_back_plate" lunit="mm" x="181.61" y="313.69" z="6.35"/>
 	<box name="solid_front_plate_hole" lunit="mm" x="81.28" y="213.35999999999999" z="7.35"/>
 	<subtraction name="solid_front_plate">
 		<first ref="solid_front_back_plate"/>
@@ -49,24 +49,24 @@
 		<position name="pos_subtract_front_plate" x="0" y="0" z="0"/>
 		<rotation name="rot_subtract_front_plate" x="0" y="0" z="0"/>
 	</subtraction>
-	<box name="solid_ledge" lunit="mm" x="21.698000000000008" y="6.35" z="62.768"/>
-	<trd name="solid_mirror_box_bot_1" lunit="mm" x1="54.593999999999994"  x2="90.916" y1="266.0"  y2="266.0" z="67.30999999999999"/>
-	<trd name="solid_mirror_box_bot_2" lunit="mm" x1="53.593999999999994"  x2="89.916" y1="265.0"  y2="265.0" z="68.30999999999999"/>
+	<box name="solid_ledge" lunit="mm" x="21.610000000000014" y="6.35" z="57.419999999999995"/>
+	<trd name="solid_mirror_box_bot_1" lunit="mm" x1="50.529999999999994"  x2="87.868" y1="266.0"  y2="266.0" z="67.0"/>
+	<trd name="solid_mirror_box_bot_2" lunit="mm" x1="49.529999999999994"  x2="86.868" y1="265.0"  y2="265.0" z="68.0"/>
 	<subtraction name="solid_mirror_box_bot">
 		<first ref="solid_mirror_box_bot_1"/>
 		<second ref="solid_mirror_box_bot_2"/>
 		<position name="pos_subtract_mirror_box_bot_12" x="0" y="0" z="0"/>
 		<rotation name="rot_subtract_mirror_box_bot_12" x="0" y="" z="0"/>
 	</subtraction>
-	<trd name="solid_mirror_box_top_1" lunit="mm" x1="90.916"  x2="72.62799999999999" y1="266.0"  y2="75.67599999999999" z="182.626"/>
-	<trd name="solid_mirror_box_top_2" lunit="mm" x1="89.916"  x2="71.62799999999999" y1="265.0"  y2="74.67599999999999" z="183.626"/>
+	<trd name="solid_mirror_box_top_1" lunit="mm" x1="87.868"  x2="71.866" y1="266.0"  y2="266.0" z="183.0"/>
+	<trd name="solid_mirror_box_top_2" lunit="mm" x1="86.868"  x2="70.866" y1="265.0"  y2="265.0" z="184.0"/>
 	<subtraction name="solid_mirror_box_top">
 		<first ref="solid_mirror_box_top_1"/>
 		<second ref="solid_mirror_box_top_2"/>
 		<position name="pos_subtract_mirror_box_top_12" x="0" y="0" z="0"/>
 		<rotation name="rot_subtract_mirror_box_top_12" x="0" y="0" z="0"/>
 	</subtraction>
-	<box name="solid_mirror_flap" lunit="mm" x="0.5" y="265.0" z="10.98"/>
+	<box name="solid_mirror_flap" lunit="mm" x="0.5" y="265.0" z="7.5"/>
 	<box name="solid_top_support_1" lunit="mm" x="6.35" y="370.878" z="114.3"/>
 	<cone name="solid_top_support_hole" rmin1="0"  rmax1="42" rmin2="0" rmax2="42"  z="7.35" startphi="0" deltaphi="360" aunit="deg" lunit="mm"/>
 	<box name="solid_top_support_corner_cut" lunit="mm" x="7.35" y="48.0" z="20.0"/>
@@ -100,14 +100,12 @@
 		<position name="pos_subtract_top_support" x="0" y="161.63899999999998" z="-47.35"/>
 		<rotation name="rot_subtract_top_support" x="0" y="0" z="0"/>
 	</subtraction>
-	<tube name="solid_pmt_filter" rmin="0" rmax="38.099999999999994" z="0.001" deltaphi="2*pi" startphi="0" aunit="rad" lunit="mm"/>
+	<tube name="solid_pmt_filter" rmin="0" rmax="38.099999999999994" z="3.0" deltaphi="2*pi" startphi="0" aunit="rad" lunit="mm"/>
 	<tube name="solid_pmt_window" rmin="0" rmax="38.099999999999994" z="3.0" deltaphi="2*pi" startphi="0" aunit="rad" lunit="mm"/>
 	<tube name="solid_pmt_cathode" rmin="0" rmax="35.0" z="3e-06" deltaphi="2*pi" startphi="0" aunit="rad" lunit="mm"/>
 	<box name="solid_singledet" lunit="mm" x="800" y="500" z="200"/>
 	<cone name="solid_showerMaxMother" rmin1="0"  rmax1="1000" rmin2="0" rmax2="1000"  z="258.736" startphi="0" deltaphi="360" aunit="deg" lunit="mm"/>
 
-	<opticalsurface name="pmt_window_surface" model="glisur" finish="polished" type="dielectric_dielectric" value="1.0" >
-	</opticalsurface>
 	<opticalsurface name="quartz_surface" model="glisur" finish="ground" type="dielectric_dielectric" value="1.0" >
 	</opticalsurface>
 	<opticalsurface name="Al_mirror_surface" model="glisur" finish="polished" type="dielectric_metal" value="1.0" >
@@ -115,6 +113,8 @@
 	</opticalsurface>
 	<opticalsurface name="mylar_wrap_surface" model="glisur" finish="polished" type="dielectric_metal" value="1.0" >
 		<property name="REFLECTIVITY" ref="Mylar_REFLECTIVITY_90DEG" />
+	</opticalsurface>
+	<opticalsurface name="pmt_window_surface" model="glisur" finish="polished" type="dielectric_dielectric" value="1.0" >
 	</opticalsurface>
 	<opticalsurface name="cathode_surface" model="glisur" finish="polished" type="dielectric_metal" value="1.0">
 		<property name="REFLECTIVITY" ref="CathodeSurf_REFLECTIVITY" />
@@ -275,42 +275,42 @@
 		</physvol>
 		<physvol name="mirror_flap_0">
 			<volumeref ref="logic_mirror_flap_0"/>
-			<position name="pos_logic_mirror_flap_0" x="91.099" y="0" z="-29.034"/>
+			<position name="pos_logic_mirror_flap_0" x="91.055" y="0" z="-25.353999999999996"/>
 			<rotation name="rot_logic_mirror_flap_0" x="0" y="0" z="0"/>
 		</physvol>
 		<physvol name="mirror_box_bot_0">
 			<volumeref ref="logic_mirror_box_bot_0"/>
-			<position name="pos_logic_mirror_box_bot_0" x="124.50399999999999" y="0" z="4.0"/>
+			<position name="pos_logic_mirror_box_bot_0" x="124.305" y="0" z="4.0"/>
 			<rotation name="rot_logic_mirror_box_bot_0" x="0" y="-pi/2" z="0"/>
 		</physvol>
 		<physvol name="mirror_box_top_0">
 			<volumeref ref="logic_mirror_box_top_0"/>
-			<position name="pos_logic_mirror_box_top_0" x="249.47199999999998" y="0" z="4.0"/>
+			<position name="pos_logic_mirror_box_top_0" x="249.305" y="0" z="4.0"/>
 			<rotation name="rot_logic_mirror_box_top_0" x="0" y="-pi/2" z="0"/>
 		</physvol>
 		<physvol name="top_support_0">
 			<volumeref ref="logic_top_support_0"/>
-			<position name="pos_top_support_0" x="343.96" y="0" z="4.0"/>
+			<position name="pos_top_support_0" x="343.98" y="0" z="4.0"/>
 			<rotation name="rot_top_support_0" x="0" y="0" z="0"/>
 		</physvol>
 		<physvol name="pmt_window_0">
 			<volumeref ref="logic_pmt_window_0"/>
-			<position name="pos_logic_pmt_window_0" x="342.28599999999994" y="0" z="4.0"/>
+			<position name="pos_logic_pmt_window_0" x="346.305" y="0" z="4.0"/>
 			<rotation name="rot_logic_pmt_window_0" x="0" y="-pi/2" z="0"/>
 		</physvol>
 		<physvol name="pmt_cathode_0">
 			<volumeref ref="logic_pmt_cathode_0"/>
-			<position name="pos_logic_pmt_cathode_0" x="343.78600299999994" y="0" z="4.0"/>
+			<position name="pos_logic_pmt_cathode_0" x="347.805003" y="0" z="4.0"/>
 			<rotation name="rot_logic_pmt_window_0" x="0" y="-pi/2" z="0"/>
 		</physvol>
 		<physvol name="front_plate_0">
 			<volumeref ref="logic_front_plate_0"/>
-			<position name="pos_logic_front_plate_0" x="0" y="0" z="-36.059"/>
+			<position name="pos_logic_front_plate_0" x="0" y="0" z="-32.379"/>
 			<rotation name="rot_logic_front_plate_0" x="0" y="0" z="0"/>
 		</physvol>
 		<physvol name="back_plate_0">
 			<volumeref ref="logic_front_back_plate_0"/>
-			<position name="pos_logic_back_plate_0" x="0" y="0" z="36.059"/>
+			<position name="pos_logic_back_plate_0" x="0" y="0" z="32.379"/>
 			<rotation name="rot_logic_back_plate_0" x="0" y="0" z="0"/>
 		</physvol>
 		<physvol name="ledge_right_0">
@@ -325,62 +325,62 @@
 		</physvol>
 		<physvol name="quartz_0_0">
 			<volumeref ref="logic_quartz_0_0"/>
-			<position name="pos_logic_quartz_0_0" x="0" y="0" z="28.324999999999996"/>
+			<position name="pos_logic_quartz_0_0" x="0" y="0" z="25.578000000000003"/>
 			<rotation name="rot_logic_quartz_0_0" x="pi/2" y="0" z="0"/>
 		</physvol>
 		<physvol name="tungsten_0_0">
 			<volumeref ref="logic_tungsten_0_0"/>
-			<position name="pos_logic_tungsten_0_0" x="27.5" y="0" z="20.316"/>
+			<position name="pos_logic_tungsten_0_0" x="0" y="0" z="18.402"/>
 			<rotation name="rot_logic_tungsten_0_0" x="0" y="0" z="0"/>
 		</physvol>
 		<physvol name="quartz_0_1">
 			<volumeref ref="logic_quartz_0_1"/>
-			<position name="pos_logic_quartz_0_1" x="0" y="0" z="12.132999999999997"/>
+			<position name="pos_logic_quartz_0_1" x="0" y="0" z="11.226000000000004"/>
 			<rotation name="rot_logic_quartz_0_1" x="-pi/2" y="0" z="0"/>
 		</physvol>
 		<physvol name="tungsten_0_1">
 			<volumeref ref="logic_tungsten_0_1"/>
-			<position name="pos_logic_tungsten_0_1" x="27.5" y="0" z="4.124000000000001"/>
+			<position name="pos_logic_tungsten_0_1" x="0" y="0" z="4.050000000000001"/>
 			<rotation name="rot_logic_tungsten_0_1" x="0" y="0" z="0"/>
 		</physvol>
 		<physvol name="quartz_0_2">
 			<volumeref ref="logic_quartz_0_2"/>
-			<position name="pos_logic_quartz_0_2" x="0" y="0" z="-4.059000000000002"/>
+			<position name="pos_logic_quartz_0_2" x="0" y="0" z="-3.125999999999997"/>
 			<rotation name="rot_logic_quartz_0_2" x="pi/2" y="0" z="0"/>
 		</physvol>
 		<physvol name="tungsten_0_2">
 			<volumeref ref="logic_tungsten_0_2"/>
-			<position name="pos_logic_tungsten_0_2" x="27.5" y="0" z="-12.068"/>
+			<position name="pos_logic_tungsten_0_2" x="0" y="0" z="-10.302"/>
 			<rotation name="rot_logic_tungsten_0_2" x="0" y="0" z="0"/>
 		</physvol>
 		<physvol name="quartz_0_3">
 			<volumeref ref="logic_quartz_0_3"/>
-			<position name="pos_logic_quartz_0_3" x="0" y="0" z="-20.251"/>
+			<position name="pos_logic_quartz_0_3" x="0" y="0" z="-17.477999999999998"/>
 			<rotation name="rot_logic_quartz_0_3" x="-pi/2" y="0" z="0"/>
 		</physvol>
 		<physvol name="tungsten_0_3">
 			<volumeref ref="logic_tungsten_0_3"/>
-			<position name="pos_logic_tungsten_0_3" x="27.5" y="0" z="-28.259999999999998"/>
+			<position name="pos_logic_tungsten_0_3" x="0" y="0" z="-24.654"/>
 			<rotation name="rot_logic_tungsten_0_3" x="0" y="0" z="0"/>
 		</physvol>
 		<physvol name="wrap_0_0">
 			<volumeref ref="logic_wrap_0_0"/>
-			<position name="pos_logic_wrap_0_0" x="-0.088" y="0" z="28.324999999999996"/>
+			<position name="pos_logic_wrap_0_0" x="-0.088" y="0" z="25.578000000000003"/>
 			<rotation name="rot_logic_wrap_0_0" x="0" y="0" z="0"/>
 		</physvol>
 		<physvol name="wrap_0_1">
 			<volumeref ref="logic_wrap_0_1"/>
-			<position name="pos_logic_wrap_0_1" x="-0.088" y="0" z="12.132999999999997"/>
+			<position name="pos_logic_wrap_0_1" x="-0.088" y="0" z="11.226000000000004"/>
 			<rotation name="rot_logic_wrap_0_1" x="0" y="0" z="0"/>
 		</physvol>
 		<physvol name="wrap_0_2">
 			<volumeref ref="logic_wrap_0_2"/>
-			<position name="pos_logic_wrap_0_2" x="-0.088" y="0" z="-4.059000000000002"/>
+			<position name="pos_logic_wrap_0_2" x="-0.088" y="0" z="-3.125999999999997"/>
 			<rotation name="rot_logic_wrap_0_2" x="0" y="0" z="0"/>
 		</physvol>
 		<physvol name="wrap_0_3">
 			<volumeref ref="logic_wrap_0_3"/>
-			<position name="pos_logic_wrap_0_3" x="-0.088" y="0" z="-20.251"/>
+			<position name="pos_logic_wrap_0_3" x="-0.088" y="0" z="-17.477999999999998"/>
 			<rotation name="rot_logic_wrap_0_3" x="0" y="0" z="0"/>
 		</physvol>
 		<auxiliary auxtype="Alpha" auxvalue="0.0"/>
@@ -396,20 +396,8 @@
 		<auxiliary auxtype="Alpha" auxvalue="0.0"/>
 	</volume>
 
-	<skinsurface name="pmt_window_skin_surface_0" surfaceproperty="pmt_window_surface" >
-		<volumeref ref="logic_pmt_window_0"/>
-	</skinsurface>
 	<skinsurface name="quartz_skin_surface_0" surfaceproperty="quartz_surface" >
-		<volumeref ref="logic_quartz_0_1"/>
-	</skinsurface>
-	<skinsurface name="quartz_skin_surface_1" surfaceproperty="quartz_surface" >
-		<volumeref ref="logic_quartz_0_1"/>
-	</skinsurface>
-	<skinsurface name="quartz_skin_surface_2" surfaceproperty="quartz_surface" >
-		<volumeref ref="logic_quartz_0_2"/>
-	</skinsurface>
-	<skinsurface name="quartz_skin_surface_3" surfaceproperty="quartz_surface" >
-		<volumeref ref="logic_quartz_0_3"/>
+		<volumeref ref="logic_pmt_window_0"/>
 	</skinsurface>
 	<skinsurface name="suitcase_skin_surface_0" surfaceproperty="Al_mirror_surface" >
 		<volumeref ref="logic_suitcase_tungstenquartz_0"/>
@@ -432,12 +420,15 @@
 	<skinsurface name="wrap_skin_surface_0_3" surfaceproperty="mylar_wrap_surface" >
 		<volumeref ref="logic_wrap_0_3"/>
 	</skinsurface>
+	<skinsurface name="pmt_window_skin_surface_0" surfaceproperty="pmt_window_surface" >
+		<volumeref ref="logic_pmt_window_0"/>
+	</skinsurface>
 	<skinsurface name="cathode_skin_surface_0" surfaceproperty="cathode_surface" >
 		<volumeref ref="logic_pmt_cathode_0"/>
 	</skinsurface>
 
 </structure>
-<setup name="showerMaxWorld" version="2-2-0">
+<setup name="showerMaxWorld" version="3-3-2">
 	<world ref="showerMaxMother"/>
 </setup>
 </gdml>

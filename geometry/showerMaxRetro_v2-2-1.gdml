@@ -100,8 +100,8 @@
 		<position name="pos_subtract_top_support" x="0" y="161.63899999999998" z="-47.35"/>
 		<rotation name="rot_subtract_top_support" x="0" y="0" z="0"/>
 	</subtraction>
-	<tube name="solid_pmt_filter" rmin="0" rmax="38.099999999999994" z="0.001" deltaphi="2*pi" startphi="0" aunit="rad" lunit="mm"/>
-	<tube name="solid_pmt_window" rmin="0" rmax="38.099999999999994" z="3.0" deltaphi="2*pi" startphi="0" aunit="rad" lunit="mm"/>
+	<tube name="solid_pmt_filter" rmin="0" rmax="38.099999999999994" z="3.0" deltaphi="2*pi" startphi="0" aunit="rad" lunit="mm"/>
+	<tube name="solid_pmt_window" rmin="0" rmax="38.099999999999994" z="3.5" deltaphi="2*pi" startphi="0" aunit="rad" lunit="mm"/>
 	<tube name="solid_pmt_cathode" rmin="0" rmax="35.0" z="3e-06" deltaphi="2*pi" startphi="0" aunit="rad" lunit="mm"/>
 	<box name="solid_singledet" lunit="mm" x="800" y="500" z="200"/>
 	<cone name="solid_showerMaxMother" rmin1="0"  rmax1="1000" rmin2="0" rmax2="1000"  z="258.736" startphi="0" deltaphi="360" aunit="deg" lunit="mm"/>
@@ -293,12 +293,12 @@
 		</physvol>
 		<physvol name="pmt_window_0">
 			<volumeref ref="logic_pmt_window_0"/>
-			<position name="pos_logic_pmt_window_0" x="343.28599999999994" y="0" z="4.0"/>
+			<position name="pos_logic_pmt_window_0" x="346.53499999999997" y="0" z="4.0"/>
 			<rotation name="rot_logic_pmt_window_0" x="0" y="-pi/2" z="0"/>
 		</physvol>
 		<physvol name="pmt_cathode_0">
 			<volumeref ref="logic_pmt_cathode_0"/>
-			<position name="pos_logic_pmt_cathode_0" x="344.78600299999994" y="0" z="4.0"/>
+			<position name="pos_logic_pmt_cathode_0" x="348.28500299999996" y="0" z="4.0"/>
 			<rotation name="rot_logic_pmt_window_0" x="0" y="-pi/2" z="0"/>
 		</physvol>
 		<physvol name="front_plate_0">
@@ -423,7 +423,7 @@
 	</skinsurface>
 
 </structure>
-<setup name="showerMaxWorld" version="2-8-1">
+<setup name="showerMaxWorld" version="2-2-1">
 	<world ref="showerMaxMother"/>
 </setup>
 </gdml>

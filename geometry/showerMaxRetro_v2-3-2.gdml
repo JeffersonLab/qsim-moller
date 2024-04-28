@@ -100,14 +100,12 @@
 		<position name="pos_subtract_top_support" x="0" y="161.63899999999998" z="-47.35"/>
 		<rotation name="rot_subtract_top_support" x="0" y="0" z="0"/>
 	</subtraction>
-	<tube name="solid_pmt_filter" rmin="0" rmax="38.099999999999994" z="0.001" deltaphi="2*pi" startphi="0" aunit="rad" lunit="mm"/>
+	<tube name="solid_pmt_filter" rmin="0" rmax="38.099999999999994" z="3.0" deltaphi="2*pi" startphi="0" aunit="rad" lunit="mm"/>
 	<tube name="solid_pmt_window" rmin="0" rmax="38.099999999999994" z="3.0" deltaphi="2*pi" startphi="0" aunit="rad" lunit="mm"/>
 	<tube name="solid_pmt_cathode" rmin="0" rmax="35.0" z="3e-06" deltaphi="2*pi" startphi="0" aunit="rad" lunit="mm"/>
 	<box name="solid_singledet" lunit="mm" x="800" y="500" z="200"/>
 	<cone name="solid_showerMaxMother" rmin1="0"  rmax1="1000" rmin2="0" rmax2="1000"  z="258.736" startphi="0" deltaphi="360" aunit="deg" lunit="mm"/>
 
-	<opticalsurface name="pmt_window_surface" model="glisur" finish="polished" type="dielectric_dielectric" value="1.0" >
-	</opticalsurface>
 	<opticalsurface name="quartz_surface" model="glisur" finish="ground" type="dielectric_dielectric" value="1.0" >
 	</opticalsurface>
 	<opticalsurface name="Al_mirror_surface" model="glisur" finish="polished" type="dielectric_metal" value="1.0" >
@@ -115,6 +113,8 @@
 	</opticalsurface>
 	<opticalsurface name="mylar_wrap_surface" model="glisur" finish="polished" type="dielectric_metal" value="1.0" >
 		<property name="REFLECTIVITY" ref="Mylar_REFLECTIVITY_90DEG" />
+	</opticalsurface>
+	<opticalsurface name="pmt_window_surface" model="glisur" finish="polished" type="dielectric_dielectric" value="1.0" >
 	</opticalsurface>
 	<opticalsurface name="cathode_surface" model="glisur" finish="polished" type="dielectric_metal" value="1.0">
 		<property name="REFLECTIVITY" ref="CathodeSurf_REFLECTIVITY" />
@@ -295,12 +295,12 @@
 		</physvol>
 		<physvol name="pmt_window_0">
 			<volumeref ref="logic_pmt_window_0"/>
-			<position name="pos_logic_pmt_window_0" x="342.28599999999994" y="0" z="4.0"/>
+			<position name="pos_logic_pmt_window_0" x="346.28499999999997" y="0" z="4.0"/>
 			<rotation name="rot_logic_pmt_window_0" x="0" y="-pi/2" z="0"/>
 		</physvol>
 		<physvol name="pmt_cathode_0">
 			<volumeref ref="logic_pmt_cathode_0"/>
-			<position name="pos_logic_pmt_cathode_0" x="343.78600299999994" y="0" z="4.0"/>
+			<position name="pos_logic_pmt_cathode_0" x="347.78500299999996" y="0" z="4.0"/>
 			<rotation name="rot_logic_pmt_window_0" x="0" y="-pi/2" z="0"/>
 		</physvol>
 		<physvol name="front_plate_0">
@@ -396,19 +396,16 @@
 		<auxiliary auxtype="Alpha" auxvalue="0.0"/>
 	</volume>
 
-	<skinsurface name="pmt_window_skin_surface_0" surfaceproperty="pmt_window_surface" >
-		<volumeref ref="logic_pmt_window_0"/>
+	<skinsurface name="quartz_skin_surface_0_0" surfaceproperty="quartz_surface" >
+		<volumeref ref="logic_quartz_0_0"/>
 	</skinsurface>
-	<skinsurface name="quartz_skin_surface_0" surfaceproperty="quartz_surface" >
+	<skinsurface name="quartz_skin_surface_0_1" surfaceproperty="quartz_surface" >
 		<volumeref ref="logic_quartz_0_1"/>
 	</skinsurface>
-	<skinsurface name="quartz_skin_surface_1" surfaceproperty="quartz_surface" >
-		<volumeref ref="logic_quartz_0_1"/>
-	</skinsurface>
-	<skinsurface name="quartz_skin_surface_2" surfaceproperty="quartz_surface" >
+	<skinsurface name="quartz_skin_surface_0_2" surfaceproperty="quartz_surface" >
 		<volumeref ref="logic_quartz_0_2"/>
 	</skinsurface>
-	<skinsurface name="quartz_skin_surface_3" surfaceproperty="quartz_surface" >
+	<skinsurface name="quartz_skin_surface_0_3" surfaceproperty="quartz_surface" >
 		<volumeref ref="logic_quartz_0_3"/>
 	</skinsurface>
 	<skinsurface name="suitcase_skin_surface_0" surfaceproperty="Al_mirror_surface" >
@@ -432,12 +429,15 @@
 	<skinsurface name="wrap_skin_surface_0_3" surfaceproperty="mylar_wrap_surface" >
 		<volumeref ref="logic_wrap_0_3"/>
 	</skinsurface>
+	<skinsurface name="pmt_window_skin_surface_0" surfaceproperty="pmt_window_surface" >
+		<volumeref ref="logic_pmt_window_0"/>
+	</skinsurface>
 	<skinsurface name="cathode_skin_surface_0" surfaceproperty="cathode_surface" >
 		<volumeref ref="logic_pmt_cathode_0"/>
 	</skinsurface>
 
 </structure>
-<setup name="showerMaxWorld" version="2-2-0">
+<setup name="showerMaxWorld" version="2-3-2">
 	<world ref="showerMaxMother"/>
 </setup>
 </gdml>

@@ -18,6 +18,7 @@
 using namespace std;
 
 void plot_hitn(){
+    gROOT->SetBatch(kTRUE);
     //gROOT->Reset();
     gStyle->SetOptStat("eMR");
     //gStyle->SetTitleYOffset(1.3);
@@ -27,24 +28,25 @@ void plot_hitn(){
     gStyle->SetOptFit(1);
     TGaxis::SetMaxDigits(3);
     
-    string config = "qsim_14";
-    string particle = "e";
+    string config = "qsim_43";
+    string particle = "mu-";
     float beamEnergy = 855;
-    string geometry = "smRetroQsim";
+    string geometry = "showerMaxDetector_v3-1-0";
     int color[] = {kBlack, kRed, kBlue, kMagenta, kGreen+2};
 
     int hist_xmin = 0;
-    int hist_xmax = 500;
-    int nbins = 100;
+    int hist_xmax = 1000;
+    int nbins = 1000;
     int fileSplit = 1;
+    int binWidth = (hist_xmax-hist_xmin)/nbins;
 
-    //string inFileDir = Form("/volatile/halla/moller12gev/sudip/qsim_rootfiles/%s/",config.c_str());
-    TString inFileDir = Form("~/programs/qsim/qsim-showermax/rootfiles/%s/", config.c_str());
+    TString inFileDir = Form("/volatile/halla/moller12gev/sudip/qsim_rootfiles/%s/",config.c_str());
+    //TString inFileDir = Form("~/programs/qsim/qsim-showermax/rootfiles/%s/", config.c_str());
     TString inRootFileName[fileSplit];
 
     TChain *T = new TChain("T");
     for (int i=1; i<fileSplit+1; i++){
-        inRootFileName[i] = Form("qsim_out_855MeV_%s_10k_%d.root",geometry.c_str(), 1000+i);
+        inRootFileName[i] = Form("qsim_out_%s_100k_%d.root",geometry.c_str(), 1000+i);
         T->Add(inFileDir + inRootFileName[i]);
     }
 
@@ -56,10 +58,10 @@ void plot_hitn(){
     T->SetBranchAddress("hit.n", &hitn);
     int events = T->GetEntries();
 
-    h_hitn = new TH1F(Form("h_hitn_%.1fGeV",beamEnergy), Form("PE hits distribution of %s with %s beam; PEs; Events/5PEs", geometry.c_str(), particle.c_str()),
+    h_hitn = new TH1F(Form("h_hitn_%.0fMeV",beamEnergy), Form("PE hits distribution of %s with %s beam; PEs; Events/%dPEs", geometry.c_str(), particle.c_str(), binWidth),
             nbins, hist_xmin, hist_xmax);
     h_hitn->SetLineColor(kBlack);
-    //h_hitn->SetAxisRange(0, 500);
+    h_hitn->SetAxisRange(0, 50);
     //h_hitn[i]->SetLineWidth(1);
     
     for (int j=0; j<events; j++){
@@ -68,9 +70,8 @@ void plot_hitn(){
         if (j%(events/10)==0) cout << "\tfilled " << j << " events." << endl;
     }
     
-    gPad->SetLogy();
+    //gPad->SetLogy();
     h_hitn->Draw();
-    
 
     gPad->Update();
     float widthStat = 0.25; //width of a stat box
@@ -100,6 +101,12 @@ void plot_hitn(){
 
     //h_hitn->SaveAs("./test/test.root");
 
-    //gSystem->Exec(Form("mkdir -p plots/%s/",config.c_str()));
-    //c1->SaveAs(Form("./plots/%s/%s_%s.pdf",config.c_str(), geometry.c_str(),particle.c_str()));
+    gSystem->Exec(Form("mkdir -p plots/%s/",config.c_str()));
+    c1->SaveAs(Form("./plots/%s/%s_%s.pdf",config.c_str(), geometry.c_str(),particle.c_str()));
+
+    // Sace the histogram to a root file
+    gSystem->Exec(Form("mkdir -p output_files/%s/",config.c_str()));
+    TFile * outFile = new TFile(Form("./output_files/%s/h_hitn_855MeV.root",config.c_str()), "RECREATE");
+    h_hitn->Write();
+    outFile->Close();
 }

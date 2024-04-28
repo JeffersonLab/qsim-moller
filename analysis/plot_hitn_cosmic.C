@@ -50,7 +50,7 @@ void plot_hitn_cosmic(){
     TChain *T = new TChain("T");
     for (int i=0; i<fileSplit; i++){
         //inRootFileName[i] = Form("qsim_out_%s_100k_%d.root",geometry.c_str(), 1000+i);
-        inRootFileName[i] = Form("qsim_out_smFull-v3_cosmic_test3.root");
+        inRootFileName[i] = Form("qsim_out_smFull-v3-1-2_cosmic_smallscintNearPMT.root");
         T->Add(inFileDir + inRootFileName[i]);
     }
     //T->Add("~/programs/qsim/qsim-showermax/rootfiles/qsim_out_cosmic_showermax.root");

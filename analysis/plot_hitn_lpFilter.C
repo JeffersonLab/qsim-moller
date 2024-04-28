@@ -22,6 +22,9 @@
 
 using namespace std;
 
+//Function prototype
+double getWL(double energy); // Return the wavelength of the photon with the given energy in GeV
+
 void plot_hitn_lpFilter(){
     //gROOT->Reset();
     gStyle->SetOptStat("eMR");
@@ -35,22 +38,24 @@ void plot_hitn_lpFilter(){
     float beamEnergy = 1;
     int lpFilterWL[] = {0, 300, 350, 400, 450}; // in nm
     int nLpFilterWL = sizeof(lpFilterWL)/sizeof(lpFilterWL[0]);
-    string geometry = "showerMaxDetector_v3-1-0";
+    string geometry = "smRetro-v2-3-2";
     int color[] = {kBlack, kRed, kBlue, kMagenta, kGreen+2, kCyan, kOrange-3, kViolet, kAzure, kTeal};
 
     int hist_xmin = 0;
     int hist_xmax = 100;
     int nbins = 100;
-    int fileSplit = 2;
+    int fileSplit = 1;
 
     //TString inFileDir = Form("/volatile/halla/moller12gev/sudip/qsim_rootfiles/%s/",config.c_str());
-    TString inFileDir = Form("~/programs/qsim/qsim-showermax/rootfiles/");
+    // TString inFileDir = Form("~/programs/qsim/qsim-showermax/rootfiles/");
+    TString inFileDir = Form("~/programs/qsim/qsim-showermax/rootfiles/ifarm_workdir/");
     TString inRootFileName[fileSplit];
 
     TChain *T = new TChain("T");
-    for (int i=1; i<fileSplit; i++){
+    for (int i=1; i<fileSplit+1; i++){
         //inRootFileName[i] = Form("qsim_out_1GeV_mu_%s_10k_%d.root",geometry.c_str(), 1000+i);
-        inRootFileName[i] = Form("qsim_out_mami_retro-v2_cath70mm_%d.root", i+1);
+        inRootFileName[i] = Form("qsim_out_%s_mami_%d.root",geometry.c_str(), i);
+        cout << "File added: " << inRootFileName[i] << endl;
         T->Add(inFileDir + inRootFileName[i]);
     }
 
@@ -81,7 +86,7 @@ void plot_hitn_lpFilter(){
             T->GetEntry(iEvent);
 
             for (int iHit=0; iHit<hitn; iHit++){
-                if (hitE[iHit]*1e9*lpFilterWL[iFilter]<1239.8) hitCount++;
+                if (getWL(hitE[iHit])>lpFilterWL[iFilter]) hitCount++;
             }
            
             h_hitn[iFilter]->Fill(hitCount);
@@ -90,7 +95,7 @@ void plot_hitn_lpFilter(){
     }
     
     // Draw histograms
-    THStack *hs = new THStack("hs","PE hits distribution for different LP filters");
+    THStack *hs = new THStack("hs", "PE hits distribution for different LP filters");
     for (int i=0; i<nLpFilterWL; i++){
         hs->Add(h_hitn[i]);
     }
@@ -99,10 +104,10 @@ void plot_hitn_lpFilter(){
     hs->GetYaxis()->SetTitle("Counts/bin");
 
     //Draw legend
-    TLegend *legend = new TLegend(0.6,0.5,0.9,0.9);
-    legend->SetHeader("LP wl: Mean, RMS/Mean");
+    TLegend *legend = new TLegend(0.55,0.45,0.9,0.9);
+    legend->SetHeader("   \tLP wl:\tMean,\tRes");
     for (int i=0; i<nLpFilterWL; i++){
-        legend->AddEntry(h_hitn[i], Form("%d nm: \t%0.1f, \t%0.2f", lpFilterWL[i], h_hitn[i]->GetMean(), h_hitn[i]->GetRMS()/h_hitn[i]->GetMean()), "l");
+        legend->AddEntry(h_hitn[i], Form("%d nm: \t%0.1f,  \t%0.2f", lpFilterWL[i], h_hitn[i]->GetMean(), h_hitn[i]->GetRMS()/h_hitn[i]->GetMean()), "l");
     }
     legend->Draw();
 
@@ -136,4 +141,13 @@ void plot_hitn_lpFilter(){
     gSystem->Exec(Form("mkdir -p plots/%s/",config.c_str()));
     c1->SaveAs(Form("./plots/%s/%s_%s.pdf",config.c_str(), geometry.c_str(),particle.c_str()));
     */
+}
+
+double getWL(double energy){
+    // double h = 6.62607015e-34; // Planck constant in J.s
+    // double c = 299792458; // Speed of light in m/s
+    // double eV = 1.602176634e-19; // 1 eV in J
+    // double lambda = h*c/(energy*eV*1e9);
+    //return lambda*1e9; // in nm
+    return 1240/(energy*1e9); // in nm
 }

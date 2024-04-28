@@ -1,26 +1,27 @@
 # Description: This script creates the run macro file and job submit file for qsim and submits the job to ifarm
-#              It submits job for smRetroQsim geometry and different y positions to mimic the MAMI longitudinal scan 
+#              It submits job for smRetroQsim geometry and different x positions to mimic the MAMI radial scan 
 # Change: config, beamEnergy, geometry, eventsNum and sourceDir as needed
 
 import os
 import random
 import time
-#import numpy as np
+import numpy as np
 
 # Define variables
-config = "qsim_36"
-nJobs = 29
+config = "qsim_41"
+nJobs = 11
 beamParticle = "e-"
 beamEnergy = 855
 energyUnit = "MeV"
-geometry = "smRetroQsim-v2.8"
+geometry = "smRetroQsim"
 eventsNum = 10000
-azimuthValueList = []
-for i in range(-140, 150, 10):
-    azimuthValueList.append(i)
+radialValueList = []
+for i in np.arange(-22.5, 77.6, 10):
+    radialValueList.append(i)
+print(radialValueList)
 seed = []
 for i in range(nJobs):
-    seed.append(random.randrange(99999999))
+    seed.append(random.randrange(99999))
 #sourceDir = "/Users/sudip/programs/qsim/qsim-showermax/"
 sourceDir = "/w/halla-scshelf2102/moller12gev/sudip/qsim/qsim-showermax/"
 
@@ -41,7 +42,7 @@ if not os.path.exists(outRootFileDir):
     os.makedirs(outRootFileDir)
 
 # Define functions
-def writeQsimRunMacro(macroName:str, yValue:int, outFileName="qsim_out.root", beamEnergy=855, events=100, seed = 50):
+def writeQsimRunMacro(macroName:str, xValue:int, outFileName="qsim_out.root", beamEnergy=855, events=100, seed = 50):
     '''Creates a macro file to run in qsim'''
     file = open(macroDir + macroName, "w")
     file.write("/qsim/fSourceMode 1\n")
@@ -49,10 +50,10 @@ def writeQsimRunMacro(macroName:str, yValue:int, outFileName="qsim_out.root", be
     file.write("/process/optical/boundary/setInvokeSD true\n")
     file.write("/qsim/filename " + outRootFileDir + outFileName + ".root\n")
     file.write("#/qsim/seed {}\n".format(seed))
-    file.write("/qsim/xmin 27.5 mm\n")
-    file.write("/qsim/xmax 27.5 mm\n")
-    file.write("/qsim/ymin {} mm\n".format(yValue))
-    file.write("/qsim/ymax {} mm\n".format(yValue))
+    file.write("/qsim/xmin {} mm\n".format(xValue))
+    file.write("/qsim/xmax {} mm\n".format(xValue))
+    file.write("/qsim/ymin 0 mm\n")
+    file.write("/qsim/ymax 0 mm\n")
     file.write("/qsim/emin {} {}\n".format(beamEnergy, energyUnit))
     file.write("/qsim/emax {} {}\n".format(beamEnergy, energyUnit))
     file.write("/gun/particle " + beamParticle + "\n")
@@ -86,7 +87,7 @@ def writeJobSubmitScript(scriptName:str, jobOutErrName:str, geometryGDML:str, ma
 for iJob in range(nJobs):
     macroFileName = "runbatch_{}{}_{}_{}k_{}.mac".format(beamEnergy, energyUnit, geometry, eventsNum//1000, 1001+iJob)
     outRootFile = "qsim_out_{}{}_{}_{}k_{}".format(beamEnergy,energyUnit,geometry,eventsNum//1000, 1001+iJob)
-    writeQsimRunMacro(macroFileName, azimuthValueList[iJob], outRootFile,beamEnergy,eventsNum, seed[iJob])
+    writeQsimRunMacro(macroFileName, radialValueList[iJob], outRootFile,beamEnergy,eventsNum, seed[iJob])
     
     jobSubmitFileName = "jobsubmit_{}{}_{}_{}k_{}.sh".format(beamEnergy, energyUnit, geometry, eventsNum//1000, 1001+iJob)
     jobOutErrName = "qsim_{}{}_{}".format(beamEnergy,energyUnit,geometry)

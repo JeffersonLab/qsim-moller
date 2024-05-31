@@ -21,10 +21,10 @@ The slurm job submit script is in slurm_job/submit_qsim_mami_fullScan.py
 using namespace std;
 
 void write_csv_fullScan_hitn(){
-    string config = "qsim_47";
+    string config = "qsim_50";
     string particle = "e-";
     float beamEnergy = 855;
-    string geometry = "showerMaxRetro_v2-7-2";
+    string geometry = "showerMaxDetector_v3-3-2";
 
     // X and Y positions of the electron beam hit
     int xMinDet = 0;
@@ -85,14 +85,16 @@ void write_csv_fullScan_hitn(){
     }
     outfile_mean << endl;
     outfile_res << endl;
+    int fileCounter = 0;
 
     // Read the root files from qsim for each X and Y position of the electron beam hit
     for (int i = 0; i < posXvalueVector.size(); i++){
         outfile_mean << posXvalueVector[i] << ",";
         outfile_res << posXvalueVector[i] << ",";
         for (int j = 0; j < posYvalueVector.size(); j++){
+            fileCounter++;
             TString inRootFileName = Form("qsim_out_%s_%.0fMeV_%0.0fx_%0.0fy_10k.root", geometry.c_str(), beamEnergy, posXvalueVector[i], posYvalueVector[j]);
-            cout << "Reading " << inRootfile_dir + inRootFileName << endl;
+            cout << "Reading " << fileCounter << ": " << inRootfile_dir + inRootFileName << endl;
 
             double mean_hist;
             double res_hist;

@@ -82,29 +82,6 @@ void plot_graph_eVsMeanHit_electron(){
     grMean->SetMarkerColor(kRed);
     //grMean->GetYaxis()->SetRangeUser(-50, 400);
     grMean->Draw("AP");
-<<<<<<< Updated upstream
-    
-    
-    grMean->Fit("pol2");
-
-    TF1 *fit = (TF1*)grMean->GetFunction("pol2");
-    fit->SetLineColor(kBlue);
-    fit->Print();
-
-    TLegend *leg = new TLegend(0.1,0.8,0.4,0.9);
-    leg->SetTextSize(0.04);
-    leg->AddEntry(grMean, "Data points");
-    leg->AddEntry(fit, "Pol2 best fit");
-    leg->Draw();
-
-    gPad->Update();
-    TPaveStats *stat = (TPaveStats*)grMean->FindObject("stats");
-    stat->SetX1NDC(0.1);
-    stat->SetY1NDC(0.6);
-    stat->SetX2NDC(0.4);
-    stat->SetY2NDC(0.8);
-    stat->Draw();
-=======
     //grMean->Fit("pol2");
 
     // TF1 *fit = (TF1*)grMean->GetFunction("pol2");
@@ -124,7 +101,6 @@ void plot_graph_eVsMeanHit_electron(){
     // stat->SetX2NDC(0.4);
     // stat->SetY2NDC(0.8);
     // stat->Draw();
->>>>>>> Stashed changes
 
     //Save canvas
     gSystem->Exec(Form("mkdir -p plots/%s/",config.c_str()));
@@ -139,13 +115,6 @@ void plot_graph_eVsMeanHit_electron(){
     //grPeak->SetMarkerColor(kBlue);
     //grPeak->Draw();
     
-<<<<<<< Updated upstream
-    //// Draw beam energy vs det resolution
-    //TCanvas* c3 = new TCanvas("c3", "Energy vs det resolution");
-    //TGraph *grRes = new TGraph(beamEnergy.size(), &beamEnergy[0], &detRes[0]);
-    //grRes->SetTitle("Electron beam energy vs det resolution; Beam energy [in GeV]; RMS/Mean");
-    //grRes->Draw();
-=======
     // Draw beam energy vs det resolution
     TCanvas* c3 = new TCanvas("c3", "Energy vs det resolution");
     TGraph *grRes = new TGraph(beamEnergy.size(), &beamEnergy[0], &detRes[0]);
@@ -158,5 +127,4 @@ void plot_graph_eVsMeanHit_electron(){
 
     c3->SaveAs(Form("./plots/%s/eVsRes_%s_%s.pdf",config.c_str(), geometry.c_str(),particle.c_str()));
 
->>>>>>> Stashed changes
 }

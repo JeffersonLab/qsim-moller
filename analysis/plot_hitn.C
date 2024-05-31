@@ -28,10 +28,10 @@ void plot_hitn(){
     gStyle->SetOptFit(1);
     TGaxis::SetMaxDigits(3);
     
-    string config = "qsim_43";
-    string particle = "mu-";
+    string config = "qsim_48";
+    string particle = "e-";
     float beamEnergy = 855;
-    string geometry = "showerMaxDetector_v3-1-0";
+    string geometry = "showerMaxRetro_v2-2-2";
     int color[] = {kBlack, kRed, kBlue, kMagenta, kGreen+2};
 
     int hist_xmin = 0;
@@ -40,13 +40,14 @@ void plot_hitn(){
     int fileSplit = 1;
     int binWidth = (hist_xmax-hist_xmin)/nbins;
 
-    TString inFileDir = Form("/volatile/halla/moller12gev/sudip/qsim_rootfiles/%s/",config.c_str());
-    //TString inFileDir = Form("~/programs/qsim/qsim-showermax/rootfiles/%s/", config.c_str());
+    // TString inFileDir = Form("/volatile/halla/moller12gev/sudip/qsim_rootfiles/%s/",config.c_str());
+    TString inFileDir = Form("~/programs/qsim/qsim-showermax/rootfiles/%s/", config.c_str());
     TString inRootFileName[fileSplit];
 
     TChain *T = new TChain("T");
     for (int i=1; i<fileSplit+1; i++){
-        inRootFileName[i] = Form("qsim_out_%s_100k_%d.root",geometry.c_str(), 1000+i);
+        // inRootFileName[i] = Form("qsim_out_%s_100k_%d.root",geometry.c_str(), 1000+i);
+        inRootFileName[i] = Form("qsim_out_%s_.root",geometry.c_str(), 1000+i);
         T->Add(inFileDir + inRootFileName[i]);
     }
 
@@ -72,6 +73,7 @@ void plot_hitn(){
     
     //gPad->SetLogy();
     h_hitn->Draw();
+    
 
     gPad->Update();
     float widthStat = 0.25; //width of a stat box

@@ -60,7 +60,7 @@ void qsimIO::InitializeTree(){
     fTree->Branch("ev.px",    &fEvPart_Px,  "ev.px/D");
     fTree->Branch("ev.py",    &fEvPart_Py,  "ev.py/D");
     fTree->Branch("ev.pz",    &fEvPart_Pz,  "ev.pz/D");
-
+    fTree->Branch("ev.rate",  &fEvPart_Rate,"ev.rate/D");
 
     // DetectorHit
     fTree->Branch("hit.n",    &fNDetHit,     "hit.n/I");
@@ -163,6 +163,8 @@ void qsimIO::SetEventData(qsimEvent *ev){
     fEvPart_Pz = ev->fPartMom[0].z()/__E_UNIT;
 
     fEvPart_P = ev->fPartMom[0].mag()/__E_UNIT;
+
+    fEvPart_Rate = ev->fPartRate[0]/__RATE_UNIT;
 
     return;
 }

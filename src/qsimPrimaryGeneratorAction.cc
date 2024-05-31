@@ -190,6 +190,7 @@ void qsimPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent) {
 		pZ = T->GetLeaf("pz")->GetValue()*MeV;
 		E = T->GetLeaf("energy")->GetValue()*MeV;
 		pid = T->GetLeaf("pid")->GetValue();
+		rate = T->GetLeaf("rate")->GetValue()*hertz;
 
 		currentEvent++; // Increment the counter for the next event call
 		primaryFile->Close();
@@ -202,12 +203,14 @@ void qsimPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent) {
 		fDefaultEvent->ProduceNewParticle(
 						G4ThreeVector(xPos, yPos, zPos),
 						G4ThreeVector(pX, pY, pZ ),
-						fParticleGun->GetParticleDefinition()->GetParticleName() );
+						fParticleGun->GetParticleDefinition()->GetParticleName(), 
+						rate );
 	} else{
 		fDefaultEvent->ProduceNewParticle(
 						G4ThreeVector(xPos, yPos, zPos),
 						G4ThreeVector(pX, pY, pZ ),
-						GetExtEvParticleName(pid));
+						GetExtEvParticleName(pid),
+						rate);
 
 	}
   

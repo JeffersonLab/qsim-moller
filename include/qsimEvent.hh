@@ -18,7 +18,7 @@ class qsimEvent {
 		qsimEvent();
 		~qsimEvent();
 
-		void ProduceNewParticle( G4ThreeVector, G4ThreeVector, G4String );
+		void ProduceNewParticle( G4ThreeVector, G4ThreeVector, G4String, G4double);
 		void Reset();
 		void UndoLastParticle();
 
@@ -30,6 +30,7 @@ class qsimEvent {
 		std::vector<G4ThreeVector>    fPartPos;
 		std::vector<G4ThreeVector>    fPartMom;  // Generated direction (no ms)
 		std::vector<G4ParticleDefinition *> fPartType;
+		std::vector<G4double>         fPartRate;
 };
 
 #endif//__QSIMEVENT_HH

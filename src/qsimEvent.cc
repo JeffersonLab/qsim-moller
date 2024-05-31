@@ -11,7 +11,7 @@ qsimEvent::qsimEvent(){
 qsimEvent::~qsimEvent(){
 }
 
-void qsimEvent::ProduceNewParticle( G4ThreeVector pos, G4ThreeVector mom, G4String name ){
+void qsimEvent::ProduceNewParticle( G4ThreeVector pos, G4ThreeVector mom, G4String name, G4double rate){
     fPartPos.push_back(pos);
     fPartMom.push_back(mom);
 
@@ -19,6 +19,7 @@ void qsimEvent::ProduceNewParticle( G4ThreeVector pos, G4ThreeVector mom, G4Stri
     G4ParticleDefinition* particle = particleTable->FindParticle(name);
 
     fPartType.push_back(particle);
+    fPartRate.push_back(rate);
 
     return;
 }
@@ -28,13 +29,14 @@ void qsimEvent::Reset(){
     fPartPos.clear();
     fPartMom.clear();
     fPartType.clear();
-
+    fPartRate.clear();
 }
 
 void qsimEvent::UndoLastParticle(){
     fPartPos.pop_back();
     fPartMom.pop_back();
     fPartType.pop_back();
+    fPartRate.pop_back();
 }
 
 G4bool qsimEvent::EventIsSane(){

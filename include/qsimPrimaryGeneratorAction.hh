@@ -43,6 +43,7 @@ class qsimPrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction {
         G4double p, pX, pY, pZ;  // Momentum of the event
         G4double E;           // Energy of the event
         G4int pid;            // Particle ID
+        G4double rate;       // Rate of the event for fSource==2, get from event generator file.
         G4int nEvents;        // number of events for fSource==2, get from event generator file.
 };
 

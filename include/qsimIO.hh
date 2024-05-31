@@ -22,6 +22,7 @@ class qsimScintDetectorHit;
 #define __T_UNIT ns
 #define __ANG_UNIT rad
 #define __ASYMM_SCALE 1e-9 // ppb
+#define __RATE_UNIT hertz
 
 class qsimIO {
     public:
@@ -56,6 +57,7 @@ class qsimIO {
 		Double_t fEvPart_Px;
 		Double_t fEvPart_Py;
 		Double_t fEvPart_Pz;
+		Double_t fEvPart_Rate;
 		Int_t fEvPart_PID;
 
 	//  DetectorHit

@@ -106,9 +106,11 @@
 	<box name="solid_singledet" lunit="mm" x="800" y="500" z="200"/>
 	<cone name="solid_showerMaxMother" rmin1="0"  rmax1="1000" rmin2="0" rmax2="1000"  z="258.736" startphi="0" deltaphi="360" aunit="deg" lunit="mm"/>
 
-	<opticalsurface name="quartz_surface" model="glisur" finish="ground" type="dielectric_dielectric" value="0.98" >
+	<opticalsurface name="pmt_window_surface" model="glisur" finish="polished" type="dielectric_dielectric" value="1.0" >
 	</opticalsurface>
-	<opticalsurface name="Al_mirror_surface" model="glisur" finish="ground" type="dielectric_metal" value="1.0" >
+	<opticalsurface name="quartz_surface" model="glisur" finish="ground" type="dielectric_dielectric" value="0.99" >
+	</opticalsurface>
+	<opticalsurface name="Al_mirror_surface" model="glisur" finish="polished" type="dielectric_metal" value="1.0" >
 		<property name="REFLECTIVITY" ref="MiroIV_REFLECTIVITY_60DEG" />
 	</opticalsurface>
 	<opticalsurface name="mylar_wrap_surface" model="glisur" finish="polished" type="dielectric_metal" value="1.0" >
@@ -394,8 +396,20 @@
 		<auxiliary auxtype="Alpha" auxvalue="0.0"/>
 	</volume>
 
-	<skinsurface name="quartz_skin_surface_0" surfaceproperty="quartz_surface" >
+	<skinsurface name="pmt_window_skin_surface_0" surfaceproperty="pmt_window_surface" >
 		<volumeref ref="logic_pmt_window_0"/>
+	</skinsurface>
+	<skinsurface name="quartz_skin_surface_0" surfaceproperty="quartz_surface" >
+		<volumeref ref="logic_quartz_0_1"/>
+	</skinsurface>
+	<skinsurface name="quartz_skin_surface_1" surfaceproperty="quartz_surface" >
+		<volumeref ref="logic_quartz_0_1"/>
+	</skinsurface>
+	<skinsurface name="quartz_skin_surface_2" surfaceproperty="quartz_surface" >
+		<volumeref ref="logic_quartz_0_2"/>
+	</skinsurface>
+	<skinsurface name="quartz_skin_surface_3" surfaceproperty="quartz_surface" >
+		<volumeref ref="logic_quartz_0_3"/>
 	</skinsurface>
 	<skinsurface name="suitcase_skin_surface_0" surfaceproperty="Al_mirror_surface" >
 		<volumeref ref="logic_suitcase_tungstenquartz_0"/>

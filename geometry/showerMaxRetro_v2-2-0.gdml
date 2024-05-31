@@ -108,10 +108,10 @@
 
 	<opticalsurface name="pmt_window_surface" model="glisur" finish="polished" type="dielectric_dielectric" value="1.0" >
 	</opticalsurface>
-	<opticalsurface name="quartz_surface" model="glisur" finish="ground" type="dielectric_dielectric" value="1.0" >
+	<opticalsurface name="quartz_surface" model="glisur" finish="polished" type="dielectric_dielectric" value="1.0" >
 	</opticalsurface>
 	<opticalsurface name="Al_mirror_surface" model="glisur" finish="polished" type="dielectric_metal" value="1.0" >
-		<property name="REFLECTIVITY" ref="MiroIV_REFLECTIVITY_90DEG" />
+		<property name="REFLECTIVITY" ref="MiroIV_REFLECTIVITY_60DEG" />
 	</opticalsurface>
 	<opticalsurface name="mylar_wrap_surface" model="glisur" finish="polished" type="dielectric_metal" value="1.0" >
 		<property name="REFLECTIVITY" ref="Mylar_REFLECTIVITY_90DEG" />
@@ -295,12 +295,12 @@
 		</physvol>
 		<physvol name="pmt_window_0">
 			<volumeref ref="logic_pmt_window_0"/>
-			<position name="pos_logic_pmt_window_0" x="342.28599999999994" y="0" z="4.0"/>
+			<position name="pos_logic_pmt_window_0" x="342.28599999999994-4" y="0" z="4.0"/>
 			<rotation name="rot_logic_pmt_window_0" x="0" y="-pi/2" z="0"/>
 		</physvol>
 		<physvol name="pmt_cathode_0">
 			<volumeref ref="logic_pmt_cathode_0"/>
-			<position name="pos_logic_pmt_cathode_0" x="343.78600299999994" y="0" z="4.0"/>
+			<position name="pos_logic_pmt_cathode_0" x="343.78600299999994-4" y="0" z="4.0"/>
 			<rotation name="rot_logic_pmt_window_0" x="0" y="-pi/2" z="0"/>
 		</physvol>
 		<physvol name="front_plate_0">
@@ -398,18 +398,6 @@
 
 	<skinsurface name="pmt_window_skin_surface_0" surfaceproperty="pmt_window_surface" >
 		<volumeref ref="logic_pmt_window_0"/>
-	</skinsurface>
-	<skinsurface name="quartz_skin_surface_0" surfaceproperty="quartz_surface" >
-		<volumeref ref="logic_quartz_0_1"/>
-	</skinsurface>
-	<skinsurface name="quartz_skin_surface_1" surfaceproperty="quartz_surface" >
-		<volumeref ref="logic_quartz_0_1"/>
-	</skinsurface>
-	<skinsurface name="quartz_skin_surface_2" surfaceproperty="quartz_surface" >
-		<volumeref ref="logic_quartz_0_2"/>
-	</skinsurface>
-	<skinsurface name="quartz_skin_surface_3" surfaceproperty="quartz_surface" >
-		<volumeref ref="logic_quartz_0_3"/>
 	</skinsurface>
 	<skinsurface name="suitcase_skin_surface_0" surfaceproperty="Al_mirror_surface" >
 		<volumeref ref="logic_suitcase_tungstenquartz_0"/>

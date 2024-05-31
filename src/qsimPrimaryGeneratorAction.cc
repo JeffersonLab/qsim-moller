@@ -169,13 +169,20 @@ void qsimPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent) {
 	}
 	
 	if (fSourceMode == 2) {
-		int chosenEvent;
+		static int currentEvent; // Counter to keep track of the current entry
+
 		//G4String extGenFileName ="InputEventDistribution/smEvGen_moller_open_electron.root"; 
 		G4String extGenFileName = fExtGenFileName;
 		TFile *primaryFile = new TFile(extGenFileName);
 		TTree *T = (TTree*)primaryFile->Get("T");
-		chosenEvent = rand() % T->GetEntries();
-		T->GetEntry(chosenEvent);
+		nEvents = T->GetEntries(); // total number of events in the file
+
+		if (currentEvent >= nEvents) {
+			currentEvent = 0; // Reset to the first entry if we reach the end
+		}
+		T->GetEntry(currentEvent);
+		// G4cout << "Event number: " << currentEvent << G4endl;
+
 		xPos = T->GetLeaf("x")->GetValue()*mm;
 		yPos = T->GetLeaf("y")->GetValue()*mm;
 		pX = T->GetLeaf("px")->GetValue()*MeV;
@@ -183,7 +190,8 @@ void qsimPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent) {
 		pZ = T->GetLeaf("pz")->GetValue()*MeV;
 		E = T->GetLeaf("energy")->GetValue()*MeV;
 		pid = T->GetLeaf("pid")->GetValue();
-		nEvents = T->GetEntries();
+
+		currentEvent++; // Increment the counter for the next event call
 		primaryFile->Close();
 	}
   

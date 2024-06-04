@@ -126,8 +126,8 @@ void qsimPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent) {
 	if( fSourceMode == 0 || fSourceMode == 1) {
 		xPos = CLHEP::RandFlat::shoot( fXmin, fXmax );
 		yPos = CLHEP::RandFlat::shoot( fYmin, fYmax );
-		zPos = CLHEP::RandFlat::shoot( fZmin, fZmax );
 	}
+	zPos = CLHEP::RandFlat::shoot( fZmin, fZmax );
 	
 	// begin changed stuff to generate probability distribution of energies as expected
 	bool good_p = false;

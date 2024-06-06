@@ -8,12 +8,12 @@ import time
 #import numpy as np
 
 # Define variables
-config = "qsim_50"
+config = "qsim_59"
 nJobs = 0
 beamParticle = "e-"
 beamEnergy = 855
 energyUnit = "MeV"
-geometry = "showerMaxDetector_v3-3-2"
+geometry = "showerMaxRetro_v2-5-2"
 xMinDet = 0
 xMaxDet = 160
 yMinDet = 0
@@ -22,9 +22,9 @@ eventsNum = 10000
 posXvalueList = []
 posYvalueList = []
 # Create list of x and y positions to scan with xy coordinates from qsim (x up, y left)
-for i in range(xMinDet, xMaxDet+1, 5):     # Scan 160 mm in 5 mm steps
+for i in range(xMinDet, xMaxDet+1, 10):     # Scan 160 mm in 5 mm steps
     posXvalueList.append(int(i- xMaxDet/2))
-for i in range(yMinDet, yMaxDet, 5):   # Scan 265 mm in 5 mm steps
+for i in range(yMinDet, yMaxDet, 10):   # Scan 265 mm in 5 mm steps
     posYvalueList.append(int(i- yMaxDet/2+2.5))
 
 # Print the list of x and y positions
@@ -39,7 +39,7 @@ if os.uname() == 'Darwin':
     sourceDir = "/Users/sudip/programs/qsim/qsim-showermax/"
     outRootFileDir = sourceDir + "rootfiles/" + config + "/"
 else:
-    sourceDir = "/w/halla-scshelf2102/moller12gev/sudip/qsim/qsimTest/qsim-showermax/"
+    sourceDir = "/w/halla-scshelf2102/moller12gev/sudip/qsim/qsim-showermax/"
     outRootFileDir = "/lustre19/expphy/volatile/halla/moller12gev/sudip/qsim_rootfiles/" + config + "/"
 
 print("Source directory: ", sourceDir)
@@ -89,10 +89,10 @@ def writeJobSubmitScript(scriptName:str, jobOutErrName:str, geometryGDML:str, ma
     file.write("#SBATCH --job-name={}\n".format(jobName))
     file.write("#SBATCH --mail-user=sudip@jlab.org\n")
     file.write("#SBATCH --mail-type=FAIL,END\n")
-    file.write("#SBATCH --time=1-23:59:59\n")
+    file.write("#SBATCH --time=0-23:59:59\n")
     file.write("#SBATCH --nodes=1\n")
     file.write("#SBATCH --ntasks=1\n")
-    file.write("#SBATCH --cpus-per-task=2\n")
+    file.write("#SBATCH --cpus-per-task=1\n")
     file.write("#SBATCH --mem=300M\n")
     file.write("#SBATCH --output=" + logDir + jobOutErrName + ".out\n")
     file.write("#SBATCH --error=" + logDir + jobOutErrName + ".err\n")

@@ -9,9 +9,9 @@ import numpy as np
 
 # Define variables
 config = "qsim_51"
-nJobs = 10
+nJobs = 100
 beamParticle = "e-"
-beamEnergy = [2.0, 5.0, 8.0]
+beamEnergy = [2, 5, 8]
 #for i in np.arange(0.5, 100.0, 0.5):
 #    beamEnergy.append(i)
 energyUnit = "GeV"
@@ -19,7 +19,7 @@ geometry = ["showerMaxDetector_v3-3-2"]
 eventsNum = 1000
 seed = []
 for i in range(nJobs):
-    seed.append(random.randrange(100000000))
+    seed.append(random.randrange(10000))
 #sourceDir = "/home/sudip/programs/qsim/qsim-showermax/"
 sourceDir = "/w/halla-scshelf2102/moller12gev/sudip/qsim/qsim-showermax/"
 

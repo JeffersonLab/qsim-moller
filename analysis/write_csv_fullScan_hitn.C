@@ -21,22 +21,23 @@ The slurm job submit script is in slurm_job/submit_qsim_mami_fullScan.py
 using namespace std;
 
 void write_csv_fullScan_hitn(){
-    string config = "qsim_50";
+    string config = "qsim_59";
     string particle = "e-";
     float beamEnergy = 855;
-    string geometry = "showerMaxDetector_v3-3-2";
+    string geometry = "showerMaxRetro_v2-5-2";
 
     // X and Y positions of the electron beam hit
     int xMinDet = 0;
     int xMaxDet = 160;
     int yMinDet = 0;
     int yMaxDet = 260; // used 260 instead of 265
+    int stepSize=10;
     vector<float> posXvalueVector = {};
     vector<float> posYvalueVector = {};
-    for (int i = xMinDet; i < xMaxDet+1; i+=5){ 
+    for (int i = xMinDet; i < xMaxDet+1; i+=stepSize){ 
         posXvalueVector.push_back(i - (xMaxDet/2)); // forced to make an integer
     }
-    for (int i = yMinDet; i < yMaxDet+1; i+=5){
+    for (int i = yMinDet; i < yMaxDet+1; i+=stepSize){
         posYvalueVector.push_back(i - yMaxDet/2);
     }
 
@@ -68,10 +69,10 @@ void write_csv_fullScan_hitn(){
 
 
     // Write the csv file
-    gSystem->Exec(Form("mkdir -p ./output/%s", config.c_str()));
+    gSystem->Exec(Form("mkdir -p ./output/files/%s", config.c_str()));
     ofstream outfile_mean, outfile_res;
-    outfile_mean.open(Form("./output/%s/hitn_mean_fullScan_%s_1.csv",config.c_str(), geometry.c_str()));
-    outfile_res.open(Form("./output/%s/hitn_res_fullScan_%s_1.csv",config.c_str(), geometry.c_str()));
+    outfile_mean.open(Form("./output/files/%s/hitn_mean_fullScan_%s_2.csv",config.c_str(), geometry.c_str()));
+    outfile_res.open(Form("./output/files/%s/hitn_res_fullScan_%s_2.csv",config.c_str(), geometry.c_str()));
 
     // Write the header of the csv file
     outfile_mean << "Mean PE yield for " << geometry << " at " << beamEnergy << " MeV\n" << Form("Date-time:%s-%s\n", __DATE__, __TIME__);
@@ -85,16 +86,16 @@ void write_csv_fullScan_hitn(){
     }
     outfile_mean << endl;
     outfile_res << endl;
-    int fileCounter = 0;
 
+    int fileCount = 0;
     // Read the root files from qsim for each X and Y position of the electron beam hit
     for (int i = 0; i < posXvalueVector.size(); i++){
         outfile_mean << posXvalueVector[i] << ",";
         outfile_res << posXvalueVector[i] << ",";
         for (int j = 0; j < posYvalueVector.size(); j++){
-            fileCounter++;
+            fileCount++;
             TString inRootFileName = Form("qsim_out_%s_%.0fMeV_%0.0fx_%0.0fy_10k.root", geometry.c_str(), beamEnergy, posXvalueVector[i], posYvalueVector[j]);
-            cout << "Reading " << fileCounter << ": " << inRootfile_dir + inRootFileName << endl;
+            cout << fileCount << ": Reading " << inRootfile_dir + inRootFileName << endl;
 
             double mean_hist;
             double res_hist;

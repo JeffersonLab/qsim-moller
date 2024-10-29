@@ -3,24 +3,29 @@
 # Change: config, beamEnergy, geometry, eventsNum and sourceDir as needed
 
 import os
+import platform
+import ROOT
 
 # Define variables
-config = "qsim_12"
+config = "qsim_60"
 generator = ["moller", "elastic", "inelastic"]
 sector = ["open", "closed", "trans"]
 beamParticle = ["electron", "gamma"]
-energyUnit = "MeV"
-geometry = "smFullscaleQsim"
-eventsNum = 100
+geometry = "showerMaxDetector_v3-1-2"
 
-sourceDir = "/home/sudip/programs/qsim/qsim-showermax/"
-#sourceDir = "/w/halla-scshelf2102/moller12gev/sudip/qsim/qsim-showermax/"
+# Check device and set source directory
+if platform.uname().node=='Sudips-MBP.local':
+    sourceDir = "/Users/sudip/programs/qsim/qsim-showermax/"
+    evFileDir = "/Users/sudip/Documents/Academics/Research/Scripts/moller-analysis/rootfiles/sm_qsim_v09-ifarm/"
+    outRootFileDir = sourceDir + "rootfiles/" + config + "/"
+else:
+    sourceDir = "/w/halla-scshelf2102/moller12gev/sudip/qsim/qsim-showermax/"
+    evFileDir = "/w/halla-scshelf2102/moller12gev/sudip/moller_sim/moller-analysis/rootfiles/sm_qsim_v09/"
+    outRootFileDir = "/lustre19/expphy/volatile/halla/moller12gev/sudip/qsim_rootfiles/" + config + "/"
 
 logDir = sourceDir + "slurm_job/job_log/" + config + "/"
 macroDir = sourceDir + "slurm_job/macros/" + config + "/"
 jobDir = sourceDir + "slurm_job/sbatch_scripts/" + config + "/"
-#outRootFileDir = "/lustre19/expphy/volatile/halla/moller12gev/sudip/qsim_rootfiles/" + config + "/"
-outRootFileDir = sourceDir + "rootfiles/" + config + "/"
 
 # Make directories if required
 if not os.path.exists(logDir):
@@ -33,21 +38,29 @@ if not os.path.exists(outRootFileDir):
     os.makedirs(outRootFileDir)
 
 # Define functions
+def getNumEvents(evGenFileName:str)->int:
+    '''Get the number of events in the event generation file'''
+    file = ROOT.TFile(evGenFileName)
+    tree = file.Get("T")
+    return tree.GetEntries()
+
 def writeQsimRunMacro(macroName:str, evGenFileName:str, beamParticle:str, outFileName="qsim_out.root", events=100):
     '''Creates a macro file to run in qsim'''
     file = open(macroDir + macroName, "w")
     file.write("/qsim/fSourceMode 2\n")
     file.write("/run/initialize\n")
+    file.write("/process/optical/boundary/setInvokeSD true\n")
     file.write("/qsim/filename " + outRootFileDir + outFileName + ".root\n")
-    file.write("/qsim/seed 50\n")
-    #file.write("/qsim/emax " + str(beamEnergy) + energyUnit + "\n")
+    file.write("#/qsim/seed 50\n")
+    file.write("/qsim/zmin -41.0 mm\n")
+    file.write("/qsim/zmax -41.0 mm\n")
     if (beamParticle == "electron"):
         beamParticle = "e-"
     file.write("/gun/particle " + beamParticle + "\n")
     file.write("/qsim/evgenfilename {}\n".format(evGenFileName))
     file.write("/run/beamOn " + str(events) + "\n")
     file.close
-    print("\nRun macro " + macroFileName + " created.")
+    print("\nRun macro " + macroName + " created.")
 
 def writeJobSubmitScript(scriptName:str, jobOutErrName:str, geometryGDML:str, macro:str, jobName="Qsim"):
     '''Creates a job submission script to run qsim in the Jlab ifarm'''
@@ -61,11 +74,11 @@ def writeJobSubmitScript(scriptName:str, jobOutErrName:str, geometryGDML:str, ma
     file.write("#SBATCH --time=1-23:59:59\n")
     file.write("#SBATCH --nodes=1\n")
     file.write("#SBATCH --ntasks=1\n")
-    file.write("#SBATCH --cpus-per-task=2\n")
-    file.write("#SBATCH --mem=6G\n")
+    file.write("#SBATCH --cpus-per-task=1\n")
+    file.write("#SBATCH --mem=1G\n")
     file.write("#SBATCH --output=" + logDir + jobOutErrName + ".out\n")
-    file.write("#SBATCH --error=" + logDir + jobOutErrName + ".err\n")
-    #file.write("source /site/12gev_phys/softenv.sh 2.4\n\n")
+    file.write("#SBATCH --error=" + logDir + jobOutErrName + ".err\n\n")
+    file.write("source /.login\n")
     file.write("cd " + sourceDir + "\n")
     file.write("./build/qsim geometry/" +geometryGDML + " " + macroDir + macroFileName)
     file.close
@@ -74,16 +87,18 @@ def writeJobSubmitScript(scriptName:str, jobOutErrName:str, geometryGDML:str, ma
 # Use loop to create different macros and job submission file and sbatch them
 for gen in generator:
     for sec in sector:
-        for beam in beamParticle:
-            macroFileName = "runbatch_{}_{}_{}.mac".format(gen, sec, beam)
-            outRootFile = "qsim_out_{}_{}_{}".format(gen, sec, beam)
-            evGenFile = "InputEventDistribution/smEvGen_{}_{}_{}.root".format(gen, sec, beam)
-            writeQsimRunMacro(macroFileName, evGenFile, beam, outRootFile, eventsNum)
+        for particle in beamParticle:
+            eventsNum = getNumEvents(evFileDir + "smEvGen_{}_{}_{}.root".format(gen, sec, particle))
+            # print("Number of events in the file: ", eventsNum)
+            macroFileName = "runbatch_{}_{}_{}.mac".format(gen, sec, particle)
+            outRootFile = "qsim_out_{}_{}_{}".format(gen, sec, particle)
+            evGenFile = evFileDir + "smEvGen_{}_{}_{}.root".format(gen, sec, particle)
+            writeQsimRunMacro(macroFileName, evGenFile, particle, outRootFile, eventsNum)
 
-            jobSubmitFileName = "jobsubmit_{}_{}_{}.sh".format(gen, sec, beam)
-            jobOutErrName = "qsim_{}_{}_{}".format(gen, sec, beam)
+            jobSubmitFileName = "jobsubmit_{}_{}_{}.sh".format(gen, sec, particle)
+            jobOutErrName = "qsim_{}_{}_{}".format(gen, sec, particle)
             geometryFile = geometry + ".gdml"
-            jobName = "{}{}{}qsim".format(gen[0],sec[0],beam[0])
+            jobName = "{}{}{}-qsim".format(gen[0],sec[0],particle[0])
             writeJobSubmitScript(jobSubmitFileName,jobOutErrName, geometryFile, macroFileName, jobName)
 
             #os.system("sbatch " + jobDir + jobSubmitFileName)     

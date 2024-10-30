@@ -49,24 +49,7 @@ qsimMessenger::qsimMessenger(){
 	fSourceModeCmd->SetGuidance("Set fSourceMode to an option");
 	fSourceModeCmd->SetParameterName("sourcemode", false);
 
-	fQuartzPolishCmd = new G4UIcmdWithADouble("/qsim/fQuartzPolish",this);
-	fQuartzPolishCmd->SetGuidance("Set fQuartzPolish to a value");
-	fQuartzPolishCmd->SetParameterName("quartzpolish",false);
-	
-	fDetAngleCmd = new G4UIcmdWithADoubleAndUnit("/qsim/fDetAngle",this);
-	fDetAngleCmd->SetGuidance("Set fDetAngle to a value");
-	fDetAngleCmd->SetParameterName("detangle",false);
-
 	// POSSCAN
-	fDetPosXCmd = new G4UIcmdWithADoubleAndUnit("/qsim/fDetPosX",this);
-	fDetPosXCmd->SetGuidance("Set fDetPosX to a value");
-	fDetPosXCmd->SetParameterName("detxpos",false);
-	
-	fDetPosYCmd = new G4UIcmdWithADoubleAndUnit("/qsim/fDetPosY",this);
-	fDetPosYCmd->SetGuidance("Set fDetPosY to a value");
-	fDetPosYCmd->SetParameterName("detypos",false);
-	// old
-
     fXminCmd = new G4UIcmdWithADoubleAndUnit("/qsim/xmin", this);
     fXminCmd->SetGuidance("Set x range minimum");
     fXminCmd->SetParameterName("xmin", false);
@@ -148,23 +131,8 @@ void qsimMessenger::SetNewValue(G4UIcommand* cmd, G4String newValue){
 		fprigen->SourceModeSet(x);
 	}
 
-	if (cmd == fDetAngleCmd ) {
-		G4double x = fDetAngleCmd->GetNewDoubleValue(newValue);
-		fdetcon->fDetAngle = x;
-	}
-
 	// POSSCAN
 	
-	if (cmd == fDetPosXCmd ) {
-		G4double x = fDetPosXCmd->GetNewDoubleValue(newValue);
-		fdetcon->fDetPosX = x;
-	}
-
-	if (cmd == fDetPosYCmd ) {
-		G4double x = fDetPosYCmd->GetNewDoubleValue(newValue);
-		fdetcon->fDetPosY = x;
-	}
-
     if( cmd == fXminCmd ){
 		G4double x = fXminCmd->GetNewDoubleValue(newValue);
 		fprigen->fXmin = x;

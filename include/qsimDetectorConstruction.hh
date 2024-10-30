@@ -17,9 +17,6 @@ class qsimDetectorConstruction : public G4VUserDetectorConstruction{
     private:
         const G4GDMLParser& fParser;
 
-    public:
-        G4double fDetAngle, fQuartzPolish;
-        G4double fDetPosX, fDetPosY;
 };
 
 #endif /*qsimDetectorConstruction_h*/

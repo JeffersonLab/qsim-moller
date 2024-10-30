@@ -43,7 +43,7 @@
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 qsimSteppingVerbose::qsimSteppingVerbose() {
-    outfile = new TFile("rootfiles/qsim_trackEvent.root","RECREATE");
+    // outfile = new TFile("rootfiles/qsim_trackEvent.root","RECREATE");
     tree = new TTree("tree", "qsim traking file");
     tree->Branch("EventID",&EventID,"EventID/I");
     tree->Branch("PDGEncoding",&PDGEncoding,"PDGEncoding/I");

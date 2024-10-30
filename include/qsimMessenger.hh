@@ -50,13 +50,10 @@ class qsimMessenger : public G4UImessenger {
 		G4UIcmdWithAString   *fileCmd;
 		G4UIcmdWithAString   *fEvGenCmd;
 		
-		//G4UIcmdWithAnInteger *fStandModeCmd;
-		G4UIcmdWithAnInteger *fDetModeCmd;
-		G4UIcmdWithAnInteger *fQModeCmd;
-		G4UIcmdWithAnInteger *fStandModeCmd;
 		G4UIcmdWithAnInteger *fSourceModeCmd;
 		G4UIcmdWithADouble *fQuartzPolishCmd;
 		G4UIcmdWithADoubleAndUnit *fDetAngleCmd;
+
 		// POSSCAN
 		G4UIcmdWithADoubleAndUnit *fDetPosXCmd;	
 		G4UIcmdWithADoubleAndUnit *fDetPosYCmd;	

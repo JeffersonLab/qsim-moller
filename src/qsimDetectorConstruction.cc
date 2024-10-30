@@ -8,33 +8,6 @@
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void qsimDetectorConstruction::DetModeSet(G4int detMode = 3) {
-  
-    fDetMode = detMode;
-    // 0 is PREX-I design
-    // 1 is PREX-II prototype (so-called "design 3")
-    // 2 SAM
-    // 3 showerMax
-    // 4 tandem mount
-}
-
-void qsimDetectorConstruction::QModeSet(G4int qMode = 2) {
-  
-    fQMode = qMode;
-    // 0 is PREX-I design
-    // 0 is PREX-II prototype (so-called "design 3")
-    // 1 SAM
-    // 2 showerMax
-}
-
-void qsimDetectorConstruction::StandModeSet(G4int standMode = 0) {
-  
-    fStandMode = standMode;
-    // 1 cosmic setup (detector, lead, scintillators)
-    // 0 beam setup (detector only)
-}
-
-
 qsimDetectorConstruction::qsimDetectorConstruction(const G4GDMLParser& parser): G4VUserDetectorConstruction(), fParser(parser){
   
     G4SDManager* SDman = G4SDManager::GetSDMpointer();

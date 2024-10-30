@@ -45,6 +45,7 @@
 # Set surface
 #
 /vis/viewer/set/style wireframe
+/vis/viewer/set/background 0.4 0.4 0.4 0.5
 
 #/vis/viewer/addCutawayPlane 0.0 0.0 0.0 m 1.0 0.0 0.0
 /vis/viewer/set/lightsMove with-camera

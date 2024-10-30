@@ -24,7 +24,6 @@ class qsimPrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction {
 		//void SourceModeSet();
 		void SourceModeSet(G4int );
         void setExtEvGenerator(G4String );
-    static G4String GetExtEvParticleName(G4int);
 
 	private:
         G4ParticleGun* fParticleGun;

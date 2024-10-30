@@ -209,7 +209,7 @@ void qsimPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent) {
 		fDefaultEvent->ProduceNewParticle(
 						G4ThreeVector(xPos, yPos, zPos),
 						G4ThreeVector(pX, pY, pZ ),
-						GetExtEvParticleName(pid),
+						pid,
 						rate);
 
 	}
@@ -268,35 +268,4 @@ G4ParticleGun* qsimPrimaryGeneratorAction::GetParticleGun() {
 
 void qsimPrimaryGeneratorAction::setExtEvGenerator(G4String filename){
 	fExtGenFileName = filename;
-}
-
-G4String qsimPrimaryGeneratorAction::GetExtEvParticleName(G4int pid){
-	G4String particleName;
-	switch (pid) {
-		case 11:
-			particleName = "e-"; break;
-		case 22:
-			particleName = "gamma"; break;
-		case -11:
-			particleName = "e+"; break;
-		case 2212:
-			particleName = "proton"; break;
-		case 2112:
-			particleName = "neutron"; break;
-		case 211:
-			particleName = "pi+"; break;
-		case -211:
-			particleName = "pi-"; break;
-		case 111:
-			particleName = "pi0"; break;
-		case -13:
-			particleName = "mu+"; break;
-		case 13:
-			particleName = "mu-"; break;
-		
-		default:
-			break;
-	}
-
-	return particleName;
 }

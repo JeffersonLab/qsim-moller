@@ -18,7 +18,8 @@ class qsimEvent {
 		qsimEvent();
 		~qsimEvent();
 
-		void ProduceNewParticle( G4ThreeVector, G4ThreeVector, G4String, G4double);
+		void ProduceNewParticle( G4ThreeVector, G4ThreeVector, G4String, G4double); // with particle name
+		void ProduceNewParticle( G4ThreeVector, G4ThreeVector, G4int, G4double); // with particle ID
 		void Reset();
 		void UndoLastParticle();
 

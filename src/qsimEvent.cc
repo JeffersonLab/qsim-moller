@@ -23,7 +23,19 @@ void qsimEvent::ProduceNewParticle( G4ThreeVector pos, G4ThreeVector mom, G4Stri
 
     return;
 }
+ 
+void qsimEvent::ProduceNewParticle( G4ThreeVector pos, G4ThreeVector mom, G4int pid, G4double rate){
+    fPartPos.push_back(pos);
+    fPartMom.push_back(mom);
 
+    G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
+    G4ParticleDefinition* particle = particleTable->FindParticle(pid);
+
+    fPartType.push_back(particle);
+    fPartRate.push_back(rate);
+
+    return;
+}
 
 void qsimEvent::Reset(){
     fPartPos.clear();

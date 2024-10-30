@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Date   : 10/29/2024 16:24
+# Author : Sudip Bhattarai [edited from Prakash's script]
+
+BUILDDIR=build/
+SOURCEDIR=./
+# if build directory exists, remove it and create a new one 
+# else create a new one
+echo "Removing old build directory and creating a new one."
+if [ -d ${BUILDDIR} ]; then
+    rm -rf ${BUILDDIR}
+    mkdir -p ${BUILDDIR}
+    cd ${BUILDDIR}
+else
+    mkdir -p ${BUILDDIR}
+    cd ${BUILDDIR}
+fi
+
+echo "Running cmake and make."
+cmake -DCMAKE_COLOR_DIAGNOSTICS=ON ..
+make -j 8
+cd ..

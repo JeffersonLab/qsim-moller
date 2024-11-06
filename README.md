@@ -1,69 +1,90 @@
-# Quartz simulation (Qsim) of Shower-max for MOLLER Experiment at Jefferson Lab
+# Quartz simulation (Qsim) of quartz based detector for MOLLER Experiment at Jefferson Lab
 
-This version of qsim is dedicated to showermax detector. It has the latest geometries, materials, and optical properties.
+This version of qsim supports GDML geometry and it can be used to run optical simulation for any Cherenkov/scintillator based detector in MOLLER experiment.
 
-Original developer:
-Seamus Riordan
-sriordan@physics.umass.edu
+**Original Developer**:
+*Seamus Riordan*
+<sriordan@physics.umass.edu>  
 September 26, 2013(Updated June 26, 2015)
 
-GDML version developer:
-Carlos Bula Villareal
+**GDML version initiation:**
+*Carlos Bula Villareal*
 
-Sudip Bhattarai
-sudipbhattarai@isu.edu
+**GDML version improvement and shower-max script developer:**
+*Sudip Bhattarai*
+<sudipbhattarai@isu.edu>  
 July 12, 2022
 
 ## qsim installation and running instructions
+
 Tested and ran on Ubuntu 22 inside UTM in macOS 12
 
-Requirements
+**Requirements:**
+
 * Geant4 >= 4.10
 * cmake > 2.6
 * root
 
 ### Download the qsim-showermax
+
 To download the code, use git clone:
-```
+
+```bash
 git clone https://github.com/sudipbhattarai/qsim-showermax
 ```
+
 ### Compilation
 
 To build, create the directory you would like to build in, say `build`:
-```
+
+```bash
 mkdir build
 cd build
-cmake <path to qsim>
+cmake ..
 make
 ```
 
+Or, run the shell script [compile](./compile) in the qsim directory.
+
+```bash
+./compile
+```
+
 ### Running simulation
-There are sets of command inside the file macros/runexample.mac which is useful to run in batch or visual mode.
+
+Simulation can be run in two different modes: Batch mode and visualization mode.
+
+**Batch mode:**
 
 To run in batch mode, execute with a macro such as:
-```
-./qsim gdml_file.gdml runexample.mac
-```
-Ensure that all macros include a /run/initialization command or else they will
-not work. 
 
-Visualization:
+```bash
+./qsim gdml_file.gdml runmacro.mac
+```
+
+The example runmacros are inside the [macro](./macros/) directory and 
+
+**Visualization:**
 
 Visualization macros are found in vis/
 
 To run, execute
-```
+
+```bash
 ./qsim gdml_file.gdml
 ```
+
 which should bring up a graphical command interface and it should load the gdml file.
 
-To see the particle visualization:
-```
+To see the particle visualization, run the macros from visualization command line
+
+```bash
 /control/execute macros/runexample.mac
 ```
-Make sure the number of beam (/run/beamOn) in the runexample.mac file is not large (just 1 is good for showermax)
 
-The output root file will have several variables that is described in [readme file](README.variables.md).
+Make sure the number of beam (/run/beamOn) in the runexample.mac file is not large (just 1 is good for basic visualization)
+
+After completion of the simulation, the output rootfile is created in the location provided in the run macros. The output root file will have several variables that is described in [readme file](README.variables.md).
 
 CLI User Commands
 
@@ -71,69 +92,50 @@ Using the Geant4 CLI it is possible to pass commands to modify behavior
 and utilize the vis.mac macro from the command line.
 These are all visible from the menu on the left.
 
-## Operational Mode Switches
-
-There are CLI User Commands that allow the user to change the stand design and
-incident particle characteristics to test different configurations and 
-experimental expectations. These commands must be passed before a visualization
-macro is used or the initialization command have been passed.
-
-With the implemetation of gdml files the only switches avalilable are the source switches.
-
 ## Source mode
 
-Set by: /qsim/fSourceMode <0, 1, 2>
+Set by: /qsim/fSourceMode <0, 1, 2> in the run macros
 
 0 = cosmic muons
 Generates primary particles following cosmic muon angular distribution and energy spectrum.  
 Energy spectrum obtained from fit to PDG data for muons with 0 deg incidence (good to 25% out to 36 GeV).  
-The theta-angular distribution of the muon is obatined from page 48 of: https://dspace.mit.edu/bitstream/handle/1721.1/61208/701107722-MIT.pdf?sequence=2&isAllowed=y
+The theta-angular distribution of the muon is obatined from the [report: page48](https://dspace.mit.edu/bitstream/handle/1721.1/61208/701107722-MIT.pdf?sequence=2&isAllowed=y)
 Note that this does not automatically change the primary particle type to muons; this must be set by "/gun/particle mu-"
 
 1 = beam
 Generates perfectly straight, monoenergetic beam.
-Current implementation generates particles at pinpoint, but beam spot size can be changed in qsimPrimaryGeneratorAction.cc 
-Energy of beam can be changed in qsimPrimaryGeneratorAction.cc
+Current implementation generates particles at pinpoint, but beam spot size and beam energy can be changed from macros with the messenger command variables (xmin, xmax, ymin, ymax, thetamin, thetamax, emin, emax).\
+For example: /qsim/xmin -75 mm
 
-2 = remoll
-Generates 2-8 GeV particles following position, angular, energy and momentum distribution obtained from remoll simulation. In remoll simulation, three sensitive detectors are placed right infront of the open(beam right), closed(beam left) and transition(beam up) SM modules and the output rootfiles is skimmed to make Event distribution root file.
-The z position of primary vertex can be changed using macros /qsim/zmin and /qsim/zmax.
-The distributions are stored in file RemollPrimaryDistribution.root (copied to build directory when qsim is made), which has <not yet decided> events.
+2 = remoll  
+*For shower-max detector*  
+The remoll simulation utilizes stack planes (sensitive detectors: 730XX, where XX denotes the sector number from 00 to 27) positioned just in front of the first tungsten layer of the shower-max detector. For primary studies, only three sectors—open (beam right), closed (beam left), and transition (beam up)—are enabled. The remoll ROOT output is then skimmed to generate an event distribution file, which serves as input for optical simulations in qsim.
+In qsim run macro the event generator rootfile is included using the command
+
+```text
+/qsim/evgenfilename ./InputEventDistribution/<event_generator_input_file.root>
+```
+
+The z-position of the primary vertex, from which particles are emitted toward the detector, must be set according to the location of the sensitive detectors in the remoll simulation relative to the center of the shower-max detector. This position can be adjusted using the following commands:
+
+```text
+/qsim/zmin <value> mm
+/qsim/zmax <value> mm
+```
  
-## Stand mode
+## GDML Geometry description
 
-Set by: /qsim/fStandMode <0, 1>
+The gdml file defines and describes the geometry of the detector system in the sturctured way to represent the shapes, positions, and materials of detector components in a simulation environment. Here is the link to [GDML user guide](https://gdml.web.cern.ch/GDML/doc/GDMLmanual.pdf) developed by CERN.  
+*For shower-max:* The gdml for shower-max is created using the [python wrapper](https://github.com/sudipbhattarai/remoll-showermax-generator). The properties of different volumes are used from [martices file](./geometry/mainDetMatrices.xml). Here are the list of the material and optical properties used in the gdml:  
 
-0 = beam/PREX
-Detector only.
+**Quartz:**
+* Index of refraction: Speciication sheet for Heraeus Spectrosil 2000 provides >25 data points for n(E). Fit with polynomial.
+* Absorption length: Specification sheet for Heraeus Spectrosil 2000 provides only 2 data points for L(E). Current functional form of L(E) in qsim is of unknown origin and is inconsistent with Heraeus data points.
+* Surface roughness: Glisur model
 
-1 = cosmic
-Detector, top/bottom scintillators, and lead.
-Scintillator size/separation and lead size can be adjusted in qsimDetectorConstruction.cc
+**Light guide:**
+* Reflectivity (lightguide mirror): Currently defined as a function of photon energy only (and possibly incorrect). Needs to be defined as a function of photon energy and photon angle (not yet implemented)
 
-
-## GDML GEOMETRY DESCRIPTION 
-showermaxQsim.gdml contains the geometry description with their material and optical surface properties. This GDML is created using the python wrapper:
-https://github.com/sudipbhattarai/remoll-showermax-generator (qsimSM branch). In the GDML,only the tungsten-quartz stack, light guides, filter, window and PMT cathode are included.
-
-## OPTICAL PROPERTIES
-
-Index of refraction (quartz): 
-Specification sheet for Heraeus Spectrosil 2000 provides >25 data points for n(E).
-Fit with polynomial.
-
-Absorption length (quartz):
-Specification sheet for Heraeus Spectrosil 2000 provides only 2 data points for L(E).
-Current functional form of L(E) in qsim is of unknown origin and is inconsistent with Heraeus data points.
-
-Transmission coefficient (quartz):
-
-Reflectivity (loghtguide mirror):
-Currently defined as a function of photon energy only (and possibly incorrect).
-Needs to be defined as a function of photon energy AND photon angle (supposedly possible in Geant 4.10 but not yet implemented in qsim).
-
-Reflectivity (Photo cathode):
-
-Quantum Efficiency (Photo Cathode):
-
-Surface roughness (Quartz): Glisur model
+**Photo cathode:**
+* Quantum Efficiency (QE): Obtained from PMT specification data sheet. Here is the link to the 3" [ET-9305QKB](https://et-enterprises.com/images/data_sheets/9305KB.pdf) PMT that MOLLER main detector and shower-max uses.
+* Reflectivity : We do not explicityly use reflectivity data as it is included in QE values.

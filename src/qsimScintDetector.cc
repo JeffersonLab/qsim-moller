@@ -4,17 +4,7 @@
 
 
 qsimScintDetector::qsimScintDetector( G4String name, G4int detnum ) : G4VSensitiveDetector(name){
-    char colname[255];
-
-    fDetNo = detnum;
-    assert( fDetNo > 0 );
-
-    fHCID = -1;
-
-    //fTrackSecondaries = false;
-    fTrackSecondaries = true;
-
-    sprintf(colname, "scihit_%s_%d", name.data(), detnum);
+    std::string colname = "scihit_" + name + "_" + std::to_string(detnum);
     collectionName.insert(G4String(colname));
 }
 

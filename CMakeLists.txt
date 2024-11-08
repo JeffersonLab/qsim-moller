@@ -2,7 +2,7 @@
 # Setup the project
 #
 cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
-project(QSIM-SHOWERMAX)
+project(QSIM-MOLLER)
 
 
 #ROOT path
@@ -92,7 +92,7 @@ endforeach()
 # For internal Geant4 use - but has no effect if you build this
 # example standalone
 #
-add_custom_target(QSIM DEPENDS qsim-showermax)
+add_custom_target(QSIM DEPENDS qsim-moller)
 
 #----------------------------------------------------------------------------
 # Install the executable to 'bin' directory under CMAKE_INSTALL_PREFIX

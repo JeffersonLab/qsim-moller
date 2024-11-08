@@ -23,10 +23,10 @@ for i in range(nJobs):
 
 # Check device and set source directory
 if platform.uname().node=='Sudips-MBP.local':
-    sourceDir = "/Users/sudip/programs/qsim/qsim-showermax/"
+    sourceDir = "/Users/sudip/programs/qsim/qsim-moller/"
     outRootFileDir = sourceDir + "rootfiles/" + config + "/"
 else:
-    sourceDir = "/w/halla-scshelf2102/moller12gev/sudip/qsim/qsim-showermax/"
+    sourceDir = "/w/halla-scshelf2102/moller12gev/sudip/qsim/qsim-moller/"
     outRootFileDir = "/lustre19/expphy/volatile/halla/moller12gev/sudip/qsim_rootfiles/" + config + "/"
 
 logDir = sourceDir + "slurm_job/job_log/" + config + "/"

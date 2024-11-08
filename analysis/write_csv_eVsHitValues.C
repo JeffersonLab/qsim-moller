@@ -45,7 +45,7 @@ void write_csv_eVsHitValues(){
     vector<string> inRootFileName;
 
     string inFileDir = Form("/volatile/halla/moller12gev/sudip/qsim_rootfiles/%s/",config.c_str());
-    //string inFileDir = "~/programs/qsim/qsim-showermax/rootfiles/qsim_08/";
+    //string inFileDir = "~/programs/qsim/qsim-moller/rootfiles/qsim_08/";
 
     for (float iBeamEnergy=1.0; iBeamEnergy<5.0; iBeamEnergy+=1.0){
         beamEnergy.push_back(iBeamEnergy);

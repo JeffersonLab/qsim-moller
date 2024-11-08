@@ -25,12 +25,12 @@ Tested and ran on Ubuntu 22 inside UTM in macOS 12
 * cmake > 2.6
 * root
 
-### Download the qsim-showermax
+### Download the qsim-moller
 
 To download the code, use git clone:
 
 ```bash
-git clone https://github.com/sudipbhattarai/qsim-showermax
+git clone https://github.com/sudipbhattarai/qsim-moller
 ```
 
 ### Compilation

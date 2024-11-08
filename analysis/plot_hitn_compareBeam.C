@@ -51,7 +51,7 @@ void plot_hitn_compareBeam(){
     //string inFileDir = "/run/user/1000/gvfs/dav+sd:host=Spice%2520client%2520folder._webdav._tcp.local/qsim_rootfiles/qsim_02/";
     //string inFileDir = "/run/user/1000/gvfs/sftp:host=sudips-mbp.local/Users/sudip/utm-ubuntu-shared/qsim_rootfiles/qsim_03/";
     //string inFileDir = Form("/volatile/halla/moller12gev/sudip/qsim_rootfiles/%s/",config.c_str());
-    string inFileDir = Form("~/programs/qsim/qsim-showermax/rootfiles/%s/",config.c_str());
+    string inFileDir = Form("~/programs/qsim/qsim-moller/rootfiles/%s/",config.c_str());
     string inRootFileName[nFiles] = {Form("qsim_out_%s_2GeV_10k_hadd*.root", geometry.c_str()),
                               Form("qsim_out_%s_5GeV_10k_hadd*.root", geometry.c_str()),
                               Form("qsim_out_%s_8GeV_10k_hadd*.root", geometry.c_str())};

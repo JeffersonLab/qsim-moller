@@ -43,7 +43,7 @@ void plot_graph_eVsMeanHit_gamma(){
     vector<string> inRootFileName;
 
     //string inFileDir = Form("/volatile/halla/moller12gev/sudip/qsim_rootfiles/%s/",config.c_str());
-    string inFileDir = "~/programs/qsim/qsim-showermax/rootfiles/qsim_07/";
+    string inFileDir = "~/programs/qsim/qsim-moller/rootfiles/qsim_07/";
 
     for (float iBeamEnergy=1.0; iBeamEnergy<=2; iBeamEnergy+=0.1){
         beamEnergy.push_back(iBeamEnergy);

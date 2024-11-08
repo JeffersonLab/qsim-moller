@@ -38,7 +38,7 @@ void plot_photonEnergyDistn(){
     int nbins = 500; 
 
     //string inFileDir = Form("/volatile/halla/moller12gev/sudip/qsim_rootfiles/%s/",config.c_str());
-    string inFileDir = "~/programs/qsim/qsim-showermax/rootfiles/";
+    string inFileDir = "~/programs/qsim/qsim-moller/rootfiles/";
     string inRootFileName = Form("qsim_out_%s_%s_%s_10k.root", energy.c_str(), particle.c_str(), geometry.c_str());
     //string inRootFileName = "qsim_out_855MeV_e_smRetroQsim_10k.root";
     string inRootFile;

@@ -44,7 +44,7 @@ void plot_hitn_cosmic(){
 
     //string inFileDir = Form("/volatile/halla/moller12gev/sudip/qsim_rootfiles/%s/",config.c_str());
     //TString inFileDir = Form("~/test/qsim_rootfiles/%s/", config.c_str());
-    TString inFileDir = Form("~/programs/qsim/qsim-showermax/rootfiles/");
+    TString inFileDir = Form("~/programs/qsim/qsim-moller/rootfiles/");
     TString inRootFileName[fileSplit];
 
     TChain *T = new TChain("T");
@@ -53,7 +53,7 @@ void plot_hitn_cosmic(){
         inRootFileName[i] = Form("qsim_out_smFull-v3-1-2_cosmic_smallscintNearPMT.root");
         T->Add(inFileDir + inRootFileName[i]);
     }
-    //T->Add("~/programs/qsim/qsim-showermax/rootfiles/qsim_out_cosmic_showermax.root");
+    //T->Add("~/programs/qsim/qsim-moller/rootfiles/qsim_out_cosmic_showermax.root");
 
     TH1F* h_hitn;
     TH1F* h_hitn_all;

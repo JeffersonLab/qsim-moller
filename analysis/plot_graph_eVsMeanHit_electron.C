@@ -42,7 +42,7 @@ void plot_graph_eVsMeanHit_electron(){
     vector<string> inRootFileName;
 
     string inFileDir = Form("/volatile/halla/moller12gev/sudip/qsim_rootfiles/%s/",config.c_str());
-    //string inFileDir = "~/programs/qsim/qsim-showermax/rootfiles/qsim_08/";
+    //string inFileDir = "~/programs/qsim/qsim-moller/rootfiles/qsim_08/";
 
     for (float iBeamEnergy=1.0; iBeamEnergy<=9.1; iBeamEnergy+=0.2){
         beamEnergy.push_back(iBeamEnergy);

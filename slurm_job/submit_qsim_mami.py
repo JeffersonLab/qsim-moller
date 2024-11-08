@@ -19,8 +19,8 @@ eventsNum = 2000
 seed = []
 for i in range(nJobs):
     seed.append(random.randrange(99999999))
-#sourceDir = "/home/sudip/programs/qsim/qsim-showermax/"
-sourceDir = "/w/halla-scshelf2102/moller12gev/sudip/qsim/qsim-showermax/"
+#sourceDir = "/home/sudip/programs/qsim/qsim-moller/"
+sourceDir = "/w/halla-scshelf2102/moller12gev/sudip/qsim/qsim-moller/"
 
 logDir = sourceDir + "slurm_job/job_log/" + config + "/"
 macroDir = sourceDir + "slurm_job/macros/" + config + "/"

@@ -15,11 +15,11 @@ geometry = "showerMaxDetector_v3-1-2"
 
 # Check device and set source directory
 if platform.uname().node=='Sudips-MBP.local':
-    sourceDir = "/Users/sudip/programs/qsim/qsim-showermax/"
+    sourceDir = "/Users/sudip/programs/qsim/qsim-moller/"
     evFileDir = "/Users/sudip/Documents/Academics/Research/Scripts/moller-analysis/rootfiles/sm_qsim_v09-ifarm/"
     outRootFileDir = sourceDir + "rootfiles/" + config + "/"
 else:
-    sourceDir = "/w/halla-scshelf2102/moller12gev/sudip/qsim/qsim-showermax/"
+    sourceDir = "/w/halla-scshelf2102/moller12gev/sudip/qsim/qsim-moller/"
     evFileDir = "/w/halla-scshelf2102/moller12gev/sudip/moller_sim/moller-analysis/rootfiles/sm_qsim_v09/"
     outRootFileDir = "/lustre19/expphy/volatile/halla/moller12gev/sudip/qsim_rootfiles/" + config + "/"
 

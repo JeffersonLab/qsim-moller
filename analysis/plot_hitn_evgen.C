@@ -41,7 +41,7 @@ void plot_hitn_evgen(){
     int nbins = 100;
 
     //TString inFileDir = Form("/volatile/halla/moller12gev/sudip/qsim_rootfiles/%s/",config.c_str());
-    //TString inFileDir = Form("~/programs/qsim/qsim-showermax/rootfiles/%s/", config.c_str());
+    //TString inFileDir = Form("~/programs/qsim/qsim-moller/rootfiles/%s/", config.c_str());
     TString inFileDir = Form("/run/user/1000/gvfs/sftp:host=sudips-mbp.local/Users/sudip/test/qsim_rootfiles/%s/", config.c_str());
     TString inRootFileName[nSector][nParticle];
 

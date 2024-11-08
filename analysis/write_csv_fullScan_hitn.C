@@ -60,12 +60,12 @@ void write_csv_fullScan_hitn(){
 
     // Determine the dependent variables
     #if defined(__APPLE__)
-        TString inRootfile_dir = Form("/Users/sudip/programs/qsim/qsim-showermax/rootfiles/%s/", config.c_str());
+        TString inRootfile_dir = Form("/Users/sudip/programs/qsim/qsim-moller/rootfiles/%s/", config.c_str());
 	#elif __linux
 		TString inRootfile_dir = Form("/volatile/halla/moller12gev/sudip/qsim_rootfiles/%s/", config.c_str());
     #endif
 
-    //string inFileDir = Form("~/programs/qsim/qsim-showermax/rootfiles/%s/", config.c_str());
+    //string inFileDir = Form("~/programs/qsim/qsim-moller/rootfiles/%s/", config.c_str());
 
 
     // Write the csv file

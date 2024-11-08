@@ -41,7 +41,7 @@ void plot_hitn(){
     int binWidth = (hist_xmax-hist_xmin)/nbins;
 
     // TString inFileDir = Form("/volatile/halla/moller12gev/sudip/qsim_rootfiles/%s/",config.c_str());
-    TString inFileDir = Form("~/programs/qsim/qsim-showermax/rootfiles/%s/", config.c_str());
+    TString inFileDir = Form("~/programs/qsim/qsim-moller/rootfiles/%s/", config.c_str());
     TString inRootFileName[fileSplit];
 
     TChain *T = new TChain("T");

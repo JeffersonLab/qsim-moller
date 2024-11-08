@@ -36,10 +36,10 @@ sourceDir = ""
 outRootFileDir = ""
 
 if os.uname() == 'Darwin':
-    sourceDir = "/Users/sudip/programs/qsim/qsim-showermax/"
+    sourceDir = "/Users/sudip/programs/qsim/qsim-moller/"
     outRootFileDir = sourceDir + "rootfiles/" + config + "/"
 else:
-    sourceDir = "/w/halla-scshelf2102/moller12gev/sudip/qsim/qsim-showermax/"
+    sourceDir = "/w/halla-scshelf2102/moller12gev/sudip/qsim/qsim-moller/"
     outRootFileDir = "/lustre19/expphy/volatile/halla/moller12gev/sudip/qsim_rootfiles/" + config + "/"
 
 print("Source directory: ", sourceDir)

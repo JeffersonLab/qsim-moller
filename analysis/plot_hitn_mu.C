@@ -37,7 +37,7 @@ void plot_hitn_mu(){
     int fileSplit = 1;
 
     //TString inFileDir = Form("/volatile/halla/moller12gev/sudip/qsim_rootfiles/%s/",config.c_str());
-    TString inFileDir = Form("~/programs/qsim/qsim-showermax/rootfiles/");
+    TString inFileDir = Form("~/programs/qsim/qsim-moller/rootfiles/");
     TString inRootFileName[fileSplit];
 
     TChain *T = new TChain("T");

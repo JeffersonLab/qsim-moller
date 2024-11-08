@@ -26,8 +26,8 @@ thetamin = 0 # in deg
 thetamax = 10
 thetarange = [i/2 for i in range(0, 11)]
 print(thetarange[1])
-#sourceDir = "/home/sudip/programs/qsim/qsim-showermax/"
-sourceDir = "/w/halla-scshelf2102/moller12gev/sudip/qsim/qsim-showermax/"
+#sourceDir = "/home/sudip/programs/qsim/qsim-moller/"
+sourceDir = "/w/halla-scshelf2102/moller12gev/sudip/qsim/qsim-moller/"
 
 logDir = sourceDir + "slurm_job/job_log/" + config + "/"
 macroDir = sourceDir + "slurm_job/macros/" + config + "/"

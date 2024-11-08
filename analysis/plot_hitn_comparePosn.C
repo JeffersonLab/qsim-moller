@@ -49,7 +49,7 @@ void plot_hitn_comparePosn(){
     //string inFileDir = "/run/user/1000/gvfs/dav+sd:host=Spice%2520client%2520folder._webdav._tcp.local/qsim_rootfiles/qsim_02/";
     //string inFileDir = "/run/user/1000/gvfs/sftp:host=sudips-mbp.local/Users/sudip/utm-ubuntu-shared/qsim_rootfiles/qsim_03/";
     //string inFileDir = Form("/volatile/halla/moller12gev/sudip/qsim_rootfiles/%s/",config.c_str());
-    string inFileDir = "~/programs/qsim/qsim-showermax/rootfiles/";
+    string inFileDir = "~/programs/qsim/qsim-moller/rootfiles/";
     string inRootFileName[nFiles] = {Form("qsim_out_cosmic_%s_1.root", geometry.c_str()),
                                     Form("qsim_out_cosmic_%s_2.root", geometry.c_str()),
                                     Form("qsim_out_cosmic_%s_3.root", geometry.c_str())};

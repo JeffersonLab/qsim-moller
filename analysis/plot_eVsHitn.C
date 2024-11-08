@@ -38,7 +38,7 @@ void plot_eVsHitn(){
     int nbins = 100; 
 
     //string inFileDir = Form("/volatile/halla/moller12gev/sudip/qsim_rootfiles/%s/",config.c_str());
-    string inFileDir = "~/programs/qsim/qsim-showermax/rootfiles/";
+    string inFileDir = "~/programs/qsim/qsim-moller/rootfiles/";
     //string inRootFileName = Form("qsim_out_8GeV_%s_10k.root", geometry.c_str());
     string inRootFileName = "qsim_out_e6.root";
     string inRootFile;
